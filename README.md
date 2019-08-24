@@ -3,11 +3,82 @@ Create & understand complex financial products in an intuitive, decentralised an
 
 Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
 
-## Description
-DeFi Puzzle lets users construct custom financial bundles by combining long and short tokens representing deposits and liabilities of Compound money market.
+## The Missing Peace of the Puzzle
+What we have:
+* Decentralised money market (Compound)
+* Decentralized exchanges (DeversiFi, Uniswap…)
+* Trustless stablecoin (DAI)
+* Brokerless margin trading (dYdX, bZx…)
 
-## Building blocks
-* Compound money market: https://compound.finance/
-* Compound long tokens = cTokens: https://compound.finance/ctokens
-* Compound short tokens = to be built
-* Bundling tool: URL HERE
+
+What we miss:
+* Brokerless advanced products: fully custom margin trading, fixed-term futures
+
+## The Idea
+Advanced products like futures can be constructed by combining long and short tokens of various nominal amounts and asset types.
+Simple example:
+* Assume ETH price of $100/ETH
+* 1 long ETH + 50 short DAI => leveraged long position
+* Net value of such position is $50 (+100-50)
+* For price of 1 ETH, user can buy 2 such positions
+* Such position is thus a 2x leveraged long on ETH
+
+## The Jigsaw = building blocks for the DeFi Puzzle
+Long tokens:
+* Represent money market deposit
+* Accumulate positive interest over time
+* Already deployed on top of Compound: cDAI, cETH… - though we need to wrap them into “lc” tokens - so they can act as a liquidatable collateral for new type of short tokens
+
+
+Short tokens:
+* Represent money market liability
+* Accumulate negative interest over time
+* Can be deployed on top of Compound as scDAI, scETH...
+
+
+Timelock:
+* Required for fixed-term futures
+* Long+short token bundles can be put into smart contract, then timelocked
+
+## What the hell are short tokens? ELI5
+What are they?
+* Fungible tokens with negative value - they represent a liability to return borrowed asset to Compound money market
+* Conditional transfers:
+** Recipient has to approve
+** Short tokens alway need to be in a wallet with sufficient balance of long tokens
+
+
+How are they created?
+* By borrowing from Compound money market
+* Borrowing 100 DAI => user gets 100 lcDAI + 100 scDAI
+
+## Yes but why?
+Because when we have all the puzzle pieces, we can create advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
+
+**Creating a custom futures contract - workflow**
+Assume ETH price of $100/ETH.
+1) Alice owns 10 ETH, deposits into Compound => 10 cETH; wraps into 10 lcETH
+2) Alice borrows a bundle: {~510 lcDAI, 500 scDAI}
+(Compound long tokens accrue interest rate through exchange rate vs original asset => hence diff nominal amounts; short tokens need to be “bought out” for ever increasing # of long tokens - that’s how user pays the accrued interest for the debt)
+3) Alice rebundles: {10 lcETH, 500 scDAI}; she also has 510 lcDAI which she can spend on whatever
+4) Alice adds timelock to {10 lcETH, 500 scDAI} of 90 days
+5) Now she has created a fixed term futures with 90 days maturity. Futures contract is for ETH leveraged long (leverage is 2x)
+6) Alice can sell the futures contract to Bob, e.g. for 501 DAI (earning a 1 DAI profit for her work)
+7) Bob waits for maturity and later unlocks the ETH by buying out the short DAI tokens, e.g. for 550 lcDAI (paying down the accrued interest)
+
+
+**Such a futures contract is fully custom, non-custodial, trustless, brokerless.**
+
+## Too complicated!
+The workflow can be abstracted away.
+
+
+User combines the tokens in a visual tool - tokens shown as fitting puzzle pieces.
+
+
+**DeFi puzzle lets users create custom financial products in an intuitive way.**
+
+
+**Since the resulting bundles are Ethereum NFTs, exchanges can integrate them as trustless, non-custodial exchange traded futures contracts.**
+
+
