@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import classNames from 'classnames';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [loaded, setLoaded] = useState(false);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoaded(true);
+        }, 800);
+    }, []);
+
+    return (
+        <div className="App">
+            <header
+                className={classNames(
+                    'App-header',
+                    loaded && 'App-header--collapsed',
+                )}
+            >
+                <h1 className="App-logo">DeFi Puzzle</h1>
+                {!loaded && <p>Connecting your Metamask...</p>}
+            </header>
+            {loaded && <main className="App-main">Configurator</main>}
+        </div>
+    );
 }
 
 export default App;
