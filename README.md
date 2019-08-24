@@ -1,5 +1,5 @@
 # DeFi Puzzle
-Create & understand complex financial products in an intuitive, decentralised and user-friendly way.
+Lets users create advanced financial products such as fixed-term futures contracts with all the DeFi qualities of decentralization, trustlessness & no counterparty risk.
 
 Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
 
@@ -25,7 +25,7 @@ Simple example:
 * For price of 1 ETH, user can buy 2 such positions
 * Such position is thus a 2x leveraged long on ETH
 
-## The Jigsaw = building blocks for the DeFi Puzzle
+## The Jigsaw = Building Blocks for the DeFi Puzzle
 Long tokens:
 * Represent money market deposit
 * Accumulate positive interest over time
@@ -42,7 +42,7 @@ Timelock:
 * Required for fixed-term futures
 * Long+short token bundles can be put into smart contract, then timelocked
 
-## What the hell are short tokens? ELI5
+## What the Hell are Short Tokens? ELI5
 What are they?
 * Fungible tokens with negative value - they represent a liability to return borrowed asset to Compound money market
 
@@ -59,7 +59,7 @@ How are they created?
 ## Yes but why?
 Because when we have all the puzzle pieces, we can create advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
 
-**Creating a custom futures contract - workflow**
+**Creating a Custom Futures Contract - Workflow**
 Assume ETH price of $100/ETH.
 1) Alice owns 10 ETH, deposits into Compound => 10 cETH; wraps into 10 lcETH
 2) Alice borrows a bundle: {~510 lcDAI, 500 scDAI}
@@ -73,7 +73,7 @@ Assume ETH price of $100/ETH.
 
 **Such a futures contract is fully custom, non-custodial, trustless, brokerless.**
 
-## Too complicated!
+## Too Complicated!
 The workflow can be abstracted away.
 
 
