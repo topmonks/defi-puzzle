@@ -3,6 +3,8 @@ Create & understand complex financial products in an intuitive, decentralised an
 
 Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
 
+For better understanding of our project, we recommend getting familiar with Compound's cTokens: https://compound.finance/ctokens.
+
 ## The Missing Peace of the Puzzle
 What we have:
 * Decentralised money market (Compound)
