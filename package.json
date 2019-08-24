@@ -1,22 +1,52 @@
 {
   "name": "defi-puzzle",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
   "dependencies": {
+    "openzeppelin-solidity": "2.3.0",
+    "solidity-linked-list": "2.1.2",
     "classnames": "^2.2.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1"
   },
+  "devDependencies": {
+    "dotenv": "^8.1.0",
+    "ganache-cli": "^6.6.0",
+    "elliptic": "^6.5.0",
+    "solidity-coverage": "^0.6.4",
+    "solium": "^1.2.4",
+    "solium-plugin-zeppelin": "^0.0.2",
+    "truffle": "^5.0.33",
+    "truffle-hdwallet-provider": "^1.0.17"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/topmonks/defi-puzzle.git"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "solium": "./node_modules/.bin/solium -d contracts",
+    "truffle": "./node_modules/.bin/truffle",
+    "test-contracts": "./node_modules/.bin/truffle test",
+    "coverage": "./node_modules/.bin/solidity-coverage",
+    "ganache": "./node_modules/.bin/ganache-cli -m 'gadget luxury river width frost salmon input defense embark card banner raccoon'",
+    "migrate": "./node_modules/.bin/truffle migrate --network ganache_cli --reset"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "bugs": {
+    "url": "https://github.com/topmonks/defi-puzzle/issues"
+  },
+  "homepage": "https://github.com/topmonks/defi-puzzle#readme",
   "browserslist": {
     "production": [
       ">0.2%",
