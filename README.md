@@ -10,11 +10,11 @@ What we have:
 * Decentralised money market (Compound)
 * Decentralized exchanges (DeversiFi, Uniswap…)
 * Trustless stablecoin (DAI)
-* Brokerless margin trading (dYdX, bZx…)
+* Brokerless margin trading within predefined limits (dYdX, bZx…)
 
 
 What we miss:
-* Brokerless advanced products: fully custom margin trading, fixed-term futures
+* Brokerless advanced financial products, e.g. fixed-term futures with user-defined parameters
 
 ## The Idea
 Advanced products like futures can be constructed by combining long and short tokens of various nominal amounts and asset types.
