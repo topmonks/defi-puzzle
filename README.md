@@ -45,9 +45,11 @@ Timelock:
 ## What the hell are short tokens? ELI5
 What are they?
 * Fungible tokens with negative value - they represent a liability to return borrowed asset to Compound money market
-* Conditional transfers:
-** Recipient has to approve
-** Short tokens alway need to be in a wallet with sufficient balance of long tokens
+
+
+How are they transferred?
+1) Recipient has to approve
+2) Short tokens alway need to be in a wallet with sufficient balance of long tokens
 
 
 How are they created?
