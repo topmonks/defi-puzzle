@@ -61,7 +61,7 @@ How are they created?
 ## Yes but why?
 Because when we have all the puzzle pieces, we can create advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
 
-**Creating a Custom Futures Contract - Workflow**
+**Creating a Custom Futures Contract - Workflow:**
 
 
 Assume ETH price of $100/ETH.
