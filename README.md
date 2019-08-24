@@ -81,14 +81,14 @@ Assume ETH price of $100/ETH.
 
 **Such a futures contract is fully custom, non-custodial, trustless, brokerless.**
 
-## Too Complicated!
-The workflow can be abstracted away.
+## Too Complicated?
+The workflow can be abstracted away with a DeFi Puzzle visual tool.
 
 
-User combines the tokens in a visual tool - tokens shown as fitting puzzle pieces.
+User bundles the tokens in a visual tool - tokens shown as fitting puzzle pieces.
 
 
-**DeFi puzzle lets users create custom financial products in an intuitive way.**
+**DeFi Puzzle visual tool lets users create custom financial products in an intuitive way.**
 
 
 **Since the resulting bundles are Ethereum NFTs, exchanges can integrate them as trustless, non-custodial exchange traded futures contracts.**
