@@ -17,15 +17,17 @@ What we miss:
 * Brokerless advanced financial products, e.g. fixed-term futures with user-defined parameters
 
 ## The Idea
-Advanced products like futures can be constructed by combining long and short tokens of various nominal amounts and asset types.
+Advanced products like futures can be constructed by bundling long and short tokens of various nominal amounts and asset types.
 Simple example:
 * Assume ETH price of $100/ETH
-* 1 long ETH + 50 short DAI => leveraged long position
+* Bundle of {1 long ETH + 50 short DAI} => leveraged long position
 * Net value of such position is $50 (+100-50)
 * For price of 1 ETH, user can buy 2 such positions
-* Such position is thus a 2x leveraged long on ETH
 
-## The Jigsaw = Building Blocks for the DeFi Puzzle
+
+Resulting financial product is a 2x leveraged long on ETH.
+
+## Building Blocks for the DeFi Puzzle
 Long tokens:
 * Represent money market deposit
 * Accumulate positive interest over time
@@ -40,7 +42,7 @@ Short tokens:
 
 Timelock:
 * Required for fixed-term futures
-* Long+short token bundles can be put into smart contract, then timelocked
+* Token bundles can be timelocked, adding a fixed-term maturity to the resulting financial product
 
 ## What the Hell are Short Tokens? ELI5
 What are they?
@@ -60,11 +62,17 @@ How are they created?
 Because when we have all the puzzle pieces, we can create advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
 
 **Creating a Custom Futures Contract - Workflow**
+
+
 Assume ETH price of $100/ETH.
 1) Alice owns 10 ETH, deposits into Compound => 10 cETH; wraps into 10 lcETH
 2) Alice borrows a bundle: {~510 lcDAI, 500 scDAI}
-(Compound long tokens accrue interest rate through exchange rate vs original asset => hence diff nominal amounts; short tokens need to be “bought out” for ever increasing # of long tokens - that’s how user pays the accrued interest for the debt)
-3) Alice rebundles: {10 lcETH, 500 scDAI}; she also has 510 lcDAI which she can spend on whatever
+
+
+(Compound's long tokens accrue interest rate through exchange rate vs original asset => hence diff nominal amounts; short tokens need to be “bought out” for ever increasing amount of long tokens - that’s how user pays the accrued interest on the debt)
+
+
+3) Alice rebundles: {10 lcETH, 500 scDAI}; the remaining 510 lcDAI are free to be spent
 4) Alice adds timelock to {10 lcETH, 500 scDAI} of 90 days
 5) Now she has created a fixed term futures with 90 days maturity. Futures contract is for ETH leveraged long (leverage is 2x)
 6) Alice can sell the futures contract to Bob, e.g. for 501 DAI (earning a 1 DAI profit for her work)
