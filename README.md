@@ -1,9 +1,9 @@
 # DeFi Puzzle
-Lets users create advanced financial products such as fixed-term futures contracts with all the DeFi qualities of decentralization, trustlessness & no counterparty risk.
+Lets users create advanced financial products such as fixed-term futures contracts with the DeFi qualities of decentralization, trustlessness & no counterparty risk.
 
 Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
 
-For better understanding of our project, we recommend getting familiar with Compound's cTokens: https://compound.finance/ctokens.
+For better understanding of our project, we recommend getting familiar with Compound's cTokens: .
 
 ## The Missing Piece of the Puzzle
 What we have:
@@ -31,58 +31,59 @@ Resulting financial product is a 2x leveraged long on ETH.
 Long tokens:
 * Represent money market deposit
 * Accumulate positive interest over time
-* Already deployed on top of Compound: cDAI, cETH… - though we need to wrap them into “lc” tokens - so they can act as a liquidatable collateral for new type of short tokens
+* Long tokens are already working on top of Compound (https://compound.finance/ctokens)
+* e.g. long DAI = lDAI
 
 
 Short tokens:
 * Represent money market liability
 * Accumulate negative interest over time
-* Can be deployed on top of Compound as scDAI, scETH...
+* e.g. short DAI = sDAI
 
 
 Timelock:
 * Required for fixed-term futures
 * Token bundles can be timelocked, adding a fixed-term maturity to the resulting financial product
 
-## What the Hell are Short Tokens? ELI5
+## Short Tokens ELI5
 What are they?
-* Fungible tokens with negative value - they represent a liability to return borrowed asset to Compound money market
+* Fungible tokens with negative value - they represent a liability to return borrowed assets to a money market
 
 
 How are they transferred?
 1) Recipient has to approve
-2) Short tokens alway need to be in a wallet with sufficient balance of long tokens
+2) Short tokens always need to be in a wallet with sufficient balance of long tokens
 
 
 How are they created?
-* By borrowing from Compound money market
-* Borrowing 100 DAI => user gets 100 lcDAI + 100 scDAI
+* By borrowing assets from the money market
+* Borrowing 100 DAI => user gets 100 lDAI + 100 sDAI
 
 ## Yes but why?
-Because when we have all the puzzle pieces, we can create advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
+Because when we have both long and short tokens, we can bundle them as advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
 
 **Creating a Custom Futures Contract - Workflow:**
 
 
 Assume ETH price of $100/ETH.
-1) Alice owns 10 ETH, deposits into Compound => 10 cETH; wraps into 10 lcETH
-2) Alice borrows a bundle: {~510 lcDAI, 500 scDAI}
+1) Alice owns 10 ETH, deposits into money market => 10 lETH
+2) Alice borrows a bundle: {~510 lDAI, 500 sDAI}
 
 
-(Compound's long tokens accrue interest rate through exchange rate vs original asset => hence diff nominal amounts; short tokens need to be “bought out” for ever increasing amount of long tokens - that’s how user pays the accrued interest on the debt)
+(money market long tokens accrue interest rate through exchange rate vs original asset => hence different nominal amounts for long and short DAI; short tokens need to be “bought out” for ever increasing amount of long tokens - that’s how user pays the accrued interest on the debt. For more details please see https://compound.finance/ctokens)
 
 
-3) Alice rebundles: {10 lcETH, 500 scDAI}; the remaining 510 lcDAI are free to be spent
-4) Alice adds timelock to {10 lcETH, 500 scDAI} of 90 days
+3) Alice rebundles: {10 lETH, 500 sDAI}; the remaining 510 lDAI are free to be spent
+4) Alice adds timelock to {10 lETH, 500 sDAI} of 90 days
 5) Now she has created a fixed term futures with 90 days maturity. Futures contract is for ETH leveraged long (leverage is 2x)
 6) Alice can sell the futures contract to Bob, e.g. for 501 DAI (earning a 1 DAI profit for her work)
-7) Bob waits for maturity and later unlocks the ETH by buying out the short DAI tokens, e.g. for 550 lcDAI (paying down the accrued interest)
+7) Bob waits for maturity and later unlocks the ETH by buying out the short DAI tokens, e.g. for 550 lDAI (paying down the accrued interest)
 
 
 **Such a futures contract is fully custom, non-custodial, trustless, brokerless.**
 
 ## Too Complicated?
-The workflow can be abstracted away with a DeFi Puzzle visual tool.
+The technical workflow can be abstracted away with a DeFi Puzzle visual tool.
 
 
 User bundles the tokens in a visual tool - tokens shown as fitting puzzle pieces.
