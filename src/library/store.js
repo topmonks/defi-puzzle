@@ -1,7 +1,10 @@
 import { EventEmitter } from 'fbemitter';
 
 const initialState = {
-    inventory: [],
+    inventory: {
+        bundles: [],
+        tokens: [],
+    },
 };
 
 export default function createStore(callback) {
@@ -28,10 +31,21 @@ export default function createStore(callback) {
 
 function reducer({ type, payload }, state) {
     switch (type) {
-        case 'update-inventory':
+        case 'update-inventory-bundles':
             return {
                 ...state,
-                inventory: payload,
+                inventory: {
+                    bundles: payload,
+                    tokens: state.inventory.tokens,
+                },
+            };
+        case 'update-inventory-tokens':
+            return {
+                ...state,
+                inventory: {
+                    bundles: state.inventory.bundles,
+                    tokens: payload,
+                },
             };
         case 'test':
             return {

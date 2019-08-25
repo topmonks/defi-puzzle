@@ -31,5 +31,10 @@
 
 .App-main {
     padding: 16px;
+    margin-top: 16px;
     text-align: initial;
+}
+
+.App-main h2 {
+    margin-top: 0;
 }

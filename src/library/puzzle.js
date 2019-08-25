@@ -3,4 +3,4 @@
  *
  */
 
-export const isBundle = item => false; // TODO duck typing
+export const isBundle = item => item.shortToken || item.longToken;

@@ -17,11 +17,30 @@ render();
     // const Contract = web3.eth.contract(await (await fetch('/contracts/koment.json')).json());
     // const contract = KomentContract.at('0x4e0b292b46dbd40b8c76cda4cdf21e2ba56a3189');
     setTimeout(() => {
-        dispatch('update-inventory', [
-            { id: 'savs', balance: 10, symbol: 'lcETH' },
-            { id: 'rwfs', balance: 512.5, symbol: 'lcDAI' },
-            { id: '3rfa', balance: 500, symbol: 'scDAI' },
-            // { balance },
+        dispatch('update-inventory-bundles', [
+            {
+                id: 'dsfsf',
+                maturity: 0,
+                shortToken: { address: '3rfa', balance: 500, symbol: 'scDAI' },
+                longToken: { address: '23ds', balance: 500, symbol: 'lcDAI' },
+            },
+            {
+                id: 'fskjb',
+                maturity: 1574650353012,
+                shortToken: { address: 'dsas', balance: 500, symbol: 'scDAI' },
+                longToken: {
+                    address: 'dasdasd',
+                    balance: 10,
+                    symbol: 'lcETH',
+                },
+            },
+        ]);
+    }, 600);
+
+    setTimeout(() => {
+        dispatch('update-inventory-tokens', [
+            { address: 'savs', balance: 10, symbol: 'lcETH' },
+            { address: 'rwfs', balance: 512.5, symbol: 'lcDAI' },
         ]);
     }, 800);
 })();

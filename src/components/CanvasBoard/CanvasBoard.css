@@ -1,6 +1,6 @@
 .CanvasBoard {
     background-color: #f4f4f4;
-    min-height: 480px;
+    min-height: 240px;
     padding: 16px;
     box-sizing: border-box;
     display: flex;
