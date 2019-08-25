@@ -43,7 +43,7 @@ Short tokens:
 
 Timelock:
 * Required for fixed-term futures
-* Token bundles can be timelocked, adding a fixed-term maturity to the resulting financial product
+* Token bundles can be timelocked, adding a maturity to the resulting financial product
 
 ## Short Tokens ELI5
 What are they?
