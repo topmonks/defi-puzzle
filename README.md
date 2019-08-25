@@ -5,7 +5,7 @@ Lets users create advanced financial products such as fixed-term futures contrac
 Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
 
 
-## The Missing Piece of the Puzzle
+## Motivation: The Missing Piece of the Puzzle
 What we have:
 * Decentralised money market (Compound)
 * Decentralized exchanges (DeversiFi, Uniswap…)
