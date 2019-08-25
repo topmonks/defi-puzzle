@@ -89,9 +89,6 @@ The technical workflow can be abstracted away with a DeFi Puzzle visual tool.
 User bundles the tokens in a visual tool - tokens shown as fitting puzzle pieces.
 
 
-**DeFi Puzzle visual tool lets users create custom financial products in an intuitive way.**
-
-
-**Since the resulting bundles are Ethereum NFTs, exchanges can integrate them as trustless, non-custodial exchange traded futures contracts.**
+**Since the resulting bundles are Ethereum NFTs, such financial products can be traded and integrated into other DeFi projects, such as DEXes.**
 
 
