@@ -7,9 +7,12 @@
     "openzeppelin-solidity": "2.3.0",
     "solidity-linked-list": "2.1.2",
     "classnames": "^2.2.6",
+    "fbemitter": "^2.1.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-scripts": "3.1.1",
+    "styled-components": "^4.3.2",
+    "styled-css-grid": "^1.2.1"
   },
   "devDependencies": {
     "dotenv": "^8.1.0",

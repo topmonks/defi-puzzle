@@ -1,0 +1,16 @@
+.InventoryDeck {
+    background-color: #f2f2f2;
+    height: 100%;
+    overflow: scroll;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.InventoryDeck:after {
+    content: '';
+    clear: both;
+}
+
+.InventoryDeck__Puzzle {
+    float: left;
+}
