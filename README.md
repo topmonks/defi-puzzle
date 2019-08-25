@@ -14,7 +14,7 @@ What we have:
 
 
 What we miss:
-* Brokerless advanced financial products, e.g. fixed-term futures with user-defined parameters
+* Brokerless advanced financial products, e.g. fixed-term futures with user-defined parameters. Futures are one of the most popular instruments among traders and are one of the reasons why centralised, custodial exchanges like BitMEX are so popular. If we could create futures as a DeFi product, the systemic risk of custodian exchanges could be lowered.
 
 ## The Idea
 Advanced products like futures can be constructed by bundling long and short tokens of various nominal amounts and asset types.
