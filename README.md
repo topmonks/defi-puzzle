@@ -1,9 +1,9 @@
 # DeFi Puzzle
 Lets users create advanced financial products such as fixed-term futures contracts with the DeFi qualities of decentralization, trustlessness & no counterparty risk.
 
+
 Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
 
-For better understanding of our project, we recommend getting familiar with Compound's cTokens: .
 
 ## The Missing Piece of the Puzzle
 What we have:
