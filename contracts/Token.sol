@@ -4,30 +4,42 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/utils/Address.sol";
 import "./Bundle.sol";
+import "./PriceOracle.sol";
 
 contract Token is ERC20, Ownable {
     using Address for address;
 
+    PriceOracle public priceOracle;
+
     string public name;
     string public symbol;
     uint8 public decimals = 18;
-    BundleToken bundle;
+    address bundleAddress;
 
     constructor (string memory _name, string memory _symbol, address _bundle) public {
         name = _name;
         symbol = _symbol;
-        bundle = BundleToken(_bundle);
+        bundleAddress = _bundle;
     }
 
+    function valuate(uint256 amount) public view returns (uint256) {
+        if (address(0) != address(priceOracle)) {
+            priceOracle.to(amount);
+        }
+        return 0;
+    }
+
+    function bundle(address from, uint256 id, uint256 amount) public onlyOwner {
+        _transfer(from, bundleAddress, amount);
+    }
+
+    // test only
     function mint(address to, uint256 value) public onlyOwner {
         _mint(to, value);
     }
 
+    // test only
     function burn(address from, uint256 value) public onlyOwner {
         _burn(from, value);
-    }
-
-    function bundle(address from, uint256 id, uint256 amount) public onlyOwner {
-        _transfer(from, address(bundle), amount);
     }
 }

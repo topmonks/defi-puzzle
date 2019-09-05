@@ -4,6 +4,6 @@ import "./Token.sol";
 
 contract ShortToken is Token {
 
-    constructor (string memory _name, string memory _symbol) public Token(_name, _symbol) { }
+    constructor (string memory _name, string memory _symbol, address _bundle) public Token(_name, _symbol, _bundle) { }
 
 }
