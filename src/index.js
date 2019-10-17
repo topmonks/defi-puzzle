@@ -51,9 +51,8 @@ function render() {
         state: getState(),
         dispatch,
         loading:
-            web3 &&
-            (web3.currentProvider.networkVersion !== '3' ||
-                !web3.eth.defaultAccount),
+            web3?.currentProvider.networkVersion !== '3' ||
+            !web3?.eth.defaultAccount,
     };
 
     ReactDOM.render(<App {...props} />, rootElement);
