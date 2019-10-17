@@ -1,17 +1,54 @@
 import { EventEmitter } from 'fbemitter';
 
 const initialState = {
-    inventory: {
-        bundles: [],
-        tokens: [],
-    },
+    wallet: {},
 };
 
 export default function createStore(callback) {
     const emitter = new EventEmitter();
     let _state = initialState;
 
+    const _reducers = [];
+    const _context = references => {
+        Object.keys(references).forEach(name => {
+            _context[name] = references[name];
+        });
+    };
+
     emitter.addListener('update', callback);
+
+    const updateLater = updates => {
+        _state = {
+            ..._state,
+            ...updates,
+        };
+        emitter.emit('update');
+    };
+
+    const reducer = (action, currentState) =>
+        _reducers.reduce((state, handlers) => {
+            const handlerNames = Object.keys(handlers);
+
+            // No changes, dont update
+            if (handlerNames.includes(action.type) === false) {
+                return state;
+            }
+
+            const updates = handlers[action.type]({
+                payload: action.payload,
+                update: updateLater,
+                context: _context,
+            });
+
+            // It's a promise! Update state later...
+            if (typeof updates?.then === 'function') {
+                updates.then(updateLater);
+                return state;
+            }
+
+            // Immediately apply state update
+            return { ...state, ...updates };
+        }, currentState);
 
     return {
         getState() {
@@ -26,34 +63,9 @@ export default function createStore(callback) {
             _state = reducer({ type, payload }, _state);
             emitter.emit('update');
         },
-    };
-}
 
-function reducer({ type, payload }, state) {
-    switch (type) {
-        case 'update-inventory-bundles':
-            return {
-                ...state,
-                inventory: {
-                    bundles: payload,
-                    tokens: state.inventory.tokens,
-                },
-            };
-        case 'update-inventory-tokens':
-            return {
-                ...state,
-                inventory: {
-                    bundles: state.inventory.bundles,
-                    tokens: payload,
-                },
-            };
-        case 'test':
-            return {
-                ...state,
-                test: payload,
-            };
-        default:
-            console.warn(`Unknown action "${type}"`, { payload });
-            return state;
-    }
+        useReducer(reducer) {
+            _reducers.push(reducer);
+        },
+    };
 }
