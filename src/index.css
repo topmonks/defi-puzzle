@@ -8,12 +8,15 @@
 body {
     margin: 0;
     font-family: Avenir, sans-serif;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 /* Components */
 
 .headline {
     color: #000;
+    font-size: 16px;
 }
 .headline--primary {
 }
@@ -60,10 +63,50 @@ body {
 
 .dashboard-screen {
     height: 100vh;
+    padding-top: 32px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto 704px auto;
+    grid-template-rows: 70px auto;
+    grid-template-areas:
+        'tokens headline templates'
+        'tokens configurator templates'
+        'tokens configurator templates'
+        'tokens configurator prices';
     background-color: #f5f6fa;
+}
+.dashboard-screen__tokens {
+    grid-area: tokens;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+}
+.dashboard-screen__headline {
+    grid-area: headline;
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 2px;
+    border-radius: 16px 16px 0px 0px;
+    padding: 8px 40px;
+    box-sizing: border-box;
+}
+.dashboard-screen__configurator {
+    grid-area: configurator;
+    background-color: #fff;
+    padding: 24px 40px;
+    box-sizing: border-box;
+}
+.dashboard-screen__bundle-templates {
+    grid-area: templates;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dashboard-screen__current-prices {
+    grid-area: prices;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Modals */
