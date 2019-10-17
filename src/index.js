@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './Application';
 // import * as serviceWorker from './serviceWorker';
 import { initializeWeb3 } from './library/web3';
 import createStore from './library/store';
@@ -51,8 +51,9 @@ function render() {
         state: getState(),
         dispatch,
         loading:
-            web3.currentProvider.networkVersion !== '3' ||
-            !web3.eth.defaultAccount,
+            web3 &&
+            (web3.currentProvider.networkVersion !== '3' ||
+                !web3.eth.defaultAccount),
     };
 
     ReactDOM.render(<App {...props} />, rootElement);
