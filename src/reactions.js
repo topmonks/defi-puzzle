@@ -34,11 +34,13 @@ export default {
         return walletState(wallet);
     },
 
-    EnableWallet: ({ context }) => {
+    ConnectWallet: ({ context }) => {
         if (context.ethereum) {
-            context.ethereum.enable();
+            context.ethereum.enable().catch(() => {
+                console.log('Connection canceled.');
+            });
         } else {
-            console.warn('No ethereum wallet to enable');
+            console.warn('No ethereum wallet to connect');
         }
     },
 };

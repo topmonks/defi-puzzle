@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Application';
+import Application from './Application';
 import * as serviceWorker from './serviceWorker';
 import createStore from './library/store';
 import reactions from './reactions';
@@ -18,16 +18,11 @@ render();
 // Initial actions
 (async () => {
     store.dispatch('InitializeWallet');
-
-    setTimeout(() => {
-        // fake click to connect
-        store.dispatch('EnableWallet');
-    }, 1000);
 })();
 
 function render() {
     ReactDOM.render(
-        <App state={store.getState()} dispatch={store.dispatch} />,
+        <Application state={store.getState()} dispatch={store.dispatch} />,
         rootElement,
     );
 }

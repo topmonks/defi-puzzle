@@ -1,8 +1,69 @@
 :root {
-    --c-background: #f5f6fa;
+    --c-primary: #395ff6;
+    --c-primary-active: #3051d1;
+    --c-secondary: #6ad592;
+    --c-secondary-active: #6ad592;
 }
 
 body {
     margin: 0;
-    background-color: var(--c-background);
+    font-family: Avenir, sans-serif;
 }
+
+/* Components */
+
+.headline {
+    color: #000;
+}
+.headline--primary {
+}
+.headline--secondary {
+}
+.headline--logo {
+    color: var(--c-primary);
+}
+.headline--hero {
+}
+
+.button {
+}
+.button--primary {
+}
+.button--secondary {
+}
+.button--loading {
+}
+
+.wallet-icon {
+    display: inline-block;
+    margin: 2px;
+}
+.wallet-icon__image--inactive {
+    filter: brightness(0.5) invert(0.5);
+}
+
+/* Screens */
+
+.landing-screen {
+    background-color: #fff;
+    padding: 64px 128px;
+}
+.landing-screen__content {
+}
+.landing-screen__connect-button {
+    float: left;
+    margin-right: 16px;
+}
+
+.landing-screen__wallet-icons {
+}
+
+.dashboard-screen {
+    height: 100vh;
+    background-color: #f5f6fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modals */

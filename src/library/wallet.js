@@ -4,6 +4,12 @@
 
 let { web3, Web3, ethereum } = global;
 
+export const WALLET_NAMES = {
+    metamask: 'Metamask',
+    ledger: 'Letger',
+    trezor: 'Trezor',
+};
+
 export const isWalletReady = ({ web3 = window.web3 } = {}) => {
     if (!web3) return false;
 

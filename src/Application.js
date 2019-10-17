@@ -8,11 +8,15 @@ import DashboardScreen from './screens/Dashboard';
 // import InventoryDeck from './components/InventoryDeck';
 // import FlowArrow from './components/FlowArrow';
 
-export default function Application({ state: { wallet }, dispatch }) {
-    console.log(wallet);
+export default function Application({ state, dispatch }) {
+    const passProps = { ...state, dispatch };
     return (
         <div>
-            {wallet.isConnected ? <DashboardScreen /> : <LandingScreen />}
+            {state.wallet.isConnected ? (
+                <DashboardScreen {...passProps} />
+            ) : (
+                <LandingScreen {...passProps} />
+            )}
         </div>
     );
 }
