@@ -1,5 +1,15 @@
 let { web3, Web3 } = global;
 
+export const isWeb3Ready = (web3 = window.web3) => {
+    if (!web3) return false;
+
+    return (
+        web3.currentProvider.networkVersion === '3' &&
+        web3.eth.defaultAccount &&
+        true
+    );
+};
+
 export const initializeWeb3 = callback => {
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
@@ -11,13 +21,15 @@ export const initializeWeb3 = callback => {
 
     if (window.ethereum) {
         const ethereum = window.ethereum;
+
         const web3Provider = new Web3(ethereum);
 
+        ethereum.autoRefreshOnNetworkChange = false;
         ethereum.enable().then(account => {
             const defaultAccount = account[0];
             web3Provider.eth.defaultAccount = defaultAccount;
-            callback();
         });
+        ethereum.on('networkChanged', callback);
     }
 
     return web3;
