@@ -2,6 +2,7 @@ import React from 'react';
 import Headline from '../components/Headline';
 import { PuzzleTokenType } from '../types';
 import PuzzleToken from '../components/PuzzleToken';
+import PuzzleConfigurator from '../components/PuzzleConfigurator';
 
 export default function DashboardScreen({
     tokens = [],
@@ -51,7 +52,7 @@ export default function DashboardScreen({
                 <Headline>CREATE YOUR BUNDLE</Headline>
             </div>
             <div className="dashboard-screen__configurator">
-                <PuzzleToken token={tokens[2]} />
+                <PuzzleConfigurator />
             </div>
             <div className="dashboard-screen__footline">
                 <p>

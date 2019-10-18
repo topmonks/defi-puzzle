@@ -1,10 +1,12 @@
 :root {
+    --c-background: #f5f6fa;
     --c-primary: #395ff6;
     --c-primary-active: #3051d1;
     --c-secondary: #6ad592;
     --c-secondary-active: #6ad592;
     --c-long-token: #6ad592;
     --c-short-token: #ef6887;
+    --c-just-gray: #a7acb5;
 }
 
 body {
@@ -46,7 +48,7 @@ a {
         'tokens configurator templates'
         'tokens configurator templates'
         'tokens footline prices';
-    background-color: #f5f6fa;
+    background-color: var(--c-background);
 }
 .dashboard-screen__tokens {
     grid-area: tokens;
@@ -185,4 +187,38 @@ a {
 /* make flex working */
 .puzzle-token > span {
     display: block;
+}
+
+.puzzle-configurator {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    /* puzzle-configurator */
+}
+
+.puzzle-input {
+    flex: 1;
+}
+
+.puzzle-input__headline {
+    border-bottom: 2px solid var(--c-background);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.puzzle-input__droparea {
+    background: var(--c-background);
+    border: 2px dashed #edf0f7;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+}
+.puzzle-input__droparea span {
+    line-height: 48px;
+    font-size: 14px;
+    color: var(--c-just-gray);
+}
+
+.puzzle-button {
+    margin: 4px;
 }
