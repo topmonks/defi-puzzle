@@ -4,24 +4,37 @@ import { PuzzleTokenType } from '../types';
 import PuzzleToken from '../components/PuzzleToken';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
 
+const parseTokenFromEvent = event =>
+    JSON.parse(event.dataTransfer.getData('token') || 'null');
+
 export default function DashboardScreen({
     tokens = [],
+    configuratorTokens,
+    dispatch,
 }: {
     tokens: PuzzleTokenType[],
 }) {
-    tokens = [
-        { type: 'short', amount: 2.45, currency: 'L-DAI' },
-        { type: 'short', amount: 2, currency: 'L-ETH' },
-        { type: 'long', amount: 1000, currency: 'S-DAI' },
-        { type: 'long', amount: 212.13, currency: 'S-ETH' },
-    ];
+    const handleDragOver = direction => event => {
+        event.preventDefault();
+    };
+    const handleDrop = direction => event => {
+        const token = parseTokenFromEvent(event);
+        const remove = direction === 'out';
+
+        dispatch('ConfiguratorTokenChange', { token, remove });
+    };
+
     return (
         <div className="dashboard-screen">
-            <div className="dashboard-screen__tokens">
+            <div
+                className="dashboard-screen__tokens"
+                onDrop={handleDrop('out')}
+                onDragOver={handleDragOver('out')}
+            >
                 <section>
                     <Headline>Long positions</Headline>
                     {tokens
-                        .filter(token => token.type !== 'long')
+                        .filter(token => token.type === 'long')
                         .map(token => (
                             <PuzzleToken
                                 key={token.currency}
@@ -34,7 +47,7 @@ export default function DashboardScreen({
                     <Headline>Short positions</Headline>
 
                     {tokens
-                        .filter(token => token.type !== 'short')
+                        .filter(token => token.type === 'short')
                         .map(token => (
                             <PuzzleToken
                                 key={token.currency}
@@ -52,7 +65,12 @@ export default function DashboardScreen({
                 <Headline>CREATE YOUR BUNDLE</Headline>
             </div>
             <div className="dashboard-screen__configurator">
-                <PuzzleConfigurator />
+                <PuzzleConfigurator
+                    longToken={configuratorTokens?.long}
+                    shortToken={configuratorTokens?.short}
+                    onDragOver={handleDragOver('in')}
+                    onDrop={handleDrop('in')}
+                />
             </div>
             <div className="dashboard-screen__footline">
                 <p>

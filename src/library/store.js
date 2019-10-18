@@ -1,10 +1,6 @@
 import { EventEmitter } from 'fbemitter';
 
-const initialState = {
-    wallet: {},
-};
-
-export default function createStore(callback) {
+export default function createStore(callback, initialState = {}) {
     const emitter = new EventEmitter();
     let _state = initialState;
 
@@ -38,6 +34,7 @@ export default function createStore(callback) {
                 payload: action.payload,
                 update: updateLater,
                 context: _context,
+                currentState: _state,
             });
 
             // It's a promise! Update state later...

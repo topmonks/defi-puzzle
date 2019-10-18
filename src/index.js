@@ -6,7 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import createStore from './library/store';
 import reactions from './reactions';
 
-const store = createStore(render);
+const store = createStore(render, {
+    wallet: {},
+    tokens: [],
+    configuratorTokens: {
+        long: null,
+        short: null,
+    },
+});
 
 // React on actions
 store.useReducer(reactions);
@@ -18,6 +25,7 @@ render();
 // Initial actions
 (async () => {
     store.dispatch('InitializeWallet');
+    store.dispatch('LoadPuzzleTokens');
 })();
 
 function render() {

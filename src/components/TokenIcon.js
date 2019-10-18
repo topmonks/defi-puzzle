@@ -15,11 +15,10 @@ const tokenTypeFromCurrency = currency => {
 
 export default function TokenIcon({ tokenCurrency }) {
     const type = tokenTypeFromCurrency(tokenCurrency);
-    console.log(tokenCurrency, type);
 
     return (
         <div className="token-icon">
-            <img src={icons[type]} alt={type} />
+            <img width="24px" height="24px" src={icons[type]} alt={type} />
         </div>
     );
 }

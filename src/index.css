@@ -7,6 +7,8 @@
     --c-long-token: #6ad592;
     --c-short-token: #ef6887;
     --c-just-gray: #a7acb5;
+    --puzzle-token-width: 248px;
+    --puzzle-token-height: 54px;
 }
 
 body {
@@ -93,7 +95,7 @@ a {
 .dashboard-screen__tokens > section,
 .dashboard-screen__bundle-templates > section,
 .dashboard-screen__current-prices > section {
-    width: 248px;
+    width: var(--puzzle-token-width);
 }
 .dashboard-screen__footline > p {
     font-size: 12px;
@@ -136,13 +138,15 @@ a {
 }
 
 .puzzle-token {
-    margin: 8px;
+    margin: 16px 0;
     padding: 4px 14px;
+    box-sizing: border-box;
+    width: var(--puzzle-token-width);
     display: flex;
     flex-direction: row;
     justify-items: center;
     align-items: center;
-    height: 54px;
+    height: var(--puzzle-token-height);
     background: #ffffff;
     box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.06);
     border-radius: 4px;
@@ -166,22 +170,29 @@ a {
 .puzzle-token--long::before {
     background: var(--c-long-token);
 }
-
-/* Add icont like the box can  by drag'n'dropped */
+.puzzle-token--draggable {
+    cursor: grab;
+    /* cursor: grabbing; */
+    /* cursor: no-drop; */
+}
 .puzzle-token--draggable::after {
-    content: '...';
-    display: block;
-
-    position: absolute;
-    top: 4px;
-
-    right: 18px;
-    bottom: 4px;
     transform: rotate(90deg);
+    display: block;
+    position: absolute;
     color: #d6dbe3;
     font-size: 24px;
     font-weight: 600;
-    /*  */
+}
+/* Add icon like the box can  by drag'n'dropped */
+.puzzle-token--draggable::after {
+    content: '...';
+    top: 4px;
+    right: 18px;
+    bottom: 4px;
+    transform: rotate(90deg);
+}
+/* dimm original whil dragging */
+.puzzle-token--dragging {
 }
 
 /* make flex working */
@@ -197,7 +208,7 @@ a {
 }
 
 .puzzle-input {
-    flex: 1;
+    width: var(--puzzle-token-width);
 }
 
 .puzzle-input__headline {
@@ -212,13 +223,19 @@ a {
     box-sizing: border-box;
     border-radius: 10px;
     text-align: center;
+    width: var(--puzzle-token-width);
+    height: var(--puzzle-token-height);
+    margin: 16px 0;
 }
 .puzzle-input__droparea span {
-    line-height: 48px;
     font-size: 14px;
+    line-height: var(--puzzle-token-height);
     color: var(--c-just-gray);
 }
 
 .puzzle-button {
-    margin: 4px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
