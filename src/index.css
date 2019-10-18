@@ -3,6 +3,8 @@
     --c-primary-active: #3051d1;
     --c-secondary: #6ad592;
     --c-secondary-active: #6ad592;
+    --c-long-token: #6ad592;
+    --c-short-token: #ef6887;
 }
 
 body {
@@ -14,40 +16,6 @@ body {
 
 a {
     color: var(--c-primary);
-}
-
-/* Components */
-
-.headline {
-    color: #000;
-    font-size: 16px;
-    line-height: 22px;
-}
-.headline--primary {
-}
-.headline--secondary {
-}
-.headline--logo {
-    color: var(--c-primary);
-}
-.headline--hero {
-}
-
-.button {
-}
-.button--primary {
-}
-.button--secondary {
-}
-.button--loading {
-}
-
-.wallet-icon {
-    display: inline-block;
-    margin: 2px;
-}
-.wallet-icon__image--inactive {
-    filter: brightness(0.5) invert(0.5);
 }
 
 /* Screens */
@@ -130,3 +98,91 @@ a {
     line-height: 16px;
 }
 /* Modals */
+
+/* Components */
+
+.headline {
+    color: #000;
+    font-size: 16px;
+    line-height: 22px;
+}
+.headline--primary {
+}
+.headline--secondary {
+}
+.headline--logo {
+    color: var(--c-primary);
+}
+.headline--hero {
+}
+
+.button {
+}
+.button--primary {
+}
+.button--secondary {
+}
+.button--loading {
+}
+
+.wallet-icon {
+    display: inline-block;
+    margin: 2px;
+}
+.wallet-icon__image--inactive {
+    filter: brightness(0.5) invert(0.5);
+}
+
+.puzzle-token {
+    margin: 8px;
+    padding: 4px 14px;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    height: 54px;
+    background: #ffffff;
+    box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    position: relative; /* this is important for :after, :before) */
+}
+
+/* higlight by tiny vertical line with color on backround */
+.puzzle-token--short::before,
+.puzzle-token--long::before {
+    content: '';
+    border-radius: 4px 0 0 4px; /* copy parent rouded corners */
+    position: absolute;
+    top: 0;
+    width: 4px;
+    left: 0;
+    bottom: 0;
+}
+.puzzle-token--short::before {
+    background: var(--c-short-token);
+}
+.puzzle-token--long::before {
+    background: var(--c-long-token);
+}
+
+/* Add icont like the box can  by drag'n'dropped */
+.puzzle-token--draggable::after {
+    content: '...';
+    display: block;
+
+    position: absolute;
+    top: 4px;
+
+    right: 18px;
+    bottom: 4px;
+    transform: rotate(90deg);
+    color: #d6dbe3;
+    font-size: 24px;
+    font-weight: 600;
+    /*  */
+}
+
+/* make flex working */
+.puzzle-token > span {
+    display: block;
+}
