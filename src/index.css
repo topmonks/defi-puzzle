@@ -12,11 +12,16 @@ body {
     overflow: hidden;
 }
 
+a {
+    color: var(--c-primary);
+}
+
 /* Components */
 
 .headline {
     color: #000;
     font-size: 16px;
+    line-height: 22px;
 }
 .headline--primary {
 }
@@ -72,7 +77,7 @@ body {
         'tokens headline templates'
         'tokens configurator templates'
         'tokens configurator templates'
-        'tokens configurator prices';
+        'tokens footline prices';
     background-color: #f5f6fa;
 }
 .dashboard-screen__tokens {
@@ -96,6 +101,13 @@ body {
     padding: 24px 40px;
     box-sizing: border-box;
 }
+.dashboard-screen__footline {
+    grid-area: footline;
+    background-color: #fff;
+    display: flex;
+    align-items: flex-end;
+    padding: 8px 40px;
+}
 .dashboard-screen__bundle-templates {
     grid-area: templates;
     display: flex;
@@ -108,5 +120,13 @@ body {
     flex-direction: column;
     align-items: center;
 }
-
+.dashboard-screen__tokens > section,
+.dashboard-screen__bundle-templates > section,
+.dashboard-screen__current-prices > section {
+    width: 248px;
+}
+.dashboard-screen__footline > p {
+    font-size: 12px;
+    line-height: 16px;
+}
 /* Modals */

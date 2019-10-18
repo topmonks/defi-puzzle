@@ -20,6 +20,14 @@ export default function DashboardScreen({ location, id }) {
                 <Headline>CREATE YOUR BUNDLE</Headline>
             </div>
             <div className="dashboard-screen__configurator"></div>
+            <div className="dashboard-screen__footline">
+                <p>
+                    * Please note the interest rates are variable and subject to
+                    real-time changes. Please see the{' '}
+                    <a href="/">Compound FAQ</a> for more detail on how the
+                    interest rates are determined.
+                </p>
+            </div>
             <div className="dashboard-screen__bundle-templates">
                 <section>
                     <Headline>BUNDLE TEMPLATES</Headline>
