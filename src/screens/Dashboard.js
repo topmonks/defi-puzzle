@@ -20,23 +20,20 @@ export default function DashboardScreen({
 }: {
     tokens: PuzzleTokenType[],
 }) {
-    const handleDragOver = direction => event => {
+    const handleDragOver = event => {
         event.preventDefault();
     };
-    const handleDrop = direction => event => {
+    const handleDrop = event => {
         const token = parseTokenFromEvent(event);
-        const remove = direction === 'out';
-
-        dispatch('ConfiguratorTokenChange', { token, remove });
+        dispatch('ConfiguratorTokenChange', { token });
+    };
+    const handleRemoveToken = token => {
+        dispatch('ConfiguratorTokenChange', { token, remove: true });
     };
 
     return (
         <div className="dashboard-screen">
-            <div
-                className="dashboard-screen__tokens"
-                onDrop={handleDrop('out')}
-                onDragOver={handleDragOver('out')}
-            >
+            <div className="dashboard-screen__tokens">
                 <section>
                     <Headline primary>Long positions</Headline>
                     {tokens
@@ -80,8 +77,9 @@ export default function DashboardScreen({
                 <PuzzleConfigurator
                     longToken={configuratorTokens?.long}
                     shortToken={configuratorTokens?.short}
-                    onDragOver={handleDragOver('in')}
-                    onDrop={handleDrop('in')}
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    onTokenRemove={handleRemoveToken}
                 />
             </div>
             <div className="dashboard-screen__footline">

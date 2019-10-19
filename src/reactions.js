@@ -18,12 +18,15 @@ import {
 } from './library/wallet';
 
 export default {
-    ExampleAction: ({ payload, update, context, currentState }) => {
+    ExampleAction: ({ payload, update, context, currentState, dispatch }) => {
         // Use context, like
         // context.web3
         // context.etherum
 
         // Use currentState
+
+        // Use dispatch to call another action
+        // dispatch('ActionName', { foo: true })
 
         // Update state asynconously
         setTimeout(() => {

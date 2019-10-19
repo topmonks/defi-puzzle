@@ -266,6 +266,11 @@ a {
     border-bottom: 2px solid var(--c-background);
     padding-bottom: 16px;
     margin-bottom: 20px;
+    display: flex;
+}
+.puzzle-input__headline__label {
+    display: block;
+    flex: 1;
 }
 
 .puzzle-input__droparea {
