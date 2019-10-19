@@ -21,6 +21,15 @@ export default function createStore(callback, initialState = {}) {
         emitter.emit('update');
     };
 
+    /**
+     * @param {String} type Action type
+     * @param {*} payload action payload
+     */
+    const dispatch = (type, payload) => {
+        _state = reducer({ type, payload }, _state);
+        emitter.emit('update');
+    };
+
     const reducer = (action, currentState) =>
         _reducers.reduce((state, handlers) => {
             const handlerNames = Object.keys(handlers);
@@ -35,6 +44,7 @@ export default function createStore(callback, initialState = {}) {
                 update: updateLater,
                 context: _context,
                 currentState: _state,
+                dispatch,
             });
 
             // It's a promise! Update state later...
@@ -52,14 +62,7 @@ export default function createStore(callback, initialState = {}) {
             return _state;
         },
 
-        /**
-         * @param {String} type Action type
-         * @param {*} payload action payload
-         */
-        dispatch: (type, payload) => {
-            _state = reducer({ type, payload }, _state);
-            emitter.emit('update');
-        },
+        dispatch,
 
         useReducer(reducer) {
             _reducers.push(reducer);
