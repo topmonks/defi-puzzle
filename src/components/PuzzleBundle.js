@@ -8,7 +8,7 @@ export default function PuzzleBundle({ tokens }) {
     return (
         <div className="puzzle-bundle">
             {tokens.map(token => (
-                <div className="puzzle-bundle__token">
+                <div className="puzzle-bundle__token" key={token.currency}>
                     <TokenIcon tokenCurrency={token.currency} />
                     <span className="puzzle-bundle__token__amount">
                         {token.amount}

@@ -11,6 +11,11 @@ const store = createStore(render, {
     tokens: [],
     bundles: [],
     templates: [],
+    pricesCurrency: 'USD',
+    prices: {
+        ETH: 0,
+        DAI: 0,
+    },
     configuratorTokens: {
         long: null,
         short: null,
@@ -28,6 +33,7 @@ render();
 (async () => {
     store.dispatch('InitializeWallet');
     store.dispatch('LoadPuzzleTokens');
+    store.dispatch('LoadCurrentPrices');
 })();
 
 function render() {

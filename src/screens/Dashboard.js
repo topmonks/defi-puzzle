@@ -3,6 +3,7 @@ import Headline from '../components/Headline';
 import { PuzzleTokenType } from '../types';
 import PuzzleToken from '../components/PuzzleToken';
 import PuzzleBundle from '../components/PuzzleBundle';
+import TokenPrice from '../components/TokenPrice';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
 
 const parseTokenFromEvent = event =>
@@ -12,6 +13,8 @@ export default function DashboardScreen({
     tokens = [],
     bundles = [],
     templates = [],
+    pricesCurrency,
+    prices,
     configuratorTokens,
     dispatch,
 }: {
@@ -103,6 +106,14 @@ export default function DashboardScreen({
             <div className="dashboard-screen__current-prices">
                 <section>
                     <Headline>CURRENT PRICES</Headline>
+                    {['ETH', 'DAI'].map(type => (
+                        <TokenPrice
+                            key={type}
+                            type={type}
+                            price={prices[type]}
+                            currency={pricesCurrency}
+                        />
+                    ))}
                 </section>
             </div>
         </div>

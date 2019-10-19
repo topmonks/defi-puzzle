@@ -101,6 +101,19 @@ export default {
         };
     },
 
+    LoadCurrentPrices: ({ update }) => {
+        // Fake API call
+        setTimeout(() => {
+            update({
+                pricesCurrency: 'USD',
+                prices: {
+                    ETH: 185.87,
+                    DAI: 1.004,
+                },
+            });
+        }, 350);
+    },
+
     ConfiguratorTokenChange: ({
         payload: { token, remove },
         update,
