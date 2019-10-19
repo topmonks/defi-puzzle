@@ -10,6 +10,7 @@ export type PuzzleTokenType = {
 };
 
 export type BundleTemplate = {
+    id: Number,
     name: String,
     tokens: PuzzleTokenType[],
 };

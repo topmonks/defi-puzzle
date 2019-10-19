@@ -18,7 +18,7 @@ export default function TokenIcon({ tokenCurrency }) {
 
     return (
         <div className="token-icon">
-            <img width="24px" height="24px" src={icons[type]} alt={type} />
+            <img src={icons[type]} alt={type} />
         </div>
     );
 }

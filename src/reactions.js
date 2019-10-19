@@ -64,7 +64,7 @@ export default {
         }
     },
 
-    LoadPuzzleTokens: ({ update, context }) => {
+    LoadPuzzleTokens: ({ update, context, dispatch }) => {
         // TODO: make real web3 requests
         //   use context.web3 or context.etherum
 
@@ -76,7 +76,29 @@ export default {
         ];
         setTimeout(() => {
             update({ tokens: fakeTokens });
+            dispatch('CreateTemplates', fakeTokens);
         }, 600);
+    },
+
+    CreateTemplates: ({ payload: tokens }) => {
+        return {
+            templates: [
+                {
+                    id: 1,
+                    name: 'Pure ETH Upside',
+                    tokens: tokens.filter(({ currency }) =>
+                        ['L-ETH', 'S-DAI'].includes(currency),
+                    ),
+                },
+                {
+                    id: 2,
+                    name: 'Pure ETH Downside',
+                    tokens: tokens.filter(({ currency }) =>
+                        ['L-DAI', 'S-ETH'].includes(currency),
+                    ),
+                },
+            ],
+        };
     },
 
     ConfiguratorTokenChange: ({

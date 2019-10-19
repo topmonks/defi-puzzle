@@ -2,6 +2,7 @@ import React from 'react';
 import Headline from '../components/Headline';
 import { PuzzleTokenType } from '../types';
 import PuzzleToken from '../components/PuzzleToken';
+import PuzzleBundle from '../components/PuzzleBundle';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
 
 const parseTokenFromEvent = event =>
@@ -10,6 +11,7 @@ const parseTokenFromEvent = event =>
 export default function DashboardScreen({
     tokens = [],
     bundles = [],
+    templates = [],
     configuratorTokens,
     dispatch,
 }: {
@@ -33,7 +35,7 @@ export default function DashboardScreen({
                 onDragOver={handleDragOver('out')}
             >
                 <section>
-                    <Headline>Long positions</Headline>
+                    <Headline primary>Long positions</Headline>
                     {tokens
                         .filter(token => token.type === 'long')
                         .map(token => (
@@ -45,7 +47,7 @@ export default function DashboardScreen({
                         ))}
                 </section>
                 <section>
-                    <Headline>Short positions</Headline>
+                    <Headline primary>Short positions</Headline>
 
                     {tokens
                         .filter(token => token.type === 'short')
@@ -58,7 +60,7 @@ export default function DashboardScreen({
                         ))}
                 </section>
                 <section>
-                    <Headline>Your bundles</Headline>
+                    <Headline primary>Your bundles</Headline>
                     {bundles.map(bundles => null)}
                     {!bundles.length && (
                         <div className="empty-placeholder">
@@ -69,7 +71,7 @@ export default function DashboardScreen({
             </div>
 
             <div className="dashboard-screen__headline">
-                <Headline>CREATE YOUR BUNDLE</Headline>
+                <Headline primary>CREATE YOUR BUNDLE</Headline>
             </div>
             <div className="dashboard-screen__configurator">
                 <PuzzleConfigurator
@@ -89,7 +91,13 @@ export default function DashboardScreen({
             </div>
             <div className="dashboard-screen__bundle-templates">
                 <section>
-                    <Headline>BUNDLE TEMPLATES</Headline>
+                    <Headline primary>BUNDLE TEMPLATES</Headline>
+                    {templates.map(({ id, tokens, name }) => (
+                        <div key={id}>
+                            <Headline>{name}</Headline>
+                            <PuzzleBundle tokens={tokens} template />
+                        </div>
+                    ))}
                 </section>
             </div>
             <div className="dashboard-screen__current-prices">
