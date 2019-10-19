@@ -9,6 +9,8 @@ import reactions from './reactions';
 const store = createStore(render, {
     wallet: {},
     tokens: [],
+    bundles: [],
+    templates: [],
     configuratorTokens: {
         long: null,
         short: null,

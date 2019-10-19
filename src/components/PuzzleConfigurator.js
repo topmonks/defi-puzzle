@@ -24,11 +24,17 @@ export const PuzzleInput = ({ label, token }: { token: PuzzleTokenType }) => {
 };
 
 export default function PuzzleConfigurator({ longToken, shortToken, ...pass }) {
+    const hasBothTokens = longToken && shortToken;
     const handleBundle = () => {};
     return (
         <div className="puzzle-configurator" {...pass}>
             <PuzzleInput label="Long position" token={longToken} />
-            <PuzzleButton onClick={handleBundle} />
+            <div className="puzzle-configurator__button">
+                <PuzzleButton
+                    onClick={handleBundle}
+                    disabled={!hasBothTokens}
+                />
+            </div>
             <PuzzleInput label="Short position" token={shortToken} />
         </div>
     );

@@ -8,3 +8,8 @@ export type PuzzleTokenType = {
     amount: Float,
     currency: String,
 };
+
+export type BundleTemplate = {
+    name: String,
+    tokens: PuzzleTokenType[],
+};

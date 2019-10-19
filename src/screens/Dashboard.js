@@ -9,6 +9,7 @@ const parseTokenFromEvent = event =>
 
 export default function DashboardScreen({
     tokens = [],
+    bundles = [],
     configuratorTokens,
     dispatch,
 }: {
@@ -58,6 +59,12 @@ export default function DashboardScreen({
                 </section>
                 <section>
                     <Headline>Your bundles</Headline>
+                    {bundles.map(bundles => null)}
+                    {!bundles.length && (
+                        <div className="empty-placeholder">
+                            <span>You don’t have any bundles yet :(</span>
+                        </div>
+                    )}
                 </section>
             </div>
 
