@@ -293,6 +293,9 @@ a {
 
     border-radius: 50%;
     background-color: var(--c-primary);
+
+    display: flex;
+    justify-content: center;
 }
 .puzzle-button:hover {
     background-color: var(--c-primary-active);
@@ -307,6 +310,8 @@ a {
 
 .puzzle-button > img {
     width: 32px;
+}
+.puzzle-button--disabled > img {
     filter: brightness(0.2) invert(1);
 }
 
