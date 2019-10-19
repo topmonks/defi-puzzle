@@ -87,7 +87,7 @@ export default function DashboardScreen({
             <div className="dashboard-screen__footline">
                 <p>
                     * Please note the interest rates are variable and subject to
-                    real-time changes. Please see the{' '}
+                    real-time changes. Please see the <br />
                     <a href="/">Compound FAQ</a> for more detail on how the
                     interest rates are determined.
                 </p>
