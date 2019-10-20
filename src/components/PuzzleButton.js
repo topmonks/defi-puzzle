@@ -5,7 +5,8 @@ import icon from '../assets/icon-puzzle.svg';
 export default function PuzzleButton({ onClick, disabled, active }) {
     return (
         <button
-            onClick={onClick}
+            onClick={!disabled ? onClick : undefined}
+            disabled={disabled}
             className={cn(
                 'puzzle-button',
                 disabled && 'puzzle-button--disabled',
