@@ -85,6 +85,8 @@ export default {
             update({ tokens: fakeTokens });
             dispatch('CreateTemplates', fakeTokens);
         }, 600);
+
+        // TODO: Load Bundles aswell
     },
 
     CreateTemplates: ({ payload: tokens }) => {
@@ -184,5 +186,11 @@ export default {
                 [token.type]: token,
             },
         };
+    },
+
+    RefreshBundling: ({ dispatch }) => {
+        // Here we should reload transaction info
+        // but now, for mock:
+        // ..
     },
 };

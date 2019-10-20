@@ -22,6 +22,11 @@ a {
     color: var(--c-primary);
 }
 
+p {
+    font-size: 16px;
+    line-height: 22px;
+}
+
 /* Screens */
 
 .landing-screen {
@@ -109,6 +114,8 @@ a {
 /* Modals */
 .bundle-modal {
     width: 468px;
+    padding: 72px;
+    text-align: center;
 }
 
 /* Components */
@@ -131,6 +138,9 @@ a {
     color: var(--c-primary);
 }
 .headline--hero {
+}
+.headline--modal {
+    font-size: 24px;
 }
 
 .button {
@@ -363,20 +373,15 @@ a {
 .modal__content {
     max-width: 90vw;
     max-height: 90vh;
+    overflow: scroll;
 
     z-index: 1001;
-
     pointer-events: auto;
-
     box-sizing: border-box;
 
     background: #fff;
-
     box-shadow: 0px 2px 4px rgba(81, 63, 85, 0.2);
     border-radius: 4px;
     overflow: hidden;
-    z-index: 1001;
     border-radius: 5px;
-
-    overflow: scroll;
 }

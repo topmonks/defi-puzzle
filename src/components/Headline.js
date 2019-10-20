@@ -1,7 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
 
-export default function Headline({ primary, secondary, hero, logo, children }) {
+export default function Headline({
+    primary,
+    secondary,
+    hero,
+    logo,
+    modal,
+    children,
+}) {
     let Tag = 'h3';
     if (primary || logo) Tag = 'h1';
     else if (secondary || hero) Tag = 'h2';
@@ -14,6 +21,7 @@ export default function Headline({ primary, secondary, hero, logo, children }) {
                 secondary && 'headline--secondary',
                 logo && 'headline--logo',
                 hero && 'headline--hero',
+                modal && 'headline--modal',
             )}
         >
             {children}
