@@ -67,6 +67,10 @@ export default {
         }
     },
 
+    ChangeModal: ({ payload: modal }) => {
+        return { modal };
+    },
+
     LoadPuzzleTokens: ({ update, context, dispatch }) => {
         // TODO: make real web3 requests
         //   use context.web3 or context.etherum

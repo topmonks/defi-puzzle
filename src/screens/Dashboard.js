@@ -20,15 +20,18 @@ export default function DashboardScreen({
 }: {
     tokens: PuzzleTokenType[],
 }) {
-    const handleDragOver = event => {
-        event.preventDefault();
+    const handleConfiguratorDragOver = event => {
+        event.preventDefault(); // to enable dnd
     };
-    const handleDrop = event => {
+    const handleConfiguratorDrop = event => {
         const token = parseTokenFromEvent(event);
         dispatch('ConfiguratorTokenChange', { token });
     };
     const handleRemoveToken = token => {
         dispatch('ConfiguratorTokenChange', { token, remove: true });
+    };
+    const handleBundle = ({ shortToken, longToken }) => {
+        dispatch('ChangeModal', 'Bundle');
     };
 
     return (
@@ -77,9 +80,10 @@ export default function DashboardScreen({
                 <PuzzleConfigurator
                     longToken={configuratorTokens?.long}
                     shortToken={configuratorTokens?.short}
-                    onDragOver={handleDragOver}
-                    onDrop={handleDrop}
+                    onDragOver={handleConfiguratorDragOver}
+                    onDrop={handleConfiguratorDrop}
                     onTokenRemove={handleRemoveToken}
+                    onBundle={handleBundle}
                 />
             </div>
             <div className="dashboard-screen__footline">

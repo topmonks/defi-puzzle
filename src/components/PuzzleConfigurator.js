@@ -41,10 +41,11 @@ export default function PuzzleConfigurator({
     longToken,
     shortToken,
     onTokenRemove,
+    onBundle,
     ...pass
 }) {
     const hasBothTokens = longToken && shortToken;
-    const handleBundle = () => {};
+
     return (
         <div className="puzzle-configurator" {...pass}>
             <PuzzleInput
@@ -53,10 +54,7 @@ export default function PuzzleConfigurator({
                 onTokenRemove={onTokenRemove}
             />
             <div className="puzzle-configurator__button">
-                <PuzzleButton
-                    onClick={handleBundle}
-                    disabled={!hasBothTokens}
-                />
+                <PuzzleButton onClick={onBundle} disabled={!hasBothTokens} />
             </div>
             <PuzzleInput
                 label="Short position"
