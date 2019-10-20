@@ -68,7 +68,8 @@ export default {
     },
 
     ChangeModal: ({ payload: modal }) => {
-        return { modal };
+        if (typeof modal === 'string') return { modal: { name: modal } };
+        else return { modal };
     },
 
     LoadPuzzleTokens: ({ update, context, dispatch }) => {
@@ -201,6 +202,7 @@ export default {
             const bundle = {
                 detail: null, // TODO detail of bundle
                 tokens: [shortToken, longToken],
+                timestamp: new Date().toISOString(),
             };
             update({
                 bundles: bundles.concat([bundle]),
@@ -209,7 +211,7 @@ export default {
                     long: null,
                 },
             });
-            dispatch('ChangeModal', 'Bundled');
+            dispatch('ChangeModal', { name: 'Bundled', shortToken, longToken });
         }, 1400);
     },
 

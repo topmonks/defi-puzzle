@@ -14,6 +14,7 @@ export type BundleType = {
     detail: {
         // ...
     },
+    timestamp: String, // used as id
 };
 
 export type BundleTemplateType = {

@@ -29,7 +29,7 @@ export default function Application({ state, dispatch }) {
 
             <Modal open={Boolean(state.modal)} onClose={handleCloseModal}>
                 {state.modal &&
-                    React.createElement(modals[state.modal], passProps)}
+                    React.createElement(modals[state.modal.name], passProps)}
             </Modal>
         </div>
     );

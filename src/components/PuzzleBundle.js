@@ -7,6 +7,7 @@ import TokenIcon from './TokenIcon';
 
 export default function PuzzleBundle({
     bundle: { tokens },
+    template,
 }: {
     bundle: BundleType | BundleTemplateType,
 }) {

@@ -3,7 +3,10 @@ import Headline from '../components/Headline';
 import Button from '../components/Button';
 import icon from '../assets/icon-check.svg';
 
-export default function BundledModal({ dispatch }) {
+export default function BundledModal({
+    dispatch,
+    modal: { shortToken, longToken },
+}) {
     const handleClose = () => {
         dispatch('ChangeModal', null);
     };
@@ -14,9 +17,16 @@ export default function BundledModal({ dispatch }) {
             </div>
             <Headline modal>Bundling completed!</Headline>
             <p>
-                Your bundle is created and saved. You created bundle of{' '}
-                <span className="color-long">183.13 L-DAI</span> and{' '}
-                <span className="color-short">1 S-ETH</span>.
+                Your bundle is created and saved. <br />
+                You created bundle of{' '}
+                <span className="color-long">
+                    {longToken.amount} {longToken.currency}
+                </span>{' '}
+                and{' '}
+                <span className="color-short">
+                    {shortToken.amount} {shortToken.currency}
+                </span>
+                .
             </p>
             <div className="bundle-modal__bottom">
                 <Button onClick={handleClose} secondary>

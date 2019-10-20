@@ -304,6 +304,7 @@ p {
     box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.06);
     border-radius: 4px;
     padding: 16px 16px 8px;
+    margin-bottom: 16px;
 }
 .puzzle-bundle__token {
     display: flex;

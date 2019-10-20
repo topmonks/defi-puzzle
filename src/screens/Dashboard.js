@@ -67,7 +67,7 @@ export default function DashboardScreen({
                 <section>
                     <Headline primary>Your bundles</Headline>
                     {bundles.map(bundle => (
-                        <PuzzleBundle bundle={bundle} />
+                        <PuzzleBundle key={bundle.timestamp} bundle={bundle} />
                     ))}
                     {!bundles.length && (
                         <div className="empty-placeholder">
