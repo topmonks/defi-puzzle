@@ -19,11 +19,10 @@ export default function Application({ state, dispatch }) {
             ) : (
                 <LandingScreen {...passProps} />
             )}
-            {state.modal && (
-                <Modal open onClose={handleCloseModal}>
-                    {React.createElement(modals[state.modal], {})}
-                </Modal>
-            )}
+
+            <Modal open={Boolean(state.modal)} onClose={handleCloseModal}>
+                {state.modal && React.createElement(modals[state.modal], {})}
+            </Modal>
         </div>
     );
 }
