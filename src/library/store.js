@@ -26,8 +26,10 @@ export default function createStore(callback, initialState = {}) {
      * @param {*} payload action payload
      */
     const dispatch = (type, payload) => {
-        _state = reducer({ type, payload }, _state);
-        emitter.emit('update');
+        setTimeout(() => {
+            _state = reducer({ type, payload }, _state);
+            emitter.emit('update');
+        }, 0); // dispatch has to be asynchronous
     };
 
     const reducer = (action, currentState) =>
