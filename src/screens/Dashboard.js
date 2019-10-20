@@ -30,8 +30,8 @@ export default function DashboardScreen({
     const handleRemoveToken = token => {
         dispatch('ConfiguratorTokenChange', { token, remove: true });
     };
-    const handleBundle = ({ shortToken, longToken }) => {
-        dispatch('ChangeModal', 'Bundle');
+    const handleBundle = () => {
+        dispatch('StartBundling');
     };
 
     return (

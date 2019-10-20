@@ -2,11 +2,8 @@ import React from 'react';
 import LoaderIndicator from '../components/Loader';
 import Headline from '../components/Headline';
 import Button from '../components/Button';
-// import "./BundleTransaction.css";
-// import cn from "classnames";
-// import PropTypes from "prop-types$";
 
-export default function BundleModal({ dispatch }) {
+export default function BundlingModal({ dispatch }) {
     const transactionId = '1234587'; // should be a hash
     const handleRefresh = () => {
         dispatch('RefreshBundling');
@@ -23,7 +20,9 @@ export default function BundleModal({ dispatch }) {
                 </a>
                 .
             </p>
-            <Button onClick={handleRefresh}>Refresh</Button>
+            <div className="bundle-modal__bottom">
+                <Button onClick={handleRefresh}>Refresh</Button>
+            </div>
         </div>
     );
 }

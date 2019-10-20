@@ -188,6 +188,12 @@ export default {
         };
     },
 
+    StartBundling: ({ currentState: { configuratorTokens }, dispatch }) => {
+        const { long: longToken, short: shortToken } = configuratorTokens;
+        console.log({ longToken, shortToken });
+        dispatch('ChangeModal', 'Bundling');
+    },
+
     RefreshBundling: ({ dispatch }) => {
         // Here we should reload transaction info
         // but now, for mock:
