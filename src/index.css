@@ -33,14 +33,18 @@ p {
     background-color: #fff;
     padding: 64px 128px;
 }
-.landing-screen__content {
+.landing-screen__content > p {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 42px;
 }
 .landing-screen__connect-button {
     float: left;
-    margin-right: 16px;
+    margin-right: 24px;
 }
 
 .landing-screen__wallet-icons {
+    padding: 8px;
 }
 
 .dashboard-screen {
@@ -136,16 +140,35 @@ p {
 }
 .headline--logo {
     color: var(--c-primary);
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 33px;
 }
 .headline--hero {
+    font-size: 64px;
+    line-height: 88px;
+    font-weight: 900;
+    margin: 24px 0 42px 0;
 }
 .headline--modal {
     font-size: 24px;
 }
 
 .button {
+    font-family: Avenir, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    height: 42px;
+    box-shadow: 0px 10px 16px rgba(57, 95, 246, 0.16),
+        0px 4px 6px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    color: #fff;
+    padding: 10px 24px;
 }
 .button--primary {
+    background: var(--c-primary);
 }
 .button--secondary {
 }
@@ -154,7 +177,7 @@ p {
 
 .wallet-icon {
     display: inline-block;
-    margin: 2px;
+    margin: 2px 4px;
 }
 .wallet-icon__image--inactive {
     filter: brightness(0.5) invert(0.5);

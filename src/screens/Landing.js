@@ -13,7 +13,8 @@ export default function LandingScreen({ dispatch, wallet }) {
             <Headline logo>DeFi Puzzle</Headline>
             <div className="landing-screen__content">
                 <Headline hero>
-                    Custom financial products on top of Compound
+                    Custom financial products
+                    <br /> on top of Compound
                 </Headline>
                 <p>
                     Welcome to DeFi Puzzle! Our dashboard lets you create custom

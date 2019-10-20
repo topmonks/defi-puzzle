@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 
 export default function Button({
-    primary,
+    primary = true,
     secondary,
     loading = false,
     children,
