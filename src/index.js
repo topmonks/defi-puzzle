@@ -7,7 +7,7 @@ import createStore from './library/store';
 import reactions from './reactions';
 
 const store = createStore(render, {
-    wallet: {},
+    wallet: null,
     tokens: [],
     bundles: [],
     templates: [],

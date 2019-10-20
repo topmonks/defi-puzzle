@@ -12,6 +12,12 @@ export default function Application({ state, dispatch }) {
     const handleCloseModal = () => {
         dispatch('ChangeModal', null);
     };
+
+    if (!state.wallet) {
+        // wait for wallet initialization
+        return null;
+    }
+
     return (
         <div>
             {state.wallet.isConnected ? (
@@ -21,7 +27,8 @@ export default function Application({ state, dispatch }) {
             )}
 
             <Modal open={Boolean(state.modal)} onClose={handleCloseModal}>
-                {state.modal && React.createElement(modals[state.modal], {})}
+                {state.modal &&
+                    React.createElement(modals[state.modal], passProps)}
             </Modal>
         </div>
     );
