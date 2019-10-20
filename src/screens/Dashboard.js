@@ -1,6 +1,6 @@
 import React from 'react';
 import Headline from '../components/Headline';
-import { PuzzleTokenType } from '../types';
+import { PuzzleTokenType, BundleType, BundleTemplateType } from '../types';
 import PuzzleToken from '../components/PuzzleToken';
 import PuzzleBundle from '../components/PuzzleBundle';
 import TokenPrice from '../components/TokenPrice';
@@ -19,6 +19,8 @@ export default function DashboardScreen({
     dispatch,
 }: {
     tokens: PuzzleTokenType[],
+    bundles: BundleType[],
+    templates: BundleTemplateType[],
 }) {
     const handleConfiguratorDragOver = event => {
         event.preventDefault(); // to enable dnd
@@ -64,7 +66,9 @@ export default function DashboardScreen({
                 </section>
                 <section>
                     <Headline primary>Your bundles</Headline>
-                    {bundles.map(bundles => null)}
+                    {bundles.map(bundle => (
+                        <PuzzleBundle bundle={bundle} />
+                    ))}
                     {!bundles.length && (
                         <div className="empty-placeholder">
                             <span>You don’t have any bundles yet :(</span>
@@ -97,10 +101,10 @@ export default function DashboardScreen({
             <div className="dashboard-screen__bundle-templates">
                 <section>
                     <Headline primary>BUNDLE TEMPLATES</Headline>
-                    {templates.map(({ id, tokens, name }) => (
-                        <div key={id}>
-                            <Headline>{name}</Headline>
-                            <PuzzleBundle tokens={tokens} template />
+                    {templates.map(template => (
+                        <div key={template.id}>
+                            <Headline>{template.name}</Headline>
+                            <PuzzleBundle bundle={template} template />
                         </div>
                     ))}
                 </section>

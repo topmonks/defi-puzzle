@@ -188,10 +188,29 @@ export default {
         };
     },
 
-    StartBundling: ({ currentState: { configuratorTokens }, dispatch }) => {
+    StartBundling: ({
+        currentState: { configuratorTokens, bundles },
+        dispatch,
+        update,
+    }) => {
         const { long: longToken, short: shortToken } = configuratorTokens;
-        console.log({ longToken, shortToken });
         dispatch('ChangeModal', 'Bundling');
+        // TODO: do something, call web3 provider or whatever to complete bundle
+        // and then reset configurator and just created bundle
+        setTimeout(() => {
+            const bundle = {
+                detail: null, // TODO detail of bundle
+                tokens: [shortToken, longToken],
+            };
+            update({
+                bundles: bundles.concat([bundle]),
+                configuratorTokens: {
+                    short: null,
+                    long: null,
+                },
+            });
+            dispatch('ChangeModal', 'Bundled');
+        }, 1400);
     },
 
     RefreshBundling: ({ dispatch }) => {

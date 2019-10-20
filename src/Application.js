@@ -5,6 +5,7 @@ import { Modal } from './components/Modal';
 
 const modals = {
     Bundling: require('./modals/Bundling').default,
+    Bundled: require('./modals/Bundled').default,
 };
 
 export default function Application({ state, dispatch }) {

@@ -1,10 +1,15 @@
 import React from 'react';
+import { BundleType, BundleTemplateType } from '../types';
 import TokenIcon from './TokenIcon';
 
 // import cn from "classnames";
 // import PropTypes from "prop-types";
 
-export default function PuzzleBundle({ tokens }) {
+export default function PuzzleBundle({
+    bundle: { tokens },
+}: {
+    bundle: BundleType | BundleTemplateType,
+}) {
     return (
         <div className="puzzle-bundle">
             {tokens.map(token => (

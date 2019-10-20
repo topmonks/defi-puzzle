@@ -27,6 +27,14 @@ p {
     line-height: 22px;
 }
 
+.color-long {
+    color: var(--c-long-token);
+}
+
+.color-short {
+    color: var(--c-short-token);
+}
+
 /* Screens */
 
 .landing-screen {
@@ -121,6 +129,19 @@ p {
     padding: 72px;
     text-align: center;
 }
+.bundle-modal__success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: #f0fbf4;
+    margin: 0 auto 40px auto;
+    padding: 14px 12px 12px 12px;
+    box-sizing: border-box;
+}
+.bundle-modal__success-icon > img {
+    width: 48px;
+    height: 48px;
+}
 .bundle-modal__bottom {
     margin-top: 42px;
 }
@@ -155,7 +176,7 @@ p {
 }
 .headline--modal {
     font-size: 24px;
-    margin: 32px 0;
+    margin: 32px 0 38px;
 }
 
 .button {
@@ -174,7 +195,14 @@ p {
 .button--primary {
     background: var(--c-primary);
 }
+.button--primary:hover {
+    background: var(--c-primary-active);
+}
 .button--secondary {
+    background: var(--c-secondary);
+}
+.button--secondary:hover {
+    background: var(--c-secondary-active);
 }
 .button--loading {
 }

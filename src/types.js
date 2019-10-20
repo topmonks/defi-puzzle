@@ -9,7 +9,14 @@ export type PuzzleTokenType = {
     currency: String,
 };
 
-export type BundleTemplate = {
+export type BundleType = {
+    tokens: PuzzleTokenType[],
+    detail: {
+        // ...
+    },
+};
+
+export type BundleTemplateType = {
     id: Number,
     name: String,
     tokens: PuzzleTokenType[],
