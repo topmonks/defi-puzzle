@@ -77,10 +77,10 @@ export default {
         //   use context.web3 or context.etherum
 
         const fakeTokens = [
-            { type: 'short', amount: 2.45, currency: 'L-DAI' },
-            { type: 'short', amount: 2, currency: 'L-ETH' },
-            { type: 'long', amount: 1000, currency: 'S-DAI' },
-            { type: 'long', amount: 212.13, currency: 'S-ETH' },
+            { type: 'short', amount: 2.45, usedAmount: 0, currency: 'L-DAI' },
+            { type: 'short', amount: 2, usedAmount: 0, currency: 'L-ETH' },
+            { type: 'long', amount: 1000, usedAmount: 0, currency: 'S-DAI' },
+            { type: 'long', amount: 212.13, usedAmount: 0, currency: 'S-ETH' },
         ];
         setTimeout(() => {
             update({ tokens: fakeTokens });
@@ -125,7 +125,7 @@ export default {
     },
 
     ConfiguratorTokenChange: ({
-        payload: { token, remove },
+        payload: { token, remove, edit },
         update,
         context,
         currentState,
@@ -136,7 +136,7 @@ export default {
                 tokens: currentState.tokens.map(currentToken =>
                     currentToken.currency !== token.currency
                         ? currentToken
-                        : token,
+                        : { ...token, usedAmount: 0 },
                 ),
                 // remove token from configurator
                 configuratorTokens: {
@@ -149,6 +149,25 @@ export default {
         const currentConfigurationToken =
             currentState.configuratorTokens[token.type];
 
+        // Propably just changed amount,
+        //   so we need to update currentConfigurationToken amount and tokens list aswell
+        if (edit) {
+            return {
+                tokens: currentState.tokens.map(currentToken =>
+                    currentToken.currency !== token.currency
+                        ? currentToken
+                        : {
+                              ...currentToken,
+                              usedAmount: token.usedAmount,
+                          },
+                ),
+                configuratorTokens: {
+                    ...currentState.configuratorTokens,
+                    [token.type]: token, // with already updated amount
+                },
+            };
+        }
+
         // Placing token over same token in configurtor has no effect
         if (token.currency === currentConfigurationToken?.currency) {
             return void 0;
@@ -156,6 +175,7 @@ export default {
 
         // When some token in configurator already is, we need to swap them
         if (Boolean(currentConfigurationToken)) {
+            console.log('rep', token);
             return {
                 // Keep it simple, :facepalm:
                 tokens: currentState.tokens.map(
@@ -163,14 +183,14 @@ export default {
                         currentToken.currency !==
                         currentConfigurationToken.currency
                             ? currentToken.currency === token.currency
-                                ? { ...token, amount: 0 } // move token to configuration (keep copy with no amount)
+                                ? { ...token, usedAmount: currentToken.amount } // move token to configuration (keep copy with no amount)
                                 : currentToken // keep that token untouched, it's not interesting
-                            : currentConfigurationToken, // return token amount back
+                            : { ...currentConfigurationToken, usedAmount: 0 }, // return token amount back
                 ),
                 // add new token to configurator
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
-                    [token.type]: token,
+                    [token.type]: { ...token, usedAmount: token.amount },
                 },
             };
         }
@@ -180,17 +200,17 @@ export default {
             tokens: currentState.tokens.map(currentToken =>
                 currentToken.currency !== token.currency
                     ? currentToken
-                    : { ...token, amount: 0 },
+                    : { ...token, usedAmount: token.amount },
             ),
             configuratorTokens: {
                 ...currentState.configuratorTokens,
-                [token.type]: token,
+                [token.type]: { ...token, usedAmount: token.amount },
             },
         };
     },
 
     StartBundling: ({
-        currentState: { configuratorTokens, bundles },
+        currentState: { configuratorTokens, bundles, tokens },
         dispatch,
         update,
     }) => {
@@ -201,17 +221,51 @@ export default {
         setTimeout(() => {
             const bundle = {
                 detail: null, // TODO detail of bundle
-                tokens: [shortToken, longToken],
+                tokens: [
+                    {
+                        ...shortToken,
+                        amount: shortToken.usedAmount,
+                        usedAmount: 0,
+                    },
+                    {
+                        ...longToken,
+                        amount: longToken.usedAmount,
+                        usedAmount: 0,
+                    },
+                ],
                 timestamp: new Date().toISOString(),
             };
+
             update({
+                tokens: tokens.map(token => {
+                    if (token.currency === shortToken.currency) {
+                        return {
+                            ...token,
+                            amount: (
+                                token.amount - shortToken.usedAmount
+                            ).toFixed(2),
+                            usedAmount: 0,
+                        };
+                    }
+                    if (token.currency === longToken.currency) {
+                        return {
+                            ...token,
+                            amount: (
+                                token.amount - longToken.usedAmount
+                            ).toFixed(2),
+                            usedAmount: 0,
+                        };
+                    }
+                    return token;
+                }),
+
                 bundles: bundles.concat([bundle]),
                 configuratorTokens: {
                     short: null,
                     long: null,
                 },
             });
-            dispatch('ChangeModal', { name: 'Bundled', shortToken, longToken });
+            dispatch('ChangeModal', { name: 'Bundled', bundle });
         }, 1400);
     },
 

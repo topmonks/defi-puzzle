@@ -10,6 +10,7 @@ export const PuzzleInput = ({
     label,
     token,
     onTokenRemove,
+    onTokenChange,
 }: {
     token: PuzzleTokenType,
 }) => {
@@ -27,7 +28,7 @@ export const PuzzleInput = ({
                 </div>
             </div>
             {token ? (
-                <PuzzleToken token={token} />
+                <PuzzleToken token={token} onTokenChange={onTokenChange} />
             ) : (
                 <div className="puzzle-input__droparea">
                     <span>Select position</span>
@@ -42,6 +43,7 @@ export default function PuzzleConfigurator({
     shortToken,
     onTokenRemove,
     onBundle,
+    onTokenChange,
     ...pass
 }) {
     const hasBothTokens = longToken && shortToken;
@@ -52,6 +54,7 @@ export default function PuzzleConfigurator({
                 label="Long position"
                 token={longToken}
                 onTokenRemove={onTokenRemove}
+                onTokenChange={onTokenChange}
             />
             <div className="puzzle-configurator__button">
                 <PuzzleButton onClick={onBundle} disabled={!hasBothTokens} />
@@ -60,6 +63,7 @@ export default function PuzzleConfigurator({
                 label="Short position"
                 token={shortToken}
                 onTokenRemove={onTokenRemove}
+                onTokenChange={onTokenChange}
             />
         </div>
     );

@@ -6,6 +6,7 @@
 export type PuzzleTokenType = {
     type: 'short' | 'long',
     amount: Float,
+    usedAmount: Float,
     currency: String,
 };
 

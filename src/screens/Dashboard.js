@@ -35,6 +35,12 @@ export default function DashboardScreen({
     const handleBundle = () => {
         dispatch('StartBundling');
     };
+    const handleConfiguratorTokenChange = changedToken => {
+        dispatch('ConfiguratorTokenChange', {
+            token: changedToken,
+            edit: true,
+        });
+    };
 
     return (
         <div className="dashboard-screen">
@@ -88,6 +94,7 @@ export default function DashboardScreen({
                     onDrop={handleConfiguratorDrop}
                     onTokenRemove={handleRemoveToken}
                     onBundle={handleBundle}
+                    onTokenChange={handleConfiguratorTokenChange}
                 />
             </div>
             <div className="dashboard-screen__footline">

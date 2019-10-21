@@ -3,10 +3,11 @@ import Headline from '../components/Headline';
 import Button from '../components/Button';
 import icon from '../assets/icon-check.svg';
 
-export default function BundledModal({
-    dispatch,
-    modal: { shortToken, longToken },
-}) {
+export default function BundledModal({ dispatch, modal: { bundle } }) {
+    const [shortToken, longToken] = [
+        bundle?.tokens.find(({ type }) => type === 'short'),
+        bundle?.tokens.find(({ type }) => type === 'long'),
+    ];
     const handleClose = () => {
         dispatch('ChangeModal', null);
     };

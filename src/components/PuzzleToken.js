@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PuzzleTokenType } from '../types';
 // import "./PuzzleToken.css";
 import cn from 'classnames';
@@ -11,10 +11,19 @@ export default function PuzzleToken({
     token,
     draggable,
     deletable,
+    onTokenChange,
+    editable = Boolean(onTokenChange),
     ...pass
 }: {
     token: PuzzleTokenType,
 }) {
+    const [amount, setAmount] = useState(token.usedAmount);
+
+    // Update value based on type of token change (token.currency)
+    useEffect(() => {
+        setAmount(token.usedAmount);
+    }, [token, token.currency, token.usedAmount]);
+
     const handleDragStart = ({ dataTransfer, target }) => {
         const serializedToken = JSON.stringify(token);
         dataTransfer.setData('token', serializedToken);
@@ -30,9 +39,28 @@ export default function PuzzleToken({
         hack(() => {
             target.style.opacity = 1;
             (target.querySelector('.puzzle-token__amount') || {}).innerText =
-                token.amount;
+                token.amount - token.usedAmount;
         });
     };
+
+    const handleAmountChange = ({ target: { value } }) => {
+        setAmount(value);
+    };
+
+    const handleTokenUpdate = () => {
+        const amountAsFloat = parseFloat(amount);
+
+        if (isNaN(amountAsFloat)) {
+            setAmount(token.amount);
+        } else if (amountAsFloat < 0) {
+            setAmount('0');
+        } else if (amountAsFloat > token.amount) {
+            setAmount(token.amount);
+        } else {
+            onTokenChange({ ...token, usedAmount: amountAsFloat });
+        }
+    };
+
     return (
         <div
             draggable={draggable && 'true'}
@@ -53,7 +81,24 @@ export default function PuzzleToken({
                     tokenCurrency={token.currency}
                 />
             </span>
-            <span className="puzzle-token__amount">{token.amount}</span>
+            {editable ? (
+                <span className="puzzle-token__amount">
+                    <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        max={token.amount}
+                        value={amount}
+                        onChange={handleAmountChange}
+                        onBlur={handleTokenUpdate}
+                    />
+                </span>
+            ) : (
+                <span className="puzzle-token__amount">
+                    {(token.amount - token.usedAmount).toFixed(2)}
+                </span>
+            )}
+
             <span className="puzzle-token__currency">{token.currency}</span>
         </div>
     );
