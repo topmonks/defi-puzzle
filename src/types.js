@@ -13,9 +13,6 @@ export type PuzzleTokenType = {
 
 export type BundleType = {
     tokens: PuzzleTokenType[],
-    detail: {
-        // ...
-    },
     timestamp: String, // used as id
 };
 

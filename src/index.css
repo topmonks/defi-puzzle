@@ -7,6 +7,7 @@
     --c-long-token: #6ad592;
     --c-short-token: #ef6887;
     --c-just-gray: #a7acb5;
+    --c-font-color: #1e2439;
     --puzzle-token-width: 248px;
     --puzzle-token-height: 54px;
 }
@@ -16,6 +17,7 @@ body {
     font-family: Avenir, sans-serif;
     max-height: 100vh;
     overflow: hidden;
+    color: var(--c-font-color);
 }
 
 a {
@@ -25,6 +27,7 @@ a {
 p {
     font-size: 16px;
     line-height: 22px;
+    color: var(--c-font-color);
 }
 
 .color-long {
@@ -440,4 +443,23 @@ p {
     border-radius: 4px;
     overflow: hidden;
     border-radius: 5px;
+}
+
+.configured-bundle-preview {
+}
+.configured-bundle-preview > table {
+    width: 100%;
+}
+
+.configured-bundle-preview > table th,
+.configured-bundle-preview > table td {
+    text-align: left;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.configured-bundle-preview > table td {
+    text-align: right;
 }

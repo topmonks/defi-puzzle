@@ -5,6 +5,7 @@ import PuzzleToken from '../components/PuzzleToken';
 import PuzzleBundle from '../components/PuzzleBundle';
 import TokenPrice from '../components/TokenPrice';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
+import ConfiguredBundlePreview from '../components/ConfiguredBundlePreview';
 
 const parseTokenFromEvent = event =>
     JSON.parse(event.dataTransfer.getData('token') || 'null');
@@ -41,6 +42,14 @@ export default function DashboardScreen({
             edit: true,
         });
     };
+
+    // TODO: use memo or better the app state?
+    const configuredBundleTokens = [
+        configuratorTokens.long,
+        configuratorTokens.short,
+    ]
+        .filter(x => Boolean(x))
+        .map(token => ({ ...token, amount: token.usedAmount, usedAmount: 0 }));
 
     return (
         <div className="dashboard-screen">
@@ -95,6 +104,12 @@ export default function DashboardScreen({
                     onTokenRemove={handleRemoveToken}
                     onBundle={handleBundle}
                     onTokenChange={handleConfiguratorTokenChange}
+                />
+                <ConfiguredBundlePreview
+                    bundleTokens={configuredBundleTokens}
+                    walletTokens={tokens}
+                    prices={prices}
+                    pricesCurrency={pricesCurrency}
                 />
             </div>
             <div className="dashboard-screen__footline">
