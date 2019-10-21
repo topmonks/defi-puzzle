@@ -1,79 +1,63 @@
 version: 2.1
-base:
+
+orbs:
+  aws-s3: circleci/aws-s3@1.0.11
+
+base: &base
   docker:
-    -
-      image: 'circleci/node:12'
+    - image: circleci/node:12
 jobs:
   install_dependencies:
     docker:
-      -
-        image: 'circleci/node:12'
+      - image: 'circleci/node:12'
     working_directory: ~/project
     steps:
-      -
-        checkout:
+      - checkout:
           path: ~/project
-      -
-        attach_workspace:
+      - attach_workspace:
           at: ~/project
-      -
-        restore_cache:
+      - restore_cache:
           key: 'dependency-cache-{{ checksum "package-lock.json" }}'
-      -
-        run: 'npm install'
-      -
-        save_cache:
+      - run: 'npm install'
+      - save_cache:
           key: 'dependency-cache-{{ checksum "package-lock.json" }}'
           paths:
             - node_modules
-      -
-        persist_to_workspace:
+      - persist_to_workspace:
           root: ~/project
           paths: node_modules
   test_pwa:
     docker:
-      -
-        image: 'circleci/node:12'
+      - image: 'circleci/node:12'
     working_directory: ~/project
     steps:
-      -
-        checkout:
+      - checkout:
           path: ~/project
-      -
-        attach_workspace:
+      - attach_workspace:
           at: ~/project
-      -
-        run: 'npm test'
+      - run: 'npm test'
   build_pwa:
     docker:
-      -
-        image: 'circleci/node:12'
+      - image: 'circleci/node:12'
     working_directory: ~/project
     steps:
-      -
-        checkout:
+      - checkout:
           path: ~/project
-      -
-        attach_workspace:
+      - attach_workspace:
           at: ~/project
-      -
-        run: 'npm run build'
-      -
-        persist_to_workspace:
+      - run: 'npm run build'
+      - persist_to_workspace:
           root: ~/project
           paths: build
   deploy_pwa:
     docker:
-      -
-        image: 'circleci/python:2.7'
+      - image: 'circleci/python:2.7'
     working_directory: ~/project
     steps:
       - checkout
-      -
-        attach_workspace:
+      - attach_workspace:
           at: ~/project
-      -
-        aws-s3/sync:
+      - aws-s3/sync:
           from: build
           to: 's3://defi-puzzle.dev.tmcloud.io'
           arguments: "--acl public-read \\\n--cache-control \"max-age=86400\"\n"
@@ -83,16 +67,13 @@ workflows:
   build_and_test_and_deploy:
     jobs:
       - install_dependencies
-      -
-        test_pwa:
+      - test_pwa:
           requires:
             - install_dependencies
-      -
-        build_pwa:
+      - build_pwa:
           requires:
             - install_dependencies
-      -
-        deploy_pwa:
+      - deploy_pwa:
           context: org-global
           requires:
             - install_dependencies
