@@ -8,8 +8,7 @@ base: &base
     - image: circleci/node:12
 jobs:
   install_dependencies:
-    docker:
-      - image: 'circleci/node:12'
+    <<: *base
     working_directory: ~/project
     steps:
       - checkout:
@@ -27,8 +26,7 @@ jobs:
           root: ~/project
           paths: node_modules
   test_pwa:
-    docker:
-      - image: 'circleci/node:12'
+    <<: *base
     working_directory: ~/project
     steps:
       - checkout:
@@ -37,8 +35,7 @@ jobs:
           at: ~/project
       - run: 'npm test'
   build_pwa:
-    docker:
-      - image: 'circleci/node:12'
+    <<: *base
     working_directory: ~/project
     steps:
       - checkout:
