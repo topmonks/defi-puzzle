@@ -25,13 +25,14 @@ export default function ConfiguredBundlePreview({
     walletTokens,
     prices,
     pricesCurrency,
+    compoudRates,
 }) {
     const detail = useMemo(() => {
         return createBundlePreview(
             { bundleTokens, walletTokens },
-            { prices, pricesCurrency },
+            { prices, pricesCurrency, compoudRates },
         );
-    }, [prices, pricesCurrency, bundleTokens, walletTokens]);
+    }, [bundleTokens, walletTokens, prices, pricesCurrency, compoudRates]);
 
     return !Boolean(detail) ? null : (
         <div className="configured-bundle-preview">

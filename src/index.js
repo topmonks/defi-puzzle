@@ -33,6 +33,7 @@ render();
     store.dispatch('InitializeWallet');
     if (!tokens.length) store.dispatch('LoadPuzzleTokens');
     store.dispatch('LoadCurrentPrices');
+    store.dispatch('LoadCompoundRates');
 })();
 
 function render() {

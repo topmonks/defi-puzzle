@@ -17,6 +17,7 @@ export default function DashboardScreen({
     pricesCurrency,
     prices,
     configuratorTokens,
+    compoudRates,
     dispatch,
 }: {
     tokens: PuzzleTokenType[],
@@ -110,6 +111,7 @@ export default function DashboardScreen({
                     walletTokens={tokens}
                     prices={prices}
                     pricesCurrency={pricesCurrency}
+                    compoudRates={compoudRates}
                 />
             </div>
             <div className="dashboard-screen__footline">

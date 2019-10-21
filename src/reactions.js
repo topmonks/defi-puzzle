@@ -33,6 +33,12 @@ const initialState = {
         long: null,
         short: null,
     },
+    compoudRates: {
+        'L-ETH': 0,
+        'L-DAI': 0,
+        'S-ETH': 0,
+        'S-DAI': 0,
+    },
 };
 
 export const getInitialState = () => {
@@ -177,6 +183,20 @@ export default {
                 prices: {
                     ETH: 150.0,
                     DAI: 1.0,
+                },
+            });
+        }, 350);
+    },
+
+    LoadCompoundRates: ({ update }) => {
+        // Fake API call
+        setTimeout(() => {
+            update({
+                compoudRates: {
+                    'L-ETH': 0.1498,
+                    'L-DAI': 0.0196,
+                    'S-ETH': 0.1731,
+                    'S-DAI': 0.0796,
                 },
             });
         }, 350);
