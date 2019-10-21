@@ -111,10 +111,10 @@ export default {
         //   use context.web3 or context.etherum
 
         const fakeTokens = [
-            { type: 'short', amount: 2.45, usedAmount: 0, currency: 'S-DAI' },
+            { type: 'short', amount: 1000, usedAmount: 0, currency: 'S-DAI' },
             { type: 'short', amount: 2, usedAmount: 0, currency: 'S-ETH' },
-            { type: 'long', amount: 1000, usedAmount: 0, currency: 'L-DAI' },
-            { type: 'long', amount: 212.13, usedAmount: 0, currency: 'L-ETH' },
+            { type: 'long', amount: 5000, usedAmount: 0, currency: 'L-DAI' },
+            { type: 'long', amount: 2, usedAmount: 0, currency: 'L-ETH' },
         ];
         setTimeout(() => {
             update({ tokens: fakeTokens });
