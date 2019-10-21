@@ -110,12 +110,14 @@ export default function DashboardScreen({
             <div className="dashboard-screen__headline">
                 <Headline primary>CREATE YOUR BUNDLE</Headline>
             </div>
-            <div className="dashboard-screen__configurator">
+            <div
+                className="dashboard-screen__configurator"
+                onDragOver={handleConfiguratorDragOver}
+                onDrop={handleConfiguratorDrop}
+            >
                 <PuzzleConfigurator
                     longToken={configuratorTokens?.long}
                     shortToken={configuratorTokens?.short}
-                    onDragOver={handleConfiguratorDragOver}
-                    onDrop={handleConfiguratorDrop}
                     onTokenRemove={handleRemoveToken}
                     onBundle={handleBundle}
                     onTokenChange={handleConfiguratorTokenChange}
