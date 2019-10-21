@@ -32,6 +32,7 @@ const initialState = {
         ETH: 0,
         DAI: 0,
     },
+    configuratorTemplateUsed: false,
     configuratorTokens: {
         long: null,
         short: null,
@@ -214,7 +215,7 @@ export default {
     },
 
     ConfiguratorTokenChange: ({
-        payload: { token, remove, edit },
+        payload: { token, remove, edit, template = false } = {},
         update,
         context,
         currentState,
@@ -227,6 +228,7 @@ export default {
                         ? currentToken
                         : { ...token, usedAmount: 0 },
                 ),
+                configuratorTemplateUsed: template,
                 // remove token from configurator
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
@@ -250,6 +252,7 @@ export default {
                               usedAmount: token.usedAmount,
                           },
                 ),
+                configuratorTemplateUsed: template,
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
                     [token.type]: token, // with already updated amount
@@ -257,14 +260,13 @@ export default {
             };
         }
 
-        // Placing token over same token in configurtor has no effect
+        // Placing token over same token in configurtor has no effect if not template used
         if (token.currency === currentConfigurationToken?.currency) {
             return void 0;
         }
 
         // When some token in configurator already is, we need to swap them
         if (Boolean(currentConfigurationToken)) {
-            console.log('rep', token);
             return {
                 // Keep it simple, :facepalm:
                 tokens: currentState.tokens.map(
@@ -276,6 +278,7 @@ export default {
                                 : currentToken // keep that token untouched, it's not interesting
                             : { ...currentConfigurationToken, usedAmount: 0 }, // return token amount back
                 ),
+                configuratorTemplateUsed: template,
                 // add new token to configurator
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
@@ -291,6 +294,7 @@ export default {
                     ? currentToken
                     : { ...token, usedAmount: token.amount },
             ),
+            configuratorTemplateUsed: template,
             configuratorTokens: {
                 ...currentState.configuratorTokens,
                 [token.type]: { ...token, usedAmount: token.amount },

@@ -7,8 +7,8 @@ import TokenPrice from '../components/TokenPrice';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
 import ConfiguredBundlePreview from '../components/ConfiguredBundlePreview';
 
-const parseTokenFromEvent = event =>
-    JSON.parse(event.dataTransfer.getData('token') || 'null');
+const parseFromEvent = type => event =>
+    JSON.parse(event.dataTransfer.getData(type) || 'null');
 
 export default function DashboardScreen({
     tokens = [],
@@ -17,6 +17,7 @@ export default function DashboardScreen({
     pricesCurrency,
     prices,
     configuratorTokens,
+    configuratorTemplateUsed,
     compoudRates,
     dispatch,
 }: {
@@ -28,8 +29,20 @@ export default function DashboardScreen({
         event.preventDefault(); // to enable dnd
     };
     const handleConfiguratorDrop = event => {
-        const token = parseTokenFromEvent(event);
-        dispatch('ConfiguratorTokenChange', { token });
+        const token = parseFromEvent('token')(event);
+        if (token) {
+            dispatch('ConfiguratorTokenChange', { token });
+            return;
+        }
+
+        const template = parseFromEvent('template')(event);
+        const bundle = parseFromEvent('bundle')(event);
+
+        if (bundle) {
+            bundle.tokens.forEach(token => {
+                dispatch('ConfiguratorTokenChange', { token, template });
+            });
+        }
     };
     const handleRemoveToken = token => {
         dispatch('ConfiguratorTokenChange', { token, remove: true });
@@ -41,6 +54,7 @@ export default function DashboardScreen({
         dispatch('ConfiguratorTokenChange', {
             token: changedToken,
             edit: true,
+            template: configuratorTemplateUsed,
         });
     };
 
@@ -105,6 +119,7 @@ export default function DashboardScreen({
                     onTokenRemove={handleRemoveToken}
                     onBundle={handleBundle}
                     onTokenChange={handleConfiguratorTokenChange}
+                    fromTemplate={configuratorTemplateUsed}
                 />
                 <ConfiguredBundlePreview
                     bundleTokens={configuredBundleTokens}
@@ -127,7 +142,7 @@ export default function DashboardScreen({
                     <Headline primary>BUNDLE TEMPLATES</Headline>
                     {templates.map(template => (
                         <div key={template.id}>
-                            <Headline>{template.name}</Headline>
+                            <Headline secondary>{template.name}</Headline>
                             <PuzzleBundle bundle={template} template />
                         </div>
                     ))}

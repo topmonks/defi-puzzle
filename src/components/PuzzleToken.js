@@ -13,6 +13,7 @@ export default function PuzzleToken({
     deletable,
     onTokenChange,
     editable = Boolean(onTokenChange),
+    fixed,
     ...pass
 }: {
     token: PuzzleTokenType,
@@ -21,8 +22,8 @@ export default function PuzzleToken({
 
     // Update value based on type of token change (token.currency)
     useEffect(() => {
-        setAmount(token.usedAmount);
-    }, [token, token.currency, token.usedAmount]);
+        if (editable) setAmount(token.usedAmount);
+    }, [editable, token, token.currency, token.usedAmount]);
 
     const handleDragStart = ({ dataTransfer, target }) => {
         const serializedToken = JSON.stringify(token);
@@ -81,7 +82,7 @@ export default function PuzzleToken({
                     tokenCurrency={token.currency}
                 />
             </span>
-            {editable ? (
+            {editable && !fixed ? (
                 <span className="puzzle-token__amount">
                     <input
                         type="number"
@@ -95,7 +96,9 @@ export default function PuzzleToken({
                 </span>
             ) : (
                 <span className="puzzle-token__amount">
-                    {(token.amount - token.usedAmount).toFixed(2)}
+                    {fixed
+                        ? token.usedAmount
+                        : (token.amount - token.usedAmount).toFixed(2)}
                 </span>
             )}
 

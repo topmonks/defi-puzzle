@@ -164,6 +164,8 @@ p {
     margin: 24px 0;
 }
 .headline--secondary {
+    margin-top: 24px;
+    margin-bottom: 8px;
 }
 .headline--logo {
     color: var(--c-primary);
@@ -269,12 +271,20 @@ p {
 .puzzle-token--long::before {
     background: var(--c-long-token);
 }
-.puzzle-token--draggable {
+
+.puzzle-token--draggable,
+.puzzle-bundle--draggable {
     cursor: grab;
     /* cursor: grabbing; */
     /* cursor: no-drop; */
 }
-.puzzle-token--draggable::after {
+/* Add icon like the box can  by drag'n'dropped */
+.puzzle-token--draggable::after,
+.puzzle-bundle--draggable::after {
+    content: '...';
+    top: 4px;
+    right: 18px;
+    bottom: 4px;
     transform: rotate(90deg);
     display: block;
     position: absolute;
@@ -282,14 +292,13 @@ p {
     font-size: 24px;
     font-weight: 600;
 }
-/* Add icon like the box can  by drag'n'dropped */
-.puzzle-token--draggable::after {
-    content: '...';
-    top: 4px;
-    right: 18px;
-    bottom: 4px;
-    transform: rotate(90deg);
+.puzzle-bundle {
+    position: relative;
 }
+.puzzle-bundle--draggable::after {
+    right: 34px;
+}
+
 /* dimm original whil dragging */
 .puzzle-token--dragging {
 }
