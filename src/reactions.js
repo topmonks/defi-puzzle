@@ -17,6 +17,40 @@ import {
     getWalletName,
 } from './library/wallet';
 
+export const STATE_STORAGE_KEY = 'defi-puzzle-state';
+
+const initialState = {
+    wallet: null,
+    tokens: [],
+    bundles: [],
+    templates: [],
+    pricesCurrency: 'USD',
+    prices: {
+        ETH: 0,
+        DAI: 0,
+    },
+    configuratorTokens: {
+        long: null,
+        short: null,
+    },
+};
+
+export const getInitialState = () => {
+    const storedStateJson = localStorage.getItem(STATE_STORAGE_KEY);
+
+    if (!storedStateJson) {
+        return initialState;
+    }
+
+    try {
+        const storedState = JSON.parse(storedStateJson);
+        return storedState;
+    } catch (error) {
+        console.error('Cannot parse stored state.');
+        return initialState;
+    }
+};
+
 export default {
     ExampleAction: ({ payload, update, context, currentState, dispatch }) => {
         // Use context, like
@@ -216,9 +250,11 @@ export default {
     }) => {
         const { long: longToken, short: shortToken } = configuratorTokens;
         dispatch('ChangeModal', 'Bundling');
+
         // TODO: do something, call web3 provider or whatever to complete bundle
         // and then reset configurator and just created bundle
-        setTimeout(() => {
+
+        setTimeout(async () => {
             const bundle = {
                 detail: null, // TODO detail of bundle
                 tokens: [
@@ -236,7 +272,7 @@ export default {
                 timestamp: new Date().toISOString(),
             };
 
-            update({
+            await update({
                 tokens: tokens.map(token => {
                     if (token.currency === shortToken.currency) {
                         return {
@@ -265,7 +301,11 @@ export default {
                     long: null,
                 },
             });
-            dispatch('ChangeModal', { name: 'Bundled', bundle });
+
+            dispatch('ChangeModal', {
+                name: 'Bundled',
+                bundle,
+            });
         }, 1400);
     },
 

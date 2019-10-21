@@ -13,23 +13,35 @@ export default function createStore(callback, initialState = {}) {
 
     emitter.addListener('update', callback);
 
-    const updateLater = updates => {
-        _state = {
-            ..._state,
-            ...updates,
-        };
-        emitter.emit('update');
-    };
-
     /**
+     * updateLater - HAS to be asynchronous promise
+     *
      * @param {String} type Action type
      * @param {*} payload action payload
+     * @returns {Promise} to allow `await update()` calls
+     */
+    const updateLater = updates =>
+        new Promise(resolve => {
+            _state = {
+                ..._state,
+                ...updates,
+            };
+            emitter.emit('update');
+            resolve(_state);
+        });
+
+    /**
+     * dispatch - HAS to be asynchronous
+     *
+     * @param {String} type Action type
+     * @param {*} payload action payload
+     * @returns {Promise} to allow `await dispatch()` calls
      */
     const dispatch = (type, payload) => {
         setTimeout(() => {
             _state = reducer({ type, payload }, _state);
             emitter.emit('update');
-        }, 0); // dispatch has to be asynchronous
+        }, 0);
     };
 
     const reducer = (action, currentState) =>
@@ -48,6 +60,11 @@ export default function createStore(callback, initialState = {}) {
                 currentState: _state,
                 dispatch,
             });
+
+            // No updates yet, do not change current state
+            if (!updates) {
+                return state;
+            }
 
             // It's a promise! Update state later...
             if (typeof updates?.then === 'function') {
