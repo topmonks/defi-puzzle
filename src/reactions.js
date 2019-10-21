@@ -19,6 +19,9 @@ import {
 
 export const STATE_STORAGE_KEY = 'defi-puzzle-state';
 
+export const ETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
+export const DAI_ADDRESS = '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359';
+
 const initialState = {
     wallet: null,
     tokens: [],
@@ -175,17 +178,25 @@ export default {
         };
     },
 
-    LoadCurrentPrices: ({ update }) => {
-        // Fake API call
-        setTimeout(() => {
+    LoadCurrentPrices: async ({
+        update,
+        currentState: { pricesCurrency: currency },
+    }) => {
+        const getPrice = async address =>
+            (await (await fetch(
+                `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${address}&vs_currencies=${currency}`,
+            )).json())?.[address.toLowerCase()]?.[currency.toLowerCase()];
+
+        try {
             update({
-                pricesCurrency: 'USD',
                 prices: {
-                    ETH: 150.0,
-                    DAI: 1.0,
+                    ETH: await getPrice(ETH_ADDRESS),
+                    DAI: await getPrice(DAI_ADDRESS),
                 },
             });
-        }, 350);
+        } catch (error) {
+            console.error('Cannot load current prices', error);
+        }
     },
 
     LoadCompoundRates: ({ update }) => {
