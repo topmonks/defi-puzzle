@@ -8,6 +8,7 @@ export type PuzzleTokenType = {
     amount: Float,
     usedAmount: Float,
     currency: String,
+    assetType: 'stable' | 'speculative',
 };
 
 export type BundleType = {

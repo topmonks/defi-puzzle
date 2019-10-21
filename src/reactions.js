@@ -111,10 +111,34 @@ export default {
         //   use context.web3 or context.etherum
 
         const fakeTokens = [
-            { type: 'short', amount: 1000, usedAmount: 0, currency: 'S-DAI' },
-            { type: 'short', amount: 2, usedAmount: 0, currency: 'S-ETH' },
-            { type: 'long', amount: 5000, usedAmount: 0, currency: 'L-DAI' },
-            { type: 'long', amount: 2, usedAmount: 0, currency: 'L-ETH' },
+            {
+                type: 'short',
+                amount: 1000,
+                usedAmount: 0,
+                currency: 'S-DAI',
+                assetType: 'stable',
+            },
+            {
+                type: 'short',
+                amount: 2,
+                usedAmount: 0,
+                currency: 'S-ETH',
+                assetType: 'speculative',
+            },
+            {
+                type: 'long',
+                amount: 5000,
+                usedAmount: 0,
+                currency: 'L-DAI',
+                assetType: 'stable',
+            },
+            {
+                type: 'long',
+                amount: 2,
+                usedAmount: 0,
+                currency: 'L-ETH',
+                assetType: 'speculative',
+            },
         ];
         setTimeout(() => {
             update({ tokens: fakeTokens });
@@ -151,8 +175,8 @@ export default {
             update({
                 pricesCurrency: 'USD',
                 prices: {
-                    ETH: 185.87,
-                    DAI: 1.004,
+                    ETH: 150.0,
+                    DAI: 1.0,
                 },
             });
         }, 350);
