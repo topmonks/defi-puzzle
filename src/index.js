@@ -31,6 +31,8 @@ render();
 (async () => {
     const { tokens } = store.getState();
     store.dispatch('InitializeWallet');
+    // Bad solution. We need to wait till dispatch completes (how?) and we need to load fresh data every tyme
+    // but now it does not substract used tokens amount
     if (!tokens.length) store.dispatch('LoadPuzzleTokens');
     store.dispatch('LoadCurrentPrices');
     store.dispatch('LoadCompoundRates');
