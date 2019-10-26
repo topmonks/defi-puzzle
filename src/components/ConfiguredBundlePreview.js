@@ -34,21 +34,19 @@ export default function ConfiguredBundlePreview({
         );
     }, [bundleTokens, walletTokens, prices, pricesCurrency, compoudRates]);
 
-    return !Boolean(detail) ? null : (
+    return (
         <div className="configured-bundle-preview">
             <Headline>This bundle represents</Headline>
-            {Boolean(detail) && (
-                <table>
-                    <tbody>
-                        {lines.map(({ label, key }) => (
-                            <tr key={key}>
-                                <th>{label}</th>
-                                <td>{detail[key]}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+            <table>
+                <tbody>
+                    {lines.map(({ label, key }) => (
+                        <tr key={key}>
+                            <th>{label}</th>
+                            <td>{detail?.[key] || '-'}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
