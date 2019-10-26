@@ -10,6 +10,7 @@ const hack = fn => setTimeout(fn, 0);
 export default function PuzzleBundle({
     bundle: { tokens },
     template,
+    onHoverChange = () => {},
 }: {
     bundle: BundleType | BundleTemplateType,
 }) {
@@ -41,6 +42,12 @@ export default function PuzzleBundle({
                 'puzzle-bundle',
                 draggable && 'puzzle-bundle--draggable',
             )}
+            onMouseEnter={() => {
+                onHoverChange(true);
+            }}
+            onMouseLeave={() => {
+                onHoverChange(false);
+            }}
         >
             {tokens.map(token => (
                 <div className="puzzle-bundle__token" key={token.currency}>

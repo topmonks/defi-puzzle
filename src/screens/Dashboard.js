@@ -19,6 +19,7 @@ export default function DashboardScreen({
     configuratorTokens,
     configuratorTemplateUsed,
     compoudRates,
+    configuratorHighlightTokenInputs,
     dispatch,
 }: {
     tokens: PuzzleTokenType[],
@@ -66,6 +67,16 @@ export default function DashboardScreen({
         .filter(x => Boolean(x))
         .map(token => ({ ...token, amount: token.usedAmount, usedAmount: 0 }));
 
+    const handlePuzzleHover = input => highlight => {
+        const tokens = input?.tokens || [input]; // input is bundle or token
+        tokens.forEach(token => {
+            dispatch('HighlightTokenDropArea', {
+                token,
+                highlight,
+            });
+        });
+    };
+
     return (
         <div className="dashboard-screen">
             <div className="dashboard-screen__tokens">
@@ -78,6 +89,7 @@ export default function DashboardScreen({
                                 key={token.currency}
                                 token={token}
                                 draggable
+                                onHoverChange={handlePuzzleHover(token)}
                             />
                         ))}
                 </section>
@@ -91,6 +103,7 @@ export default function DashboardScreen({
                                 key={token.currency}
                                 token={token}
                                 draggable
+                                onHoverChange={handlePuzzleHover(token)}
                             />
                         ))}
                 </section>
@@ -118,6 +131,7 @@ export default function DashboardScreen({
                 <PuzzleConfigurator
                     longToken={configuratorTokens?.long}
                     shortToken={configuratorTokens?.short}
+                    highlightedInputs={configuratorHighlightTokenInputs}
                     onTokenRemove={handleRemoveToken}
                     onBundle={handleBundle}
                     onTokenChange={handleConfiguratorTokenChange}
@@ -145,7 +159,11 @@ export default function DashboardScreen({
                     {templates.map(template => (
                         <div key={template.id}>
                             <Headline secondary>{template.name}</Headline>
-                            <PuzzleBundle bundle={template} template />
+                            <PuzzleBundle
+                                bundle={template}
+                                template
+                                onHoverChange={handlePuzzleHover(template)}
+                            />
                         </div>
                     ))}
                 </section>

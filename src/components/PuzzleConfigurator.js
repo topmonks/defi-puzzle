@@ -2,8 +2,7 @@ import React from 'react';
 import { PuzzleTokenType } from '../types';
 import PuzzleToken from './PuzzleToken';
 import PuzzleButton from './PuzzleButton';
-// import "./PuzzleConfigurator.css";
-// import cn from "classnames";
+import cn from 'classnames';
 // import PropTypes from "prop-types$";
 
 export const PuzzleInput = ({
@@ -12,6 +11,7 @@ export const PuzzleInput = ({
     onTokenRemove,
     onTokenChange,
     disabled,
+    highlight,
 }: {
     token: PuzzleTokenType,
 }) => {
@@ -29,18 +29,23 @@ export const PuzzleInput = ({
                     </button>
                 </div>
             </div>
-            {token ? (
-                <PuzzleToken
-                    token={token}
-                    onTokenChange={onTokenChange}
-                    editable
-                    fixed={disabled}
-                />
-            ) : (
-                <div className="puzzle-input__droparea">
+            <div
+                className={cn(
+                    'puzzle-input__droparea',
+                    highlight && 'puzzle-input__droparea--highlighted',
+                )}
+            >
+                {token ? (
+                    <PuzzleToken
+                        token={token}
+                        onTokenChange={onTokenChange}
+                        editable
+                        fixed={disabled}
+                    />
+                ) : (
                     <span>Select position</span>
-                </div>
-            )}
+                )}
+            </div>
         </section>
     );
 };
@@ -52,6 +57,7 @@ export default function PuzzleConfigurator({
     onBundle,
     onTokenChange,
     fromTemplate,
+    highlightedInputs,
     ...pass
 }) {
     const hasBothTokens = longToken && shortToken;
@@ -64,6 +70,7 @@ export default function PuzzleConfigurator({
                 onTokenRemove={onTokenRemove}
                 onTokenChange={onTokenChange}
                 disabled={fromTemplate && longToken?.assetType === 'stable'}
+                highlight={highlightedInputs.long}
             />
             <div className="puzzle-configurator__button">
                 <PuzzleButton onClick={onBundle} disabled={!hasBothTokens} />
@@ -74,6 +81,7 @@ export default function PuzzleConfigurator({
                 onTokenRemove={onTokenRemove}
                 onTokenChange={onTokenChange}
                 disabled={fromTemplate && shortToken?.assetType === 'stable'}
+                highlight={highlightedInputs.short}
             />
         </div>
     );

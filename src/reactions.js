@@ -37,6 +37,10 @@ const initialState = {
         long: null,
         short: null,
     },
+    configuratorHighlightTokenInputs: {
+        long: false,
+        short: false,
+    },
     compoudRates: {
         'L-ETH': 0,
         'L-DAI': 0,
@@ -411,5 +415,17 @@ export default {
         // Here we should reload transaction info
         // but now, for mock:
         // ..
+    },
+
+    HighlightTokenDropArea: ({
+        payload: { token, highlight },
+        currentState,
+    }) => {
+        return {
+            configuratorHighlightTokenInputs: {
+                ...currentState.configuratorHighlightTokenInputs,
+                [token.type]: highlight,
+            },
+        };
     },
 };

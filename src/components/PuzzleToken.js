@@ -3,7 +3,6 @@ import { PuzzleTokenType } from '../types';
 // import "./PuzzleToken.css";
 import cn from 'classnames';
 import TokenIcon from './TokenIcon';
-// import PropTypes from "prop-types$";
 
 const hack = fn => setTimeout(fn, 0);
 
@@ -14,6 +13,7 @@ export default function PuzzleToken({
     onTokenChange,
     editable = Boolean(onTokenChange),
     fixed,
+    onHoverChange = isHovered => {},
     ...pass
 }: {
     token: PuzzleTokenType,
@@ -73,6 +73,12 @@ export default function PuzzleToken({
                 pass.className,
             )}
             {...pass}
+            onMouseEnter={() => {
+                onHoverChange(true);
+            }}
+            onMouseLeave={() => {
+                onHoverChange(false);
+            }}
         >
             <span className="puzzle-token__icon">
                 <TokenIcon

@@ -165,7 +165,7 @@ p {
 }
 .headline--secondary {
     margin-top: 24px;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 .headline--logo {
     color: var(--c-primary);
@@ -224,6 +224,7 @@ p {
     width: 24px;
     height: 24px;
     margin-right: 8px;
+    line-height: 0;
 }
 
 .token-price {
@@ -277,7 +278,13 @@ p {
     cursor: grab;
     /* cursor: grabbing; */
     /* cursor: no-drop; */
+    transition: transform 150ms ease-in-out;
 }
+.puzzle-token--draggable:hover,
+.puzzle-bundle--draggable:hover {
+    transform: scale(1.1);
+}
+
 /* Add icon like the box can  by drag'n'dropped */
 .puzzle-token--draggable::after,
 .puzzle-bundle--draggable::after {
@@ -340,7 +347,8 @@ p {
 }
 
 .puzzle-input {
-    width: var(--puzzle-token-width);
+    /* adds droparea border */
+    width: calc(var(--puzzle-token-width) + 4px);
 }
 
 .puzzle-input__headline {
@@ -358,16 +366,23 @@ p {
     background: var(--c-background);
     border: 2px dashed #edf0f7;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 6px;
     text-align: center;
-    width: var(--puzzle-token-width);
-    height: var(--puzzle-token-height);
+    min-width: var(--puzzle-token-width);
+    min-height: var(--puzzle-token-height);
     margin: 16px 0;
+    transition: border-color 200ms ease-in-out;
 }
-.puzzle-input__droparea span {
+.puzzle-input__droparea--highlighted {
+    border-color: var(--c-primary-active);
+}
+.puzzle-input__droparea > span {
     font-size: 14px;
     line-height: var(--puzzle-token-height);
     color: var(--c-just-gray);
+}
+.puzzle-input__droparea > .puzzle-token {
+    margin: 0;
 }
 
 .puzzle-button {
