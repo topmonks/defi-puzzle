@@ -24,6 +24,7 @@ export default function createStore(initialState = {}, callback = () => {}) {
         });
 
     const dispatch = (actionName, payload = null) =>
+        console.info(actionName, payload) ||
         new Promise(resolve => {
             // console.log('action', actionName, payload);
 

@@ -124,7 +124,7 @@ export default {
         update,
         context,
         dispatch,
-        currentState: { configuratorTokens },
+        currentState: { configuratorTokens, bundles },
     }) => {
         // TODO: make real web3 requests
         //   use context.web3 or context.etherum
@@ -169,6 +169,7 @@ export default {
         });
 
         // TODO: Load Bundles aswell
+        console.log('Bundles', bundles);
 
         setTimeout(() => {
             update({
@@ -265,7 +266,7 @@ export default {
                 tokens: currentState.tokens.map(currentToken =>
                     currentToken.currency !== token.currency
                         ? currentToken
-                        : { ...token, usedAmount: 0 },
+                        : { ...currentToken, usedAmount: 0 },
                 ),
                 configuratorTemplateUsed: template,
                 // remove token from configurator
@@ -326,7 +327,8 @@ export default {
                 },
             });
             // and then call update again to place new token to the slot
-            return dispatch('ConfiguratorTokenChange', { token, template });
+            dispatch('ConfiguratorTokenChange', { token, template });
+            return void 0;
         }
 
         // No token in configurator yet, so just use the new one and reset amount
@@ -335,7 +337,7 @@ export default {
             tokens: currentState.tokens.map(currentToken =>
                 currentToken.currency !== token.currency
                     ? currentToken
-                    : { ...token, usedAmount },
+                    : { ...currentToken, usedAmount },
             ),
             configuratorTemplateUsed: template,
             configuratorTokens: {
