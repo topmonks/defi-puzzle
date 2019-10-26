@@ -46,7 +46,7 @@ export default function PuzzleBundle({
                 <div className="puzzle-bundle__token" key={token.currency}>
                     <TokenIcon tokenCurrency={token.currency} />
                     <span className="puzzle-bundle__token__amount">
-                        {token.amount}
+                        {template ? token.usedAmount : token.amount}
                     </span>
                     <span className="puzzle-bundle__token__currency">
                         {token.currency}

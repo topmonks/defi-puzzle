@@ -173,22 +173,42 @@ export default {
         }, 400);
     },
 
-    CreateTemplates: ({ currentState: { tokens } }) => {
+    CreateTemplates: ({ currentState: { tokens, prices } }) => {
+        // S-DAI=(L-ETH * ETHprice)/DAIprice
+        // L-DAI=(S-ETH * ETHprice)/DAIprice
+
+        const prepareTemplate = token => {
+            if (token.assetType === 'speculative') {
+                return { ...token, usedAmount: 1 };
+            }
+            if (token.assetType === 'stable') {
+                const usedAmount = parseFloat(
+                    (prices.ETH / prices.DAI).toFixed(2),
+                );
+                return { ...token, usedAmount };
+            }
+        };
+
         return {
             templates: [
                 {
                     id: 1,
                     name: 'Pure ETH Upside',
-                    tokens: tokens.filter(({ currency }) =>
-                        ['L-ETH', 'S-DAI'].includes(currency),
-                    ),
+                    tokens: tokens
+                        .filter(({ currency }) =>
+                            ['L-ETH', 'S-DAI'].includes(currency),
+                        )
+                        .map(prepareTemplate),
                 },
                 {
                     id: 2,
                     name: 'Pure ETH Downside',
-                    tokens: tokens.filter(({ currency }) =>
-                        ['L-DAI', 'S-ETH'].includes(currency),
-                    ),
+
+                    tokens: tokens
+                        .filter(({ currency }) =>
+                            ['L-DAI', 'S-ETH'].includes(currency),
+                        )
+                        .map(prepareTemplate),
                 },
             ],
         };
@@ -233,6 +253,7 @@ export default {
         update,
         context,
         currentState,
+        dispatch,
     }) => {
         if (remove) {
             return {
@@ -257,6 +278,10 @@ export default {
         // Propably just changed amount,
         //   so we need to update currentConfigurationToken amount and tokens list aswell
         if (edit) {
+            if (template) {
+                console.warn('Template recalculation not implemented yet');
+            }
+
             return {
                 tokens: currentState.tokens.map(currentToken =>
                     currentToken.currency !== token.currency
@@ -275,43 +300,43 @@ export default {
         }
 
         // Placing token over same token in configurtor has no effect if not template used
-        if (token.currency === currentConfigurationToken?.currency) {
+        if (
+            !template &&
+            token.currency === currentConfigurationToken?.currency
+        ) {
             return void 0;
         }
 
         // When some token in configurator already is, we need to swap them
         if (Boolean(currentConfigurationToken)) {
-            return {
-                // Keep it simple, :facepalm:
-                tokens: currentState.tokens.map(
-                    currentToken =>
-                        currentToken.currency !==
-                        currentConfigurationToken.currency
-                            ? currentToken.currency === token.currency
-                                ? { ...token, usedAmount: currentToken.amount } // move token to configuration (keep copy with no amount)
-                                : currentToken // keep that token untouched, it's not interesting
-                            : { ...currentConfigurationToken, usedAmount: 0 }, // return token amount back
+            // So firstly empty occupied slot, returns used amounts back
+            update({
+                tokens: currentState.tokens.map(currentToken =>
+                    currentToken.currency === currentConfigurationToken.currency
+                        ? { ...currentToken, usedAmount: 0 }
+                        : currentToken,
                 ),
-                configuratorTemplateUsed: template,
-                // add new token to configurator
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
-                    [token.type]: { ...token, usedAmount: token.amount },
+                    [currentConfigurationToken.type]: null,
                 },
-            };
+            });
+            // and then call update again to place new token to the slot
+            return dispatch('ConfiguratorTokenChange', { token, template });
         }
 
         // No token in configurator yet, so just use the new one and reset amount
+        const usedAmount = template ? token.usedAmount : token.amount;
         return {
             tokens: currentState.tokens.map(currentToken =>
                 currentToken.currency !== token.currency
                     ? currentToken
-                    : { ...token, usedAmount: token.amount },
+                    : { ...token, usedAmount },
             ),
             configuratorTemplateUsed: template,
             configuratorTokens: {
                 ...currentState.configuratorTokens,
-                [token.type]: { ...token, usedAmount: token.amount },
+                [token.type]: { ...token, usedAmount },
             },
         };
     },

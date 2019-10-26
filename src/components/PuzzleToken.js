@@ -55,8 +55,6 @@ export default function PuzzleToken({
             setAmount(token.amount);
         } else if (amountAsFloat < 0) {
             setAmount('0');
-        } else if (amountAsFloat > token.amount) {
-            setAmount(token.amount);
         } else {
             onTokenChange({ ...token, usedAmount: amountAsFloat });
         }
@@ -88,7 +86,6 @@ export default function PuzzleToken({
                         type="number"
                         step="0.01"
                         min="0"
-                        max={token.amount}
                         value={amount}
                         onChange={handleAmountChange}
                         onBlur={handleTokenUpdate}
