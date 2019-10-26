@@ -7,7 +7,7 @@ import createStore from './library/store';
 import debounce from './library/debounce';
 import reactions, { getInitialState, STATE_STORAGE_KEY } from './reactions';
 
-const store = createStore(render, getInitialState());
+const store = createStore(getInitialState(), render);
 
 const debouncedStateUpdateHandler = debounce(() => {
     // Cannot use action here cuz it leads to infinite updates
@@ -21,7 +21,7 @@ const debouncedStateUpdateHandler = debounce(() => {
 }, 1000);
 
 // React on actions
-store.useReducer(reactions);
+store.useHandlers(reactions);
 
 // Initial render
 const rootElement = document.getElementById('root');
@@ -29,13 +29,11 @@ render();
 
 // Initial actions
 (async () => {
-    const { tokens } = store.getState();
     store.dispatch('InitializeWallet');
-    // Bad solution. We need to wait till dispatch completes (how?) and we need to load fresh data every tyme
-    // but now it does not substract used tokens amount
-    if (!tokens.length) store.dispatch('LoadPuzzleTokens');
-    store.dispatch('LoadCurrentPrices');
-    store.dispatch('LoadCompoundRates');
+    await store.dispatch('LoadPuzzleTokens');
+    await store.dispatch('LoadCurrentPrices');
+    await store.dispatch('LoadCompoundRates');
+    store.dispatch('CreateTemplates');
 })();
 
 function render() {

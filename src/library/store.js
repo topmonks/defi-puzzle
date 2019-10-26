@@ -1,90 +1,75 @@
-import { EventEmitter } from 'fbemitter';
+// import { EventEmitter } from 'fbemitter';
 
-export default function createStore(callback, initialState = {}) {
-    const emitter = new EventEmitter();
+/**
+ *
+ * @param {Function} callback
+ * @param {Object} initialState
+ */
+export default function createStore(initialState = {}, callback = () => {}) {
     let _state = initialState;
 
-    const _reducers = [];
+    const _handlers = new Map();
     const _context = references => {
         Object.keys(references).forEach(name => {
+            // if (_context[name]) console.warn('Context override alert.');
             _context[name] = references[name];
         });
     };
 
-    emitter.addListener('update', callback);
-
-    /**
-     * updateLater - HAS to be asynchronous promise
-     *
-     * @param {String} type Action type
-     * @param {*} payload action payload
-     * @returns {Promise} to allow `await update()` calls
-     */
-    const updateLater = updates =>
+    const update = updates =>
         new Promise(resolve => {
-            _state = {
-                ..._state,
-                ...updates,
-            };
-            emitter.emit('update');
+            _state = { ..._state, ...updates };
+            callback(_state);
             resolve(_state);
         });
 
-    /**
-     * dispatch - HAS to be asynchronous
-     *
-     * @param {String} type Action type
-     * @param {*} payload action payload
-     * @returns {Promise} to allow `await dispatch()` calls
-     */
-    const dispatch = (type, payload) => {
-        setTimeout(() => {
-            _state = reducer({ type, payload }, _state);
-            emitter.emit('update');
-        }, 0);
-    };
+    const dispatch = (actionName, payload = null) =>
+        new Promise(resolve => {
+            // console.log('action', actionName, payload);
 
-    const reducer = (action, currentState) =>
-        _reducers.reduce((state, handlers) => {
-            const handlerNames = Object.keys(handlers);
-
-            // No changes, dont update
-            if (handlerNames.includes(action.type) === false) {
-                return state;
+            if (_handlers.has(actionName) === false) {
+                console.warn(`Not handler action "${actionName}"`, payload);
+                return void 0;
             }
 
-            const updates = handlers[action.type]({
-                payload: action.payload,
-                update: updateLater,
+            const updates = _handlers.get(actionName)({
+                payload,
                 context: _context,
-                currentState: _state,
                 dispatch,
+                currentState: _state,
+                update: updates => update(updates).then(resolve),
             });
 
-            // No updates yet, do not change current state
-            if (!updates) {
-                return state;
-            }
-
-            // It's a promise! Update state later...
-            if (typeof updates?.then === 'function') {
-                updates.then(updateLater);
-                return state;
-            }
-
-            // Immediately apply state update
-            return { ...state, ...updates };
-        }, currentState);
+            if (updates?.then) updates.then(update).then(resolve);
+            else if (updates) update(updates).then(resolve);
+            else if (updates === true) resolve(_state);
+        });
 
     return {
         getState() {
             return _state;
         },
 
+        // add getContext / setContext methods if needed
+
+        /**
+         * Dispatch main method
+         *   called like dispatch('ActionHandlerName', payload);
+         *
+         * @param {String} actionName
+         * @param {Object} payload
+         */
         dispatch,
 
-        useReducer(reducer) {
-            _reducers.push(reducer);
+        useHandlers({ ...handlers }) {
+            for (const name in handlers) {
+                const handler = handlers[name];
+                // not allows now to use more handlers for same action
+                if (_handlers.has(name)) {
+                    console.warn(`Handler "${name}" override alert`);
+                }
+                _handlers.set(name, handler);
+            }
         },
     };
 }

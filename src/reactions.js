@@ -116,7 +116,12 @@ export default {
         else return { modal };
     },
 
-    LoadPuzzleTokens: ({ update, context, dispatch }) => {
+    LoadPuzzleTokens: ({
+        update,
+        context,
+        dispatch,
+        currentState: { configuratorTokens },
+    }) => {
         // TODO: make real web3 requests
         //   use context.web3 or context.etherum
 
@@ -149,16 +154,26 @@ export default {
                 currency: 'L-ETH',
                 assetType: 'speculative',
             },
-        ];
-        setTimeout(() => {
-            update({ tokens: fakeTokens });
-            dispatch('CreateTemplates', fakeTokens);
-        }, 600);
+        ].map(token => {
+            // subtract wallet amount by used token if any
+            const usedToken = Object.values(configuratorTokens).find(
+                usedToken => usedToken && usedToken.currency === token.currency,
+            );
+            return !usedToken
+                ? token
+                : { ...token, usedAmount: usedToken.usedAmount };
+        });
 
         // TODO: Load Bundles aswell
+
+        setTimeout(() => {
+            update({
+                tokens: fakeTokens,
+            });
+        }, 400);
     },
 
-    CreateTemplates: ({ payload: tokens }) => {
+    CreateTemplates: ({ currentState: { tokens } }) => {
         return {
             templates: [
                 {
@@ -180,7 +195,6 @@ export default {
     },
 
     LoadCurrentPrices: async ({
-        update,
         currentState: { pricesCurrency: currency },
     }) => {
         const getPrice = async address =>
@@ -189,12 +203,12 @@ export default {
             )).json())?.[address.toLowerCase()]?.[currency.toLowerCase()];
 
         try {
-            update({
+            return {
                 prices: {
                     ETH: await getPrice(ETH_ADDRESS),
                     DAI: await getPrice(DAI_ADDRESS),
                 },
-            });
+            };
         } catch (error) {
             console.error('Cannot load current prices', error);
         }
@@ -302,13 +316,13 @@ export default {
         };
     },
 
-    StartBundling: ({
+    StartBundling: async ({
         currentState: { configuratorTokens, bundles, tokens },
         dispatch,
         update,
     }) => {
         const { long: longToken, short: shortToken } = configuratorTokens;
-        dispatch('ChangeModal', 'Bundling');
+        await dispatch('ChangeModal', 'Bundling');
 
         // TODO: do something, call web3 provider or whatever to complete bundle
         // and then reset configurator and just created bundle
@@ -331,7 +345,7 @@ export default {
                 timestamp: new Date().toISOString(),
             };
 
-            await update({
+            update({
                 tokens: tokens.map(token => {
                     if (token.currency === shortToken.currency) {
                         return {
@@ -361,7 +375,7 @@ export default {
                 },
             });
 
-            dispatch('ChangeModal', {
+            await dispatch('ChangeModal', {
                 name: 'Bundled',
                 bundle,
             });
