@@ -152,6 +152,9 @@ p {
 .bundle-modal__icon--success > svg {
     fill: #f0fbf4;
 }
+.bundle-modal__loader {
+    text-align: center;
+}
 .bundle-modal__tokens {
     display: flex;
     flex-direction: row;

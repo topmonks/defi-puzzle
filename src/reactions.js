@@ -288,7 +288,8 @@ export default {
         // store these
         update({
             configuratorTemplateUsed: template,
-            configuratorBundleUsed: bundle,
+            configuratorBundleUsed: !template && bundle,
+            lastBundled: false,
         });
 
         if (remove) {

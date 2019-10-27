@@ -1,10 +1,10 @@
 import React from 'react';
+import cn from 'classnames';
 import Headline from '../components/Headline';
 import Button from '../components/Button';
 import IconCheck from '../assets/icon-check.svg';
 import IconPuzzle from '../assets/icon-puzzle.svg';
 import LoaderIndicator from '../components/Loader';
-import cn from 'classnames';
 import PuzzleToken from '../components/PuzzleToken';
 
 export default function BundleModal({
@@ -35,7 +35,9 @@ export default function BundleModal({
     return (
         <div className={cn('bundle-modal', success && 'bundle-modal--success')}>
             {pending ? (
-                <LoaderIndicator />
+                <div className="bundle-modal__loader">
+                    <LoaderIndicator />
+                </div>
             ) : (
                 <div
                     className={cn(
@@ -44,7 +46,6 @@ export default function BundleModal({
                     )}
                 >
                     {success && <IconCheck width="24px" height="24px" />}
-
                     {!pending && !success && <IconPuzzle />}
                 </div>
             )}
