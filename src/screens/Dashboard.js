@@ -158,8 +158,10 @@ export default function DashboardScreen({
                 <p>
                     * Please note the interest rates are variable and subject to
                     real-time changes. Please see the <br />
-                    <a href="/">Compound FAQ</a> for more detail on how the
-                    interest rates are determined.
+                    <a href="https://medium.com/compound-finance/faq-1a2636713b69">
+                        Compound FAQ
+                    </a>{' '}
+                    for more detail on how the interest rates are determined.
                 </p>
             </div>
             <div className="dashboard-screen__bundle-templates">
