@@ -447,6 +447,7 @@ export default {
 
                 bundling: false,
                 lastBundled: bundle,
+                configuratorBundleUsed: false,
             });
         }, 10000);
     },
