@@ -1,8 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
 import icon from '../assets/icon-puzzle.svg';
+import unbundleIcon from '../assets/icon-puzzle-unbundle.svg';
 
-export default function PuzzleButton({ onClick, disabled, active }) {
+export default function PuzzleButton({
+    onClick,
+    disabled,
+    active,
+    unbundle = false,
+}) {
     return (
         <button
             onClick={!disabled ? onClick : undefined}
@@ -13,7 +19,7 @@ export default function PuzzleButton({ onClick, disabled, active }) {
                 active && 'puzzle-button--active',
             )}
         >
-            <img src={icon} alt="puzzle" />
+            <img src={unbundle ? unbundleIcon : icon} alt="puzzle" />
         </button>
     );
 }

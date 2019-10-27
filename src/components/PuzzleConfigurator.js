@@ -54,7 +54,7 @@ export default function PuzzleConfigurator({
     longToken,
     shortToken,
     onTokenRemove,
-    onBundle,
+    onSubmit,
     onTokenChange,
     fromTemplate,
     fromBundle,
@@ -78,7 +78,11 @@ export default function PuzzleConfigurator({
                 highlight={highlightedInputs.long}
             />
             <div className="puzzle-configurator__button">
-                <PuzzleButton onClick={onBundle} disabled={!hasBothTokens} />
+                <PuzzleButton
+                    onClick={onSubmit}
+                    disabled={!hasBothTokens}
+                    unbundle={fromBundle}
+                />
             </div>
             <PuzzleInput
                 label="Short position"

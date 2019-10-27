@@ -381,7 +381,7 @@ export default {
         };
     },
 
-    StartBundling: async ({
+    Bundle: async ({
         currentState: { configuratorTokens, bundles, tokens },
         dispatch,
         update,
@@ -472,5 +472,14 @@ export default {
         } catch (error) {
             console.error('Cannot store current state.');
         }
+    },
+
+    Unbundle: async ({
+        update,
+        dispatch,
+        currentState: { configuratorTokens },
+    }) => {
+        // const { long: longToken, short: shortToken } = configuratorTokens;
+        // await dispatch('ChangeModal', 'Unbundle');
     },
 };

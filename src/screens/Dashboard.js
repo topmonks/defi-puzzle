@@ -51,10 +51,24 @@ export default function DashboardScreen({
         }
     };
     const handleRemoveToken = token => {
-        dispatch('ConfiguratorTokenChange', { token, remove: true });
+        // In case of bundle remove both tokens
+        if (configuratorBundleUsed) {
+            dispatch('ConfiguratorTokenChange', {
+                token: configuratorTokens.short,
+                remove: true,
+                bundle: configuratorBundleUsed,
+            });
+            dispatch('ConfiguratorTokenChange', {
+                token: configuratorTokens.long,
+                remove: true,
+                bundle: configuratorBundleUsed,
+            });
+        } else {
+            dispatch('ConfiguratorTokenChange', { token, remove: true });
+        }
     };
-    const handleBundle = () => {
-        dispatch('StartBundling');
+    const handleConfigurationSubmit = () => {
+        dispatch(configuratorBundleUsed ? 'Unbundle' : 'Bundle');
     };
     const handleConfiguratorTokenChange = changedToken => {
         dispatch('ConfiguratorTokenChange', {
@@ -161,7 +175,7 @@ export default function DashboardScreen({
                     shortToken={configuratorTokens?.short}
                     highlightedInputs={configuratorHighlightTokenInputs}
                     onTokenRemove={handleRemoveToken}
-                    onBundle={handleBundle}
+                    onSubmit={handleConfigurationSubmit}
                     onTokenChange={handleConfiguratorTokenChange}
                     fromTemplate={configuratorTemplateUsed}
                     fromBundle={configuratorBundleUsed}
