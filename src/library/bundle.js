@@ -63,7 +63,7 @@ const calulateNetValue = (tokens = [], prices = {}, currency) => {
         shortAmount: shortToken.amount,
         longPrice: prices[tokenCurrencyBase(longToken)],
         longAmount: longToken.amount,
-    });
+    }).toFixed(3);
 
     return value + ' ' + currency;
 };
