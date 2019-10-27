@@ -4,8 +4,8 @@ import DashboardScreen from './screens/Dashboard';
 import { Modal } from './components/Modal';
 
 const modals = {
-    Bundling: require('./modals/Bundling').default,
-    Bundled: require('./modals/Bundled').default,
+    Bundle: require('./modals/Bundle').default,
+    Unbundle: require('./modals/Unbundle').default,
 };
 
 export default function Application({ state, dispatch }) {

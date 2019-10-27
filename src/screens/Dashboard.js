@@ -68,7 +68,11 @@ export default function DashboardScreen({
         }
     };
     const handleConfigurationSubmit = () => {
-        dispatch(configuratorBundleUsed ? 'Unbundle' : 'Bundle');
+        dispatch('ChangeModal', {
+            name: configuratorBundleUsed ? 'Unbundle' : 'Bundle',
+            bundle: configuratorBundleUsed,
+            tokens: Object.values(configuratorTokens),
+        });
     };
     const handleConfiguratorTokenChange = changedToken => {
         dispatch('ConfiguratorTokenChange', {

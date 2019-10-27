@@ -387,7 +387,6 @@ export default {
         update,
     }) => {
         const { long: longToken, short: shortToken } = configuratorTokens;
-        await dispatch('ChangeModal', 'Bundling');
 
         // TODO: do something, call web3 provider or whatever to complete bundle
         // and then reset configurator and just created bundle
@@ -439,11 +438,6 @@ export default {
                     long: null,
                 },
             });
-
-            await dispatch('ChangeModal', {
-                name: 'Bundled',
-                bundle,
-            });
         }, 1400);
     },
 
@@ -480,6 +474,5 @@ export default {
         currentState: { configuratorTokens },
     }) => {
         // const { long: longToken, short: shortToken } = configuratorTokens;
-        // await dispatch('ChangeModal', 'Unbundle');
     },
 };

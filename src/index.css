@@ -132,18 +132,21 @@ p {
     padding: 72px;
     text-align: center;
 }
-.bundle-modal__success-icon {
+.bundle-modal__icon {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    background-color: #f0fbf4;
     margin: 0 auto 40px auto;
     padding: 14px 12px 12px 12px;
     box-sizing: border-box;
+    background: rgba(48, 81, 209, 0.1);
 }
-.bundle-modal__success-icon > img {
+.bundle-modal__icon > img {
     width: 48px;
     height: 48px;
+}
+.bundle-modal--success .bundle-modal__icon {
+    background-color: #f0fbf4;
 }
 .bundle-modal__bottom {
     margin-top: 42px;
