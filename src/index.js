@@ -5,20 +5,13 @@ import Application from './Application';
 import * as serviceWorker from './serviceWorker';
 import createStore from './library/store';
 import debounce from './library/debounce';
-import reactions, { getInitialState, STATE_STORAGE_KEY } from './reactions';
+import reactions, { getInitialState } from './reactions';
 
 const store = createStore(getInitialState(), render);
 
 const debouncedStateUpdateHandler = debounce(() => {
-    // Cannot use action here cuz it leads to infinite updates
-    // store.dispatch('StoreState', store.getState());
-    try {
-        const json = JSON.stringify(store.getState());
-        localStorage.setItem(STATE_STORAGE_KEY, json);
-    } catch (error) {
-        console.error('Cannot store current state.');
-    }
-}, 1000);
+    store.dispatch('StoreState');
+}, 200);
 
 // React on actions
 store.useHandlers(reactions);

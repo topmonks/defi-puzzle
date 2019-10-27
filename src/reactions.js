@@ -430,4 +430,13 @@ export default {
             },
         };
     },
+
+    StoreState: ({ currentState }) => {
+        try {
+            const json = JSON.stringify(currentState);
+            localStorage.setItem(STATE_STORAGE_KEY, json);
+        } catch (error) {
+            console.error('Cannot store current state.');
+        }
+    },
 };
