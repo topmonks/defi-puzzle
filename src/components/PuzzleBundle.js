@@ -62,7 +62,7 @@ export default function PuzzleBundle({
                         <TokenIcon tokenCurrency={token.currency} />
                         <span className="puzzle-bundle__token__amount">
                             {template
-                                ? token.usedAmount
+                                ? token.usedAmount.toFixed(2)
                                 : (token.amount - token.usedAmount).toFixed(2)}
                         </span>
                         <span className="puzzle-bundle__token__currency">
