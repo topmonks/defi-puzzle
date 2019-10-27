@@ -3,13 +3,15 @@ import cn from 'classnames';
 import { WALLET_NAMES } from '../library/wallet';
 
 const logos = {
-    metamask: require('../assets/logo-metamask.svg'),
-    ledger: require('../assets/logo-ledger.svg'),
-    trezor: require('../assets/logo-trezor.svg'),
+    metamask: require('../assets/logo-metamask.svg').default,
+    ledger: require('../assets/logo-ledger.svg').default,
+    trezor: require('../assets/logo-trezor.svg').default,
 };
 
 export default function WalletIcon({ type, active, size = 24 }) {
     const [width, height] = [size, size].map(x => x + 'px');
+    const Icon = logos[type];
+
     return (
         <span
             className={cn(
@@ -18,13 +20,12 @@ export default function WalletIcon({ type, active, size = 24 }) {
                 !active && 'wallet-icon--inactive',
             )}
         >
-            <img
+            <Icon
+                title={WALLET_NAMES[type]}
                 className={cn(
                     'wallet-icon__image',
                     !active && 'wallet-icon__image--inactive',
                 )}
-                src={logos[type]}
-                alt={WALLET_NAMES[type]}
                 width={width}
                 height={height}
             />

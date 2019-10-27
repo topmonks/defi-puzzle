@@ -472,6 +472,18 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+            {
+              test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+              issuer: {
+                test: /\.jsx?$/
+              },
+              use: ["@svgr/webpack"]
+            },
+            {
+              test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+              loader: "url-loader"
+            },
+
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.

@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
-import icon from '../assets/icon-puzzle.svg';
-import unbundleIcon from '../assets/icon-puzzle-unbundle.svg';
+import IconPuzzle from '../assets/icon-puzzle.svg';
+import IconPuzzleUnbundle from '../assets/icon-puzzle-unbundle.svg';
 
 export default function PuzzleButton({
     onClick,
@@ -19,7 +19,11 @@ export default function PuzzleButton({
                 active && 'puzzle-button--active',
             )}
         >
-            <img src={unbundle ? unbundleIcon : icon} alt="puzzle" />
+            {unbundle ? (
+                <IconPuzzleUnbundle className="puzzle-button__icon" />
+            ) : (
+                <IconPuzzle className="puzzle-button__icon" />
+            )}
         </button>
     );
 }

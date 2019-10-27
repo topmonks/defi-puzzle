@@ -137,17 +137,23 @@ p {
     height: 72px;
     border-radius: 50%;
     margin: 0 auto 40px auto;
-    padding: 14px 12px 12px 12px;
+    padding: 12px 12px 12px 10px;
     box-sizing: border-box;
     background: rgba(48, 81, 209, 0.1);
 }
-.bundle-modal__icon > img {
+.bundle-modal__icon > svg {
     width: 48px;
     height: 48px;
+    fill: var(--c-primary);
 }
-.bundle-modal--success .bundle-modal__icon {
+.bundle-modal__icon--success {
     background-color: #f0fbf4;
+    padding: 14px 12px 12px 12px;
 }
+.bundle-modal__icon--success > svg {
+    fill: #f0fbf4;
+}
+
 .bundle-modal__bottom {
     margin-top: 42px;
 }
@@ -219,14 +225,16 @@ p {
     display: inline-block;
     margin: 2px 4px;
 }
-.wallet-icon__image--inactive {
-    filter: brightness(0.5) invert(0.5);
+.wallet-icon--inactive > svg {
+    opacity: 0.4;
 }
 
 .token-icon {
     width: 24px;
     height: 24px;
     margin-right: 8px;
+}
+.puzzle-token__icon {
     line-height: 0;
 }
 
@@ -426,11 +434,10 @@ p {
     height: 40px;
 }
 
-.puzzle-button > img {
+.puzzle-button svg {
     width: 32px;
-}
-.puzzle-button--disabled > img {
-    filter: brightness(0.2) invert(1);
+    height: 32px;
+    fill: #fff;
 }
 
 .empty-placeholder {

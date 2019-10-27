@@ -1,12 +1,9 @@
 import React from 'react';
 
 const icons = {
-    DAI: require('../assets/icon-dai.svg'),
-    ETH: require('../assets/icon-eth.svg'),
+    DAI: require('../assets/icon-dai.svg').default,
+    ETH: require('../assets/icon-eth.svg').default,
 };
-// import "./TokenIcon.css";
-// import cn from "classnames";
-// import PropTypes from "prop-types$";
 
 const tokenTypeFromCurrency = currency => {
     if (currency.endsWith('ETH')) return 'ETH';
@@ -15,10 +12,6 @@ const tokenTypeFromCurrency = currency => {
 
 export default function TokenIcon({ tokenCurrency }) {
     const type = tokenTypeFromCurrency(tokenCurrency);
-
-    return (
-        <div className="token-icon">
-            <img src={icons[type]} alt={type} />
-        </div>
-    );
+    const Icon = icons[type];
+    return <Icon className="token-icon" />;
 }
