@@ -129,14 +129,14 @@ p {
 /* Modals */
 .bundle-modal {
     width: 468px;
-    padding: 72px;
+    padding: 32px;
     text-align: center;
 }
 .bundle-modal__icon {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 32px auto;
     padding: 12px 12px 12px 10px;
     box-sizing: border-box;
     background: rgba(48, 81, 209, 0.1);
@@ -153,8 +153,19 @@ p {
 .bundle-modal__icon--success > svg {
     fill: #f0fbf4;
 }
-
+.bundle-modal__tokens {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    max-width: 380px;
+    margin: 0 auto;
+}
 .bundle-modal__bottom {
+    border-top: 1px solid var(--c-background);
+    padding-top: 32px;
+    text-align: initial;
+    display: flex;
+    justify-content: space-between;
     margin-top: 42px;
 }
 
@@ -190,7 +201,11 @@ p {
 }
 .headline--modal {
     font-size: 24px;
-    margin: 32px 0 38px;
+    margin: 16px auto 38px auto;
+    font-weight: 500;
+    line-height: 133%;
+    max-width: 320px;
+    text-align: center;
 }
 
 .button {
@@ -219,6 +234,24 @@ p {
     background: var(--c-secondary-active);
 }
 .button--loading {
+}
+.button--simple {
+    height: inherit;
+    display: inline-block;
+    line-height: inherit;
+    padding: 10px;
+    background-color: inherit;
+    border: 0;
+    color: inherit;
+    box-shadow: inherit;
+}
+
+.button--secondary.button--simple {
+    color: var(--c-just-gray);
+}
+.button--secondary.button--simple:hover {
+    color: var(--c-font-color);
+    background-color: inherit;
 }
 
 .wallet-icon {
@@ -266,9 +299,15 @@ p {
     border-radius: 4px;
     position: relative; /* this is important for :after, :before) */
 }
+.puzzle-token.puzzle-token--simple {
+    padding: 0;
+    margin: 0;
+    height: auto;
+    width: auto;
+}
 /* higlight by tiny vertical line with color on backround */
-.puzzle-token--short::before,
-.puzzle-token--long::before {
+.puzzle-token--short:not(.puzzle-token--simple)::before,
+.puzzle-token--long:not(.puzzle-token--simple)::before {
     content: '';
     border-radius: 4px 0 0 4px; /* copy parent rouded corners */
     position: absolute;

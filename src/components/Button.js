@@ -7,6 +7,7 @@ export default function Button({
     loading = false,
     children,
     onClick,
+    simple = false,
     className,
 }) {
     const handleClick = onClick;
@@ -18,6 +19,7 @@ export default function Button({
                 primary && 'button--primary',
                 secondary && 'button--secondary',
                 loading && 'button--loading',
+                simple && 'button--simple',
                 className,
             )}
         >

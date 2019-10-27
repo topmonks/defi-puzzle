@@ -15,6 +15,7 @@ export default function PuzzleToken({
     fixed,
     onHoverChange = isHovered => {},
     onClick,
+    simple,
     ...pass
 }: {
     token: PuzzleTokenType,
@@ -72,6 +73,7 @@ export default function PuzzleToken({
                 `puzzle-token--${token.type}`,
                 draggable && 'puzzle-token--draggable',
                 deletable && 'puzzle-token--deletable',
+                simple && 'puzzle-token--simple',
                 pass.className,
             )}
             {...pass}
