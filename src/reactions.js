@@ -47,6 +47,8 @@ const initialState = {
         'S-ETH': 0,
         'S-DAI': 0,
     },
+    bundling: false,
+    lastBundled: null,
 };
 
 export const getInitialState = () => {
@@ -388,6 +390,10 @@ export default {
     }) => {
         const { long: longToken, short: shortToken } = configuratorTokens;
 
+        update({
+            bundling: true,
+        });
+
         // TODO: do something, call web3 provider or whatever to complete bundle
         // and then reset configurator and just created bundle
 
@@ -437,8 +443,11 @@ export default {
                     short: null,
                     long: null,
                 },
+
+                bundling: false,
+                lastBundled: bundle,
             });
-        }, 1400);
+        }, 10000);
     },
 
     RefreshBundling: ({ dispatch }) => {

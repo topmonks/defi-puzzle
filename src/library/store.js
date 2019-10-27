@@ -21,6 +21,7 @@ export default function createStore(initialState = {}, callback = () => {}) {
             _state = { ..._state, ...updates };
             callback(_state);
             resolve(_state);
+            if (window.__debug) window.__state = _state;
         });
 
     const dispatch = (actionName, payload = null) =>

@@ -130,7 +130,6 @@ p {
 .bundle-modal {
     width: 468px;
     padding: 32px;
-    text-align: center;
 }
 .bundle-modal__icon {
     width: 72px;
@@ -158,7 +157,12 @@ p {
     flex-direction: row;
     justify-content: space-around;
     max-width: 380px;
-    margin: 0 auto;
+    margin: 32px auto;
+}
+.bundle-modal__description {
+    padding: 42px 16px 8px;
+    border-top: 1px solid var(--c-background);
+    font-size: 14px;
 }
 .bundle-modal__bottom {
     border-top: 1px solid var(--c-background);

@@ -7,7 +7,12 @@ import LoaderIndicator from '../components/Loader';
 import cn from 'classnames';
 import PuzzleToken from '../components/PuzzleToken';
 
-export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
+export default function BundleModal({
+    dispatch,
+    modal: { bundle, tokens },
+    bundling,
+    lastBundled,
+}) {
     const [shortToken, longToken] = [
         tokens.find(({ type }) => type === 'short'),
         tokens.find(({ type }) => type === 'long'),
@@ -17,7 +22,11 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
         dispatch('ChangeModal', null);
     };
 
-    let [confirm, pending, success] = [!bundle && tokens, false, false];
+    let [confirm, pending, success] = [
+        !bundling && !lastBundled && tokens,
+        bundling,
+        Boolean(lastBundled),
+    ];
 
     const txHash = null;
 
@@ -46,11 +55,11 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
                 {success && 'Bundling is confimed successfully.'}
             </Headline>
             <div className="bundle-modal__tokens">
-                <PuzzleToken token={longToken} simple />
-                <PuzzleToken token={shortToken} simple />
+                <PuzzleToken fixed token={longToken} simple />
+                <PuzzleToken fixed token={shortToken} simple />
             </div>
             {pending && (
-                <p>
+                <p className="bundle-modal__description">
                     Awesome! Your bundle is preparing, please wait a few
                     moments. In the meanwhile, check your transaction on{' '}
                     <a href={`https://etherscan.io/tx/${txHash}`}>
@@ -60,9 +69,8 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
                 </p>
             )}
             {success && (
-                <p>
-                    Your bundle is created and saved. <br />
-                    You created bundle of{' '}
+                <p className="bundle-modal__description">
+                    You created a bundle of{' '}
                     <span className="color-long">
                         {longToken.amount} {longToken.currency}
                     </span>{' '}
@@ -70,7 +78,8 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
                     <span className="color-short">
                         {shortToken.amount} {shortToken.currency}
                     </span>
-                    .
+                    . You can now find your custom financial product in a form
+                    of non-fungible token in your wallet.”
                 </p>
             )}
             {confirm && (
@@ -80,8 +89,7 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
                     </Button>
                     <Button
                         onClick={() => {
-                            // confirm
-                            console.warn('Not implemented yet');
+                            dispatch('Bundle');
                         }}
                     >
                         Bundle positions
@@ -90,6 +98,7 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
             )}
             {pending && (
                 <div className="bundle-modal__bottom">
+                    <div />
                     <Button
                         onClick={() => {
                             console.warn('Not implemented yet');
@@ -101,9 +110,8 @@ export default function BundleModal({ dispatch, modal: { bundle, tokens } }) {
             )}
             {success && (
                 <div className="bundle-modal__bottom">
-                    <Button onClick={closeModal} secondary>
-                        Yaaay
-                    </Button>
+                    <div />
+                    <Button onClick={closeModal}>Back to Dashboard</Button>
                 </div>
             )}
         </div>
