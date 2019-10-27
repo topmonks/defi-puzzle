@@ -254,20 +254,28 @@ export default {
     },
 
     ConfiguratorTokenChange: ({
-        payload: { token, remove, edit, template = false } = {},
+        payload: { token, remove, edit, template = false, bundle } = {},
         update,
         context,
         currentState,
         dispatch,
     }) => {
+        // This method usually updates wallet amounts based on configurator input changes
+        const updateTokenInTokens = (updates, _token = token) => {
+            const tokens = currentState.tokens.map(currentToken =>
+                currentToken.currency !== _token.currency
+                    ? currentToken
+                    : { ...currentToken, ...updates },
+            );
+
+            update({ tokens });
+        };
+
         if (remove) {
+            if (!bundle || template) updateTokenInTokens({ usedAmount: 0 });
+
             return {
                 // add amount back to your token
-                tokens: currentState.tokens.map(currentToken =>
-                    currentToken.currency !== token.currency
-                        ? currentToken
-                        : { ...currentToken, usedAmount: 0 },
-                ),
                 configuratorTemplateUsed: template,
                 // remove token from configurator
                 configuratorTokens: {
@@ -287,15 +295,11 @@ export default {
                 console.warn('Template recalculation not implemented yet');
             }
 
+            if (!bundle || template) {
+                updateTokenInTokens({ usedAmount: token.usedAmount });
+            }
+
             return {
-                tokens: currentState.tokens.map(currentToken =>
-                    currentToken.currency !== token.currency
-                        ? currentToken
-                        : {
-                              ...currentToken,
-                              usedAmount: token.usedAmount,
-                          },
-                ),
                 configuratorTemplateUsed: template,
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
@@ -304,9 +308,10 @@ export default {
             };
         }
 
-        // Placing token over same token in configurtor has no effect if not template used
+        // Placing token over same token in configurtor has no effect if not template or bundle used
         if (
             !template &&
+            !bundle &&
             token.currency === currentConfigurationToken?.currency
         ) {
             return void 0;
@@ -314,31 +319,36 @@ export default {
 
         // When some token in configurator already is, we need to swap them
         if (Boolean(currentConfigurationToken)) {
-            // So firstly empty occupied slot, returns used amounts back
+            // So firstly empty occupied slot,
             update({
-                tokens: currentState.tokens.map(currentToken =>
-                    currentToken.currency === currentConfigurationToken.currency
-                        ? { ...currentToken, usedAmount: 0 }
-                        : currentToken,
-                ),
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
                     [currentConfigurationToken.type]: null,
                 },
             });
+
+            // returns used amounts back (if not bundle)
+            if (!bundle || template) {
+                updateTokenInTokens(
+                    { usedAmount: 0 },
+                    currentConfigurationToken,
+                );
+            }
             // and then call update again to place new token to the slot
-            dispatch('ConfiguratorTokenChange', { token, template });
+            dispatch('ConfiguratorTokenChange', { token, template, bundle });
             return void 0;
         }
 
-        // No token in configurator yet, so just use the new one and reset amount
+        // No token in configurator yet,
         const usedAmount = template ? token.usedAmount : token.amount;
+
+        // so just reset amount
+        if (!bundle || template) {
+            updateTokenInTokens({ usedAmount });
+        }
+
+        // and use the new one
         return {
-            tokens: currentState.tokens.map(currentToken =>
-                currentToken.currency !== token.currency
-                    ? currentToken
-                    : { ...currentToken, usedAmount },
-            ),
             configuratorTemplateUsed: template,
             configuratorTokens: {
                 ...currentState.configuratorTokens,

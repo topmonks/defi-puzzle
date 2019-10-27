@@ -41,7 +41,11 @@ export default function DashboardScreen({
 
         if (bundle) {
             bundle.tokens.forEach(token => {
-                dispatch('ConfiguratorTokenChange', { token, template });
+                dispatch('ConfiguratorTokenChange', {
+                    token,
+                    template,
+                    bundle,
+                });
             });
         }
     };
@@ -110,7 +114,12 @@ export default function DashboardScreen({
                 <section>
                     <Headline primary>Your bundles</Headline>
                     {bundles.map(bundle => (
-                        <PuzzleBundle key={bundle.timestamp} bundle={bundle} />
+                        <PuzzleBundle
+                            key={bundle.timestamp}
+                            bundle={bundle}
+                            draggable
+                            onHoverChange={handlePuzzleHover(bundle)}
+                        />
                     ))}
                     {!bundles.length && (
                         <div className="empty-placeholder">

@@ -11,15 +11,17 @@ export default function PuzzleBundle({
     bundle: { tokens },
     template,
     onHoverChange = () => {},
+    draggable,
 }: {
     bundle: BundleType | BundleTemplateType,
 }) {
-    const draggable = template;
+    if (template) draggable = true;
+
     const handleDragStart = ({ dataTransfer, target }) => {
         const serializedBundle = JSON.stringify({ tokens });
 
         dataTransfer.setData('bundle', serializedBundle);
-        dataTransfer.setData('template', template);
+        if (template) dataTransfer.setData('template', template);
 
         target.classList.add('puzzle-bundle--dragging');
 
