@@ -287,7 +287,7 @@ p {
 
 /* Add icon like the box can  by drag'n'dropped */
 .puzzle-token--draggable::after,
-.puzzle-bundle--draggable::after {
+.puzzle-bundle--template.puzzle-bundle--draggable::after {
     content: '...';
     top: 4px;
     right: 18px;
@@ -302,7 +302,7 @@ p {
 .puzzle-bundle {
     position: relative;
 }
-.puzzle-bundle--draggable::after {
+.puzzle-bundle--template.puzzle-bundle--draggable::after {
     right: 34px;
 }
 
@@ -322,8 +322,16 @@ p {
     background: #ffffff;
     box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.06);
     border-radius: 4px;
-    padding: 16px 16px 8px;
+    padding: 8px 16px;
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+}
+.puzzle-bundle__tokens {
+    flex: 1;
+    padding-top: 8px;
 }
 .puzzle-bundle__token {
     display: flex;
@@ -407,6 +415,12 @@ p {
 }
 .puzzle-button--disabled:hover {
     background-color: var(--c-background);
+}
+.puzzle-button--active {
+    box-shadow: initial;
+    border-width: 0;
+    width: 40px;
+    height: 40px;
 }
 
 .puzzle-button > img {

@@ -18,6 +18,7 @@ export default function DashboardScreen({
     prices,
     configuratorTokens,
     configuratorTemplateUsed,
+    configuratorBundleUsed,
     compoudRates,
     configuratorHighlightTokenInputs,
     dispatch,
@@ -119,6 +120,14 @@ export default function DashboardScreen({
                             bundle={bundle}
                             draggable
                             onHoverChange={handlePuzzleHover(bundle)}
+                            onButtonClick={() => {
+                                bundle.tokens.forEach(token => {
+                                    dispatch('ConfiguratorTokenChange', {
+                                        token,
+                                        bundle,
+                                    });
+                                });
+                            }}
                         />
                     ))}
                     {!bundles.length && (
@@ -130,7 +139,7 @@ export default function DashboardScreen({
             </div>
 
             <div className="dashboard-screen__headline">
-                <Headline primary>CREATE YOUR BUNDLE</Headline>
+                <Headline primary>CREATE OR EDIT YOUR BUNDLE</Headline>
             </div>
             <div
                 className="dashboard-screen__configurator"
@@ -145,6 +154,7 @@ export default function DashboardScreen({
                     onBundle={handleBundle}
                     onTokenChange={handleConfiguratorTokenChange}
                     fromTemplate={configuratorTemplateUsed}
+                    fromBundle={configuratorBundleUsed}
                 />
                 <ConfiguredBundlePreview
                     bundleTokens={configuredBundleTokens}

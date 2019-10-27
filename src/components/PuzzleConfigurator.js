@@ -57,10 +57,15 @@ export default function PuzzleConfigurator({
     onBundle,
     onTokenChange,
     fromTemplate,
+    fromBundle,
     highlightedInputs,
     ...pass
 }) {
     const hasBothTokens = longToken && shortToken;
+    const longDisabled =
+        (fromTemplate && longToken?.assetType === 'stable') || fromBundle;
+    const shortDisabled =
+        (fromTemplate && shortToken?.assetType === 'stable') || fromBundle;
 
     return (
         <div className="puzzle-configurator" {...pass}>
@@ -69,7 +74,7 @@ export default function PuzzleConfigurator({
                 token={longToken}
                 onTokenRemove={onTokenRemove}
                 onTokenChange={onTokenChange}
-                disabled={fromTemplate && longToken?.assetType === 'stable'}
+                disabled={longDisabled}
                 highlight={highlightedInputs.long}
             />
             <div className="puzzle-configurator__button">
@@ -80,7 +85,7 @@ export default function PuzzleConfigurator({
                 token={shortToken}
                 onTokenRemove={onTokenRemove}
                 onTokenChange={onTokenChange}
-                disabled={fromTemplate && shortToken?.assetType === 'stable'}
+                disabled={shortDisabled}
                 highlight={highlightedInputs.short}
             />
         </div>

@@ -270,13 +270,31 @@ export default {
 
             update({ tokens });
         };
+        const updateTokenInBundles = (updates, _token = token) => {
+            const bundles = currentState.bundles.map(currentBundle => ({
+                ...currentBundle,
+                tokens: currentBundle.tokens.map(currentBundleToken =>
+                    currentBundleToken.currency !== _token.currency
+                        ? currentBundleToken
+                        : { ...currentBundleToken, ...updates },
+                ),
+            }));
+
+            update({ bundles });
+        };
+
+        // store these
+        update({
+            configuratorTemplateUsed: template,
+            configuratorBundleUsed: bundle,
+        });
 
         if (remove) {
+            // add amount back to your token
             if (!bundle || template) updateTokenInTokens({ usedAmount: 0 });
+            if (bundle) updateTokenInBundles({ usedAmount: 0 });
 
             return {
-                // add amount back to your token
-                configuratorTemplateUsed: template,
                 // remove token from configurator
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
@@ -295,12 +313,13 @@ export default {
                 console.warn('Template recalculation not implemented yet');
             }
 
-            if (!bundle || template) {
+            if (template) {
                 updateTokenInTokens({ usedAmount: token.usedAmount });
             }
 
+            // bundles cannot be edited
+
             return {
-                configuratorTemplateUsed: template,
                 configuratorTokens: {
                     ...currentState.configuratorTokens,
                     [token.type]: token, // with already updated amount
@@ -334,6 +353,11 @@ export default {
                     currentConfigurationToken,
                 );
             }
+
+            if (bundle) {
+                updateTokenInBundles({ usedAmount: token.amount });
+            }
+
             // and then call update again to place new token to the slot
             dispatch('ConfiguratorTokenChange', { token, template, bundle });
             return void 0;
@@ -346,10 +370,10 @@ export default {
         if (!bundle || template) {
             updateTokenInTokens({ usedAmount });
         }
+        if (bundle) updateTokenInBundles({ usedAmount });
 
         // and use the new one
         return {
-            configuratorTemplateUsed: template,
             configuratorTokens: {
                 ...currentState.configuratorTokens,
                 [token.type]: { ...token, usedAmount },
