@@ -34,7 +34,7 @@ export default function ConfiguredBundlePreview({
         );
     }, [bundleTokens, walletTokens, prices, pricesCurrency, compoudRates]);
 
-    return (
+    return !detail ? null : (
         <div className="configured-bundle-preview">
             <Headline>This bundle represents</Headline>
             <table>
