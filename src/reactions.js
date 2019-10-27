@@ -60,7 +60,7 @@ export const getInitialState = () => {
 
     try {
         const storedState = JSON.parse(storedStateJson);
-        return storedState;
+        return { ...storedState, wallet: null };
     } catch (error) {
         console.error('Cannot parse stored state.');
         return initialState;
@@ -103,8 +103,9 @@ export default {
             update(walletState(wallet));
         });
 
+        // FIXME: This is the place where Landing screeen flickering appears
         context(wallet);
-        return walletState(wallet);
+        return walletState({ ...wallet, isReady: false });
     },
 
     ConnectWallet: ({ context }) => {

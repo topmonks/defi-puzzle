@@ -17,6 +17,7 @@ export default function createStore(initialState = {}, callback = () => {}) {
     };
 
     const update = updates =>
+        (window.__debug && console.log('update', updates)) ||
         new Promise(resolve => {
             _state = { ..._state, ...updates };
             callback(_state);
