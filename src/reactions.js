@@ -110,10 +110,13 @@ export default {
     ConnectWallet: ({ context }) => {
         if (context.ethereum) {
             context.ethereum.enable().catch(() => {
-                console.log('Connection canceled.');
+                alert('Connection canceled');
             });
         } else {
-            console.warn('No ethereum wallet to connect');
+            alert('No ethereum wallet (Mestamask) to connect.');
+        }
+        if (context.web3.currentProvider.networkVersion !== '3') {
+            alert('Please, use Ropsten Test Network.');
         }
     },
 
