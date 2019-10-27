@@ -14,6 +14,7 @@ export default function PuzzleToken({
     editable = Boolean(onTokenChange),
     fixed,
     onHoverChange = isHovered => {},
+    onClick,
     ...pass
 }: {
     token: PuzzleTokenType,
@@ -62,6 +63,7 @@ export default function PuzzleToken({
 
     return (
         <div
+            onClick={onClick}
             draggable={draggable && 'true'}
             onDragStart={draggable && handleDragStart}
             onDragEnd={draggable && handleDragEnd}

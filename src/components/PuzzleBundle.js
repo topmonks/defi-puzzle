@@ -14,6 +14,7 @@ export default function PuzzleBundle({
     onHoverChange = () => {},
     draggable,
     onButtonClick,
+    onClick,
 }: {
     bundle: BundleType | BundleTemplateType,
 }) {
@@ -39,6 +40,7 @@ export default function PuzzleBundle({
     };
     return (
         <div
+            onClick={onClick}
             draggable={draggable && 'true'}
             onDragStart={draggable && handleDragStart}
             onDragEnd={draggable && handleDragEnd}

@@ -95,6 +95,11 @@ export default function DashboardScreen({
                                 token={token}
                                 draggable
                                 onHoverChange={handlePuzzleHover(token)}
+                                onClick={() => {
+                                    dispatch('ConfiguratorTokenChange', {
+                                        token,
+                                    });
+                                }}
                             />
                         ))}
                 </section>
@@ -109,6 +114,11 @@ export default function DashboardScreen({
                                 token={token}
                                 draggable
                                 onHoverChange={handlePuzzleHover(token)}
+                                onClick={() => {
+                                    dispatch('ConfiguratorTokenChange', {
+                                        token,
+                                    });
+                                }}
                             />
                         ))}
                 </section>
@@ -184,6 +194,14 @@ export default function DashboardScreen({
                                 bundle={template}
                                 template
                                 onHoverChange={handlePuzzleHover(template)}
+                                onClick={() => {
+                                    template.tokens.forEach(token => {
+                                        dispatch('ConfiguratorTokenChange', {
+                                            token,
+                                            template: true,
+                                        });
+                                    });
+                                }}
                             />
                         </div>
                     ))}
