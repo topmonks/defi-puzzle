@@ -215,6 +215,7 @@ export default function DashboardScreen({
                             onSimulationChange={simulation => {
                                 dispatch('ChangeSimulation', simulation);
                             }}
+                            prices={prices}
                         />
                     </>
                 )}

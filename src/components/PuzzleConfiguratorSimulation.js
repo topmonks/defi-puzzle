@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import cn from "classnames";
 
 export default function PuzzleConfiguratorSimulation({
     bundle,
     simulation,
     onSimulationChange,
+    prices,
 }) {
     const [values, setValues] = useState(simulation);
     const longToken = bundle.tokens.find(({ type }) => type === 'long');
@@ -13,11 +14,20 @@ export default function PuzzleConfiguratorSimulation({
     const longPriceCurrency = longToken.currency.split('-')[1];
     const shortPriceCurrency = shortToken.currency.split('-')[1];
 
+    useEffect(() => {
+        setValues({
+            ...values,
+            longTokenPrice: prices[longPriceCurrency],
+            shortTokenPrice: prices[shortPriceCurrency],
+        });
+    }, [longPriceCurrency, shortPriceCurrency]); // eslint-disable-line
+
     const handleValueChange = typeName => ({ target: { value } }) => {
         const simulation = { ...values, [typeName]: Number(value) };
         setValues(simulation);
         onSimulationChange(simulation);
     };
+
     return (
         <div className="puzzle-configuration-simulation">
             <label>
