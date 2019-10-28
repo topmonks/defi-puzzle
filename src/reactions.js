@@ -276,15 +276,20 @@ export default {
 
             update({ tokens });
         };
+        // FIXME: rewrotes not used bundle aswell
         const updateTokenInBundles = (updates, _token = token) => {
-            const bundles = currentState.bundles.map(currentBundle => ({
-                ...currentBundle,
-                tokens: currentBundle.tokens.map(currentBundleToken =>
-                    currentBundleToken.currency !== _token.currency
-                        ? currentBundleToken
-                        : { ...currentBundleToken, ...updates },
-                ),
-            }));
+            const bundles = currentState.bundles.map(currentBundle =>
+                bundle && bundle.timestamp !== currentBundle.timestamp
+                    ? currentBundle
+                    : {
+                          ...currentBundle,
+                          tokens: currentBundle.tokens.map(currentBundleToken =>
+                              currentBundleToken.currency !== _token.currency
+                                  ? currentBundleToken
+                                  : { ...currentBundleToken, ...updates },
+                          ),
+                      },
+            );
 
             update({ bundles });
         };
