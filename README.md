@@ -1,9 +1,14 @@
 # DeFi Puzzle
 Lets users create custom financial bundles such as leveraged positions by combining their existing money market (eg. Compound) positions.
 
-*App submitted as a part of Kyber virtual hackathon is for simulation purposes only.*
 
 Kyber hackathon submission: https://devpost.com/software/defi-puzzle
+
+
+App: https://defi-puzzle.tmcloud.io/
+
+
+*Current iteration of the app is for simulation purposes only.*
 
 ## Motivation: The Missing Piece of the Puzzle
 What we have:
