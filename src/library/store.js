@@ -40,7 +40,6 @@ export default function createStore(initialState = {}, callback = () => {}) {
                 context: _context,
                 dispatch,
                 get currentState() {
-                    console.log(_state.configuratorTokens);
                     return _state;
                 },
                 update: updates => update(updates).then(resolve),

@@ -31,6 +31,10 @@ const calculateLeverage = (tokens: PuzzleTokenType = [], prices) => {
         return null;
     }
 
+    console.log('shortToken.amount', shortToken.amount);
+    console.log('longToken.amount', longToken.amount);
+    console.log('prices', prices);
+
     // if (tokenCurrencyBase(shortToken) === tokenCurrencyBase(longToken)) {
     //     return '-';
     // }
