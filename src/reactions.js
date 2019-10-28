@@ -16,6 +16,7 @@ import {
     isWalletReady,
     getWalletName,
 } from './library/wallet';
+import { flippening } from './library/bundle';
 
 export const STATE_STORAGE_KEY = 'defi-puzzle-state';
 
@@ -49,7 +50,9 @@ const initialState = {
         'S-DAI': 0,
     },
     bundling: false,
+    unbundling: false,
     lastBundled: null,
+    lastUnbundled: null,
     simulation: {
         elapsedDays: 30,
         longTokenPrice: 1,
@@ -343,7 +346,8 @@ export default {
         update({
             configuratorTemplateUsed: template,
             configuratorBundleUsed: !template && bundle,
-            lastBundled: false,
+            lastBundled: null,
+            lastUnbundled: null,
         });
 
         if (remove) {
@@ -563,9 +567,43 @@ export default {
     Unbundle: async ({
         update,
         dispatch,
-        currentState: { configuratorTokens },
+        payload: detail,
+        currentState: { tokens, bundles, configuratorBundleUsed },
     }) => {
+        // unbundleCost se odecte a long se vrati do callet
+        // flippening
         // const { long: longToken, short: shortToken } = configuratorTokens;
+
+        setTimeout(() => {
+            // const configuratorTokens = ;
+            update({
+                // Reset state
+                configuratorTokens: {
+                    short: null,
+                    long: null,
+                },
+                configuratorBundleUsed: null,
+                // Remove bundle from list
+                bundles: bundles.filter(
+                    bundle =>
+                        bundle.timestamp !== configuratorBundleUsed.timestamp,
+                ),
+                // TODO: decrement by unbundleCost and increment by longPositionYield
+                tokens: tokens.map(token => {
+                    // if (token.cur)
+                    return token;
+                }),
+                unbundling: false,
+            });
+        }, 1500);
+
+        return {
+            unbundling: true,
+            lastUnbundled: {
+                detail,
+                bundle: configuratorBundleUsed,
+            },
+        };
     },
 
     ChangeUnbundleSimulation: ({ payload: simulation }) => {
