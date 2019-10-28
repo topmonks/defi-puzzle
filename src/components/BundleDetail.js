@@ -2,7 +2,7 @@ import React from 'react';
 // import cn from "classnames";
 import { createBundleDetail } from '../library/bundle';
 
-export default function BundleDetail({ bundle }) {
+export default function BundleDetail({ bundle = {} }) {
     const detail = createBundleDetail(bundle);
     return (
         <div className="bundle-detail">
