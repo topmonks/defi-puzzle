@@ -1,49 +1,44 @@
 # DeFi Puzzle
-Lets users create advanced financial products such as fixed-term futures contracts with the DeFi qualities of decentralization, trustlessness & no counterparty risk.
+Lets users create advanced financial products such as leveraged positions by combining their existing money market (eg. Compound) positions.
 
-
-Idea conceived & first commits done at ETHBerlinZwei (https://github.com/ethberlinzwei).
-
+*App submitted as a part of Kyber virtual hackathon is for simulation purposes only.*
 
 ## Motivation: The Missing Piece of the Puzzle
 What we have:
-* Decentralised money market (Compound)
+* Decentralised money markets (Compound, dYdX…)
 * Decentralized exchanges (DeversiFi, Uniswap…)
-* Trustless stablecoin (DAI)
+* Trust-minimized stablecoin (DAI)
 * Brokerless margin trading within predefined limits (dYdX, bZx…)
 
 
 What we miss:
-* Brokerless advanced financial products, e.g. fixed-term futures with user-defined parameters. Futures are one of the most popular instruments among traders and are one of the reasons why centralised, custodial exchanges like BitMEX are so popular. If we could create futures as a DeFi product, the systemic risk of custodial exchanges could be lowered.
+* Brokerless advanced financial products, e.g. perpetual swaps with user-defined parameters. Perpetual swaps are one of the most popular instruments among traders and are one of the reasons why centralised, custodial exchanges like BitMEX are so popular. If we could create such financial products as a DeFi product, the systemic risk of custodial exchanges could be lowered.
 
 ## The Idea
-Advanced products like futures can be constructed by bundling long and short tokens of various nominal amounts and asset types.
+Advanced products like perpetual swaps can be constructed by bundling long and short tokens of various nominal amounts and asset types.
 Simple example:
-* Assume ETH price of $100/ETH
-* Bundle of {1 long ETH + 50 short DAI} => leveraged long position
-* Net value of such position is $50 (+100-50)
-* For price of 1 ETH, user can buy 2 such positions
+* Assume ETH price of $150
+* Bundle of {1 long ETH + 75 short DAI} => leveraged long position
+* Net value of such position is $750 (+150-75)
+* For the price of 1 ETH, user can buy 2 such positions
 
 
 Resulting financial product is a 2x leveraged long on ETH.
+
 
 ## Building Blocks for the DeFi Puzzle
 Long tokens:
 * Represent money market deposit
 * Accumulate positive interest over time
-* Long tokens are already working on top of Compound (https://compound.finance/ctokens)
-* e.g. long DAI = lDAI
+* Compound cTokens are essentialy long tokens (https://compound.finance/ctokens)
+* nomenclature: e.g. long DAI = L-DAI
 
 
 Short tokens:
 * Represent money market liability
 * Accumulate negative interest over time
-* e.g. short DAI = sDAI
+* nomenclature: e.g. short DAI = sDAI
 
-
-Timelock:
-* Required for fixed-term futures
-* Token bundles can be timelocked, adding a maturity to the resulting financial product
 
 ## Short Tokens ELI5
 What are they?
@@ -57,36 +52,34 @@ How are they transferred?
 
 How are they created?
 * By borrowing assets from the money market
-* Borrowing 100 DAI => user gets 100 lDAI + 100 sDAI
+* Borrowing 100 DAI => user gets 100 L-DAI + 100 L-DAI
+
 
 ## Yes but why?
 Because when we have both long and short tokens, we can bundle them as advanced financial products that are fully defined by users - without a need for custody and brokers/dealers. 
 
-**Creating a Custom Futures Contract - Workflow:**
+**Creating a Perpetual swap bundle - Workflow:**
+
+_Assumption_: 1 ETH = $150
+_Goal_: construct Pure ETH Upside bundle with DeFi Puzzle (1 L-ETH + 150 S-DAI)
+_Starting user wealth_: 2 ETH (=$300)
+
+*I Compound steps*
+1) deposit 2 ETH => receive 2 L-ETH; allow usage as collateral, enable borrowing
+2) borrow 150 DAI => receive 150 L-DAI & 150 S-DAI; 
+(!differences vs current Compound workflow: i. user borrows long tokens, not underlying assets themselves; ii. L-tokens and S-tokens in same nominal as underlying assets)
+Collateralization: 300 % = (2 L-ETH + 150 L-DAI) / 150 S-DAI
+
+*II DeFi Puzzle steps*
+3) Select Pure ETH Upside template => 1 L-ETH+150 S-DAI
+4) Confirm => NFT appears in user’s wallet
+User assets: 1 L-ETH + 150 L-DAI + Pure ETH Upside NFT
+
+Q: should user keep his 150 L-DAI?
+A: depends on user profile. 150 L-DAI acts as a safe collateral as it’s not a price volatile asset. Also it yields positive interest, bringing down the APR cost of the operation. If the user has more appetite for risk, he can change the L-DAI to L-ETH, increasing his exposure to ETH price moves (increasing both potential profit and risk).
 
 
-Assume ETH price of $100/ETH.
-1) Alice owns 10 ETH, deposits into money market => 10 lETH
-2) Alice borrows a bundle: {~510 lDAI, 500 sDAI}
-
-
-(money market long tokens accrue interest rate through exchange rate vs original asset => hence different nominal amounts for long and short DAI; short tokens need to be “bought out” for ever increasing amount of long tokens - that’s how user pays the accrued interest on the debt. For more details please see https://compound.finance/ctokens)
-
-
-3) Alice rebundles: {10 lETH, 500 sDAI}; the remaining 510 lDAI are free to be spent
-4) Alice adds timelock to {10 lETH, 500 sDAI} of 90 days
-5) Now she has created a fixed term futures with 90 days maturity. Futures contract is for ETH leveraged long (leverage is 2x)
-6) Alice can sell the futures contract to Bob, e.g. for 501 DAI (earning a 1 DAI profit for her work)
-7) Bob waits for maturity and later unlocks the ETH by buying out the short DAI tokens, e.g. for 550 lDAI (paying down the accrued interest)
-
-
-**Such a futures contract is fully custom, non-custodial, trustless, brokerless.**
-
-## Too Complicated?
-The technical workflow is abstracted away with a DeFi Puzzle tool.
-
-
-The DeFi Puzzle tool makes constructing custom financial products simple and intuitive.
+**Such a contract is custom, non-custodial, trustless, brokerless.**
 
 
 **Since the resulting bundles are Ethereum NFTs, such financial products can be traded and integrated into other DeFi projects, such as DEXes.**
