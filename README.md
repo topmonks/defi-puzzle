@@ -68,13 +68,17 @@ _Assumption_: 1 ETH = $150
 _Goal_: construct Pure ETH Upside bundle with DeFi Puzzle (1 L-ETH + 150 S-DAI)
 _Starting user wealth_: 2 ETH (=$300)
 
-*I Compound steps*
+# I Compound steps
+
+
 1) deposit 2 ETH => receive 2 L-ETH; allow usage as collateral, enable borrowing
 2) borrow 150 DAI => receive 150 L-DAI & 150 S-DAI; 
 (!differences vs current Compound workflow: i. user borrows long tokens, not underlying assets themselves; ii. L-tokens and S-tokens in same nominal as underlying assets)
 Collateralization: 300 % = (2 L-ETH + 150 L-DAI) / 150 S-DAI
 
-*II DeFi Puzzle steps*
+# II DeFi Puzzle steps
+
+
 3) Select Pure ETH Upside template => 1 L-ETH+150 S-DAI
 4) Confirm => NFT appears in user’s wallet
 User assets: 1 L-ETH + 150 L-DAI + Pure ETH Upside NFT
