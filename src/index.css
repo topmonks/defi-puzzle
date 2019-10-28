@@ -69,7 +69,7 @@ p {
         'tokens headline templates'
         'tokens configurator templates'
         'tokens configurator templates'
-        'tokens footline prices';
+        'demo footline prices';
     background-color: var(--c-background);
     overflow-y: scroll;
 }
@@ -78,6 +78,13 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.dashboard-screen__demonstration {
+    grid-area: demo;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 32px;
 }
 .dashboard-screen__headline {
     grid-area: headline;
@@ -115,7 +122,8 @@ p {
 }
 .dashboard-screen__tokens > section,
 .dashboard-screen__bundle-templates > section,
-.dashboard-screen__current-prices > section {
+.dashboard-screen__current-prices > section,
+.dashboard-screen__demonstration > section {
     width: var(--puzzle-token-width);
 }
 .dashboard-screen__footline > p {

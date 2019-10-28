@@ -166,6 +166,15 @@ export default function DashboardScreen({
                 </section>
             </div>
 
+            <div className="dashboard-screen__demonstration">
+                <section>
+                    <Headline secondary>Demonstration</Headline>
+                    <button onClick={() => localStorage.clear()}>
+                        clear storage
+                    </button>
+                </section>
+            </div>
+
             <div className="dashboard-screen__headline">
                 <Headline primary>CREATE OR EDIT YOUR BUNDLE</Headline>
             </div>
