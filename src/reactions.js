@@ -165,7 +165,7 @@ export default {
             },
             {
                 type: 'long',
-                amount: 2,
+                amount: 3,
                 usedAmount: 0,
                 currency: 'L-ETH',
                 assetType: 'speculative',
