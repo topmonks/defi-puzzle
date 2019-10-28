@@ -1,7 +1,9 @@
 import React from 'react';
 // import cn from "classnames";
+import { createBundleDetail } from '../library/bundle';
 
-export default function BundleDetail({ prop }) {
+export default function BundleDetail({ bundle }) {
+    console.log(bundle);
     return (
         <div className="bundle-detail">
             <div className="bundle-detail__line">

@@ -66,6 +66,20 @@ export default function DashboardScreen({
             });
         });
     };
+    const handleBundleUse = bundle => async () => {
+        if (configuratorBundleUsed) {
+            await dispatch('ConfiguratorRemoveBundle', {
+                bundle: configuratorBundleUsed,
+            });
+        }
+
+        bundle.tokens.forEach(token => {
+            dispatch('ConfiguratorTokenChange', {
+                token,
+                bundle,
+            });
+        });
+    };
     const handleRemoveToken = token => {
         if (configuratorBundleUsed) {
             dispatch('ConfiguratorRemoveBundle', {
@@ -148,16 +162,7 @@ export default function DashboardScreen({
                             bundle={bundle}
                             draggable
                             onHoverChange={handlePuzzleHover(bundle)}
-                            onButtonClick={() => {
-                                // FIXME: rewrite to dispatch('ConfiguratorUseBundle')
-
-                                bundle.tokens.forEach(token => {
-                                    dispatch('ConfiguratorTokenChange', {
-                                        token,
-                                        bundle,
-                                    });
-                                });
-                            }}
+                            onButtonClick={handleBundleUse(bundle)}
                         />
                     ))}
                     {!bundles.length && (

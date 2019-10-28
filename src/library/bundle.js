@@ -148,3 +148,8 @@ export const createBundlePreview = (
         shortCost: getCompoundRate('short')(bundleTokens, compoudRates),
     };
 };
+
+export const createBundleDetail = ({ shortToken, longToken }) => {
+    console.log({ shortToken, longToken });
+    //
+};

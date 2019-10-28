@@ -461,7 +461,6 @@ export default {
 
         setTimeout(async () => {
             const bundle = {
-                detail: null, // TODO detail of bundle
                 tokens: [
                     {
                         ...shortToken,
