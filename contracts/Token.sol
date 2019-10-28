@@ -29,8 +29,12 @@ contract Token is ERC20, Ownable {
         return 0;
     }
 
-    function bundle(address from, uint256 id, uint256 amount) public onlyOwner {
+    function bundle(address from, uint256 amount) public onlyOwner {
         _transfer(from, bundleAddress, amount);
+    }
+
+    function unbundle(address to, uint256 amount) public onlyOwner {
+        _transfer(bundleAddress, to, amount);
     }
 
     // test only

@@ -4,11 +4,14 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/utils/Address.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
+import "openzeppelin-solidity/contracts/drafts/Counters.sol";
 import "./Token.sol";
+import "./ERC721Incrementing.sol";
 
-contract BundleToken is ERC721Full, Ownable {
+contract BundleToken is ERC721Incrementing, Ownable {
     using Address for address;
+
+    enum Error {NONE, MATURITY, COLLATERAL}
 
     struct Bundle {
         address long;
@@ -16,32 +19,66 @@ contract BundleToken is ERC721Full, Ownable {
         address short;
         uint256 shortAmount;
         uint256 maturity;
+        uint256 created;
     }
 
     mapping(uint256 => Bundle) public bundles;
 
-    constructor () public ERC721Full("Bundle", "BNDL") { }
+    constructor () public ERC721Incrementing("Bundle", "BNDL") {}
 
-    function createPair(address long, uint256 longAmount, address short, uint256 shortAmount, uint256 maturity) public {
-        uint256 id = _mint(msg.sender, totalSupply());
-        Token shortToken = Token(short);
-        Token longToken = Token(long);
-        shortToken.bundle(msg.sender, id, shortAmount);
-        longToken.bundle(msg.sender, id, longAmount);
-        Bundle memory b = Bundle(long, longAmount, short, shortAmount, maturity);
+    function bundle(address long, uint256 longAmount, address short, uint256 shortAmount, uint256 maturity) public {
+        uint256 id = _mint(msg.sender);
+        Bundle memory b = Bundle(long, longAmount, short, shortAmount, maturity, now);
         bundles[id] = b;
+        Token(short).bundle(msg.sender, shortAmount);
+        Token(long).bundle(msg.sender, longAmount);
+        emit Bundled(id, msg.sender, long, longAmount, short, shortAmount, maturity);
     }
 
-    function bundle(uint id, address token, uint256 amount, uint256 maturity) public {
-        Bundle a = bundles[id];
-        require(a.maturity == 0 || a.maturity >= now);
-        Token shortToken = Token(a.short);
-        Token longToken = Token(a.long);
-        Token bundledToken = Token(token);
-        require(shortToken.valuate(shortAmount) < bundledToken.valuate(longAmount), "undercollaterized");
-        shortToken.bundle(msg.sender, id, shortAmount);
-        longToken.bundle(msg.sender, id, longAmount);
-        Bundle memory b = Bundle(long, longAmount, short, shortAmount, maturity);
-        bundles[id] = b;
+    function unbundle(uint256 id) public {
+        require(ownerOf(id) == msg.sender);
+        Bundle storage b = bundles[id];
+        Token(b.short).unbundle(msg.sender, b.shortAmount);
+        Token(b.long).unbundle(msg.sender, b.longAmount);
+        emit Unbundled(id, msg.sender);
     }
+
+    function check(uint256 id) public view returns (Error) {
+        Bundle storage b = bundles[id];
+        if (b.maturity == 0 || b.maturity >= now) return Error.MATURITY;
+        if (Token(b.short).valuate(b.shortAmount) < Token(b.short).valuate(b.longAmount)) return Error.MATURITY;
+        return Error.NONE;
+    }
+
+    function isValid(uint256 id) public view returns (bool) {
+        return Error.NONE == check(id);
+    }
+
+    function getBundle(uint256 id) public view returns (
+        address owner,
+        address long,
+        uint256 longAmount,
+        address short,
+        uint256 shortAmount,
+        uint256 maturity,
+        uint256 created
+    ) {
+        Bundle storage b = bundles[id];
+        return (ownerOf(id), b.long, b.longAmount, b.short, b.shortAmount, b.maturity, b.created);
+    }
+
+    event Bundled(
+        uint256 indexed id,
+        address by,
+        address indexed long,
+        uint256 longAmount,
+        address indexed short,
+        uint256 shortAmount,
+        uint256 maturity
+    );
+
+    event Unbundled(
+        uint256 indexed id,
+        address indexed by
+    );
 }
