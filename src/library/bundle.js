@@ -149,7 +149,7 @@ export const createBundlePreview = (
     };
 };
 
-export const createBundleDetail = ({ shortToken, longToken }) => {
+export const createBundleDetail = ({ shortToken, longToken, daysElapsed, shortPrice, longPrice }) => {
     // TODO
     return {
         longPositionYield: null,
