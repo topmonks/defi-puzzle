@@ -164,7 +164,7 @@ export default function DashboardScreen({
                             bundle={bundle}
                             draggable
                             onHoverChange={handlePuzzleHover(bundle)}
-                            onButtonClick={handleBundleUse(bundle)}
+                            onClick={handleBundleUse(bundle)}
                         />
                     ))}
                     {!bundles.length && (
