@@ -46,19 +46,23 @@ export default function ConfiguredBundlePreview({
         <div className="configured-bundle-preview">
             <Headline>This bundle represents</Headline>
             <table>
-                <thead>
-                    <tr>
-                        <th />
-                        <th>original</th>
-                        <th>simulation</th>
-                    </tr>
-                </thead>
+                {simulation && (
+                    <thead>
+                        <tr>
+                            <th />
+                            <th>original</th>
+                            <th>simulation</th>
+                        </tr>
+                    </thead>
+                )}
                 <tbody>
                     {lines.map(({ label, key }) => (
                         <tr key={key}>
                             <th>{label}</th>
                             <td>{detail?.[key] || '-'}</td>
-                            <td>{simulatedDetail?.[key] || '-'}</td>
+                            {simulation && (
+                                <td>{simulatedDetail?.[key] || '-'}</td>
+                            )}
                         </tr>
                     ))}
                 </tbody>

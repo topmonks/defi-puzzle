@@ -52,7 +52,7 @@ const initialState = {
     lastBundled: null,
     simulation: {
         elapsedDays: 30,
-        longTokenPrice: 200,
+        longTokenPrice: 1,
         shortTokenPrice: 1,
     },
 };

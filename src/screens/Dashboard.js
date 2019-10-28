@@ -224,7 +224,7 @@ export default function DashboardScreen({
                     prices={prices}
                     pricesCurrency={pricesCurrency}
                     compoudRates={compoudRates}
-                    simulation={simulation}
+                    simulation={configuratorBundleUsed ? simulation : undefined}
                 />
                 {configuratorBundleUsed && (
                     <BundleDetail
