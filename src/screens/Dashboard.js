@@ -178,7 +178,11 @@ export default function DashboardScreen({
             </div>
 
             <div className="dashboard-screen__headline">
-                <Headline primary>CREATE OR EDIT YOUR BUNDLE</Headline>
+                <Headline primary>
+                    {configuratorBundleUsed
+                        ? 'UNPACK YOUR BUNDLE'
+                        : 'CREATE YOUR BUNDLE'}
+                </Headline>
             </div>
             <div
                 className="dashboard-screen__configurator"
@@ -202,7 +206,9 @@ export default function DashboardScreen({
                     pricesCurrency={pricesCurrency}
                     compoudRates={compoudRates}
                 />
-                {configuratorBundleUsed && <BundleDetail />}
+                {configuratorBundleUsed && (
+                    <BundleDetail bundle={configuratorBundleUsed} />
+                )}
             </div>
             <div className="dashboard-screen__footline">
                 <p>
