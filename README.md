@@ -17,7 +17,7 @@ What we miss:
 * Brokerless advanced financial products, e.g. perpetual swaps with user-defined parameters. Perpetual swaps are one of the most popular instruments among traders and are one of the reasons why centralised, custodial exchanges like BitMEX are so popular. If we could create such financial products as a DeFi product, the systemic risk of custodial exchanges could be lowered.
 
 ## The Idea
-Advanced products like perpetual swaps can be constructed by bundling long and short tokens of various nominal amounts and asset types.
+Financial products like perpetual swaps can be constructed by bundling long and short tokens of various nominal amounts and asset types.
 Simple example:
 * Assume ETH price of $150
 * Bundle of {1 long ETH + 75 short DAI} => leveraged long position
