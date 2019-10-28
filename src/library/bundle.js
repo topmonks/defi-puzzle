@@ -48,13 +48,13 @@ const calculateLeverage = (tokens: PuzzleTokenType = [], prices) => {
                   1 -
                   (shortPrice * shortAmount) / (longPrice * longAmount)
               ).toFixed(2);
-
-    return formula({
+    const leverage = formula({
         shortPrice: prices[tokenCurrencyBase(shortToken)],
         shortAmount: shortToken.amount,
         longPrice: prices[tokenCurrencyBase(longToken)],
         longAmount: longToken.amount,
     }).toFixed(2);
+    return isFinite(leverage) ? leverage : "N/A";
 };
 
 const calulateNetValue = (tokens = [], prices = {}, currency) => {
@@ -75,7 +75,7 @@ const calulateNetValue = (tokens = [], prices = {}, currency) => {
         longAmount: longToken.amount,
     }).toFixed(2);
 
-    return value + ' ' + currency;
+    return (Number(value) === -0 ? "0.00" : value) + ' ' + currency;
 };
 
 const calculateBundleCollatRatio = (tokens = [], prices = {}) => {
