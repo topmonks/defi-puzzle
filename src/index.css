@@ -438,6 +438,9 @@ p {
     margin: 16px 0;
     transition: border-color 200ms ease-in-out;
 }
+.puzzle-input__droparea:not(:empty) {
+    border-style: solid;
+}
 .puzzle-input__droparea--highlighted {
     border-color: var(--c-primary-active);
 }
