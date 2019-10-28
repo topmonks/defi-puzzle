@@ -1,5 +1,5 @@
 # DeFi Puzzle
-Lets users create advanced financial products such as leveraged positions by combining their existing money market (eg. Compound) positions.
+Lets users create custom financial bundles such as leveraged positions by combining their existing money market (eg. Compound) positions.
 
 *App submitted as a part of Kyber virtual hackathon is for simulation purposes only.*
 
