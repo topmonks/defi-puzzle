@@ -285,7 +285,7 @@ export default {
 
         try {
             const [ceth, cdai] = await getRates();
-            console.log({cdai, ceth});
+            console.log({ cdai, ceth });
             return {
                 compoudRates: {
                     'L-ETH': Number(ceth.supply_rate.value),
@@ -295,7 +295,10 @@ export default {
                 },
             };
         } catch (error) {
-            console.error('Cannot load current rates from compound, using static', error);
+            console.error(
+                'Cannot load current rates from compound, using static',
+                error,
+            );
             return {
                 compoudRates: {
                     'L-ETH': 0.1498,
@@ -572,7 +575,12 @@ export default {
     }) => {
         // unbundleCost se odecte a long se vrati do callet
         // flippening
-        // const { long: longToken, short: shortToken } = configuratorTokens;
+        const longToken = configuratorBundleUsed.tokens.find(
+            token => token.type === 'long',
+        );
+        const shortToken = configuratorBundleUsed.tokens.find(
+            token => token.type === 'short',
+        );
 
         setTimeout(() => {
             // const configuratorTokens = ;
@@ -590,7 +598,23 @@ export default {
                 ),
                 // TODO: decrement by unbundleCost and increment by longPositionYield
                 tokens: tokens.map(token => {
-                    // if (token.cur)
+                    if (token.currency === longToken.currency) {
+                        return {
+                            ...token,
+                            usedAmount: 0,
+                            amount:
+                                Number(token.amount) + Number(longToken.amount),
+                        };
+                    }
+                    if (token.currency === flippening(shortToken.currency)) {
+                        return {
+                            ...token,
+                            usedAmount: 0,
+                            amount:
+                                Number(token.amount) -
+                                Number(detail.unbundleCostValue),
+                        };
+                    }
                     return token;
                 }),
                 unbundling: false,
