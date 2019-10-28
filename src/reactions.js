@@ -280,18 +280,20 @@ export default {
     LoadCompoundRates: async () => {
         const getRates = async () =>
             (await (await fetch(
-                `https://api.compound.finance/api/v2/ctoken?addresses[]=0xf5dce57282a584d2746faf1593d3121fcac444dc&addresses[]=0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5`,
+                `https://api.compound.finance/api/v2/ctoken?addresses[]=0xf5dce57282a584d2746faf1593d3121fcac444dc&addresses[]=0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5&addresses[]=0xc11b1268c1a384e55c48c2391d8d480264a3a7f4`,
             )).json())?.cToken;
 
         try {
-            const [ceth, cdai] = await getRates();
-            console.log({ cdai, ceth });
+            const [ceth, cdai, cwbtc] = await getRates();
+            console.log({ cdai, ceth, cwbtc });
             return {
                 compoudRates: {
                     'L-ETH': Number(ceth.supply_rate.value),
-                    'L-DAI': Number(cdai.borrow_rate.value),
+                    'L-DAI': Number(cdai.supply_rate.value),
+                    'L-WBTC': Number(cwbtc.supply_rate.value),
                     'S-ETH': Number(ceth.borrow_rate.value),
                     'S-DAI': Number(cdai.borrow_rate.value),
+                    'S-WBTC': Number(cwbtc.borrow_rate.value),
                 },
             };
         } catch (error) {
