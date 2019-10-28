@@ -349,12 +349,10 @@ export default {
             // So firstly empty occupied slot,
             if (currentState.configuratorBundleUsed) {
                 window.__debug = true;
-                update({
-                    configuratorTokens: {
-                        long: null,
-                        short: null,
-                    },
-                });
+                // dispatch('ConfiguratorRemoveToken', token
+                console.log(
+                    'Click to replace bundle scenario not implemented yet',
+                );
             } else {
                 update({
                     configuratorTokens: {
@@ -418,12 +416,10 @@ export default {
             dispatch('ConfiguratorTokenChange', {
                 token: configuratorTokens.long,
                 remove: true,
-                bundle: { tokens: configuratorTokens },
             });
             dispatch('ConfiguratorTokenChange', {
                 token: configuratorTokens.short,
                 remove: true,
-                bundle: { tokens: configuratorTokens },
             });
         } else {
             dispatch('ConfiguratorTokenChange', { token, remove: true });
