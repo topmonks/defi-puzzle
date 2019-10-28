@@ -45,9 +45,35 @@ export default function DashboardScreen({
             dispatch('ConfiguratorUseBundle', { bundle, template });
         }
     };
+    const handleTokenUse = token => async () => {
+        if (configuratorBundleUsed) {
+            await dispatch('ConfiguratorRemoveBundle', {
+                bundle: configuratorBundleUsed,
+            });
+        }
+        dispatch('ConfiguratorTokenChange', { token });
+    };
+    const handleTemplateUse = template => async () => {
+        if (configuratorBundleUsed) {
+            await dispatch('ConfiguratorRemoveBundle', {
+                bundle: configuratorBundleUsed,
+            });
+        }
+        template.tokens.forEach(token => {
+            dispatch('ConfiguratorTokenChange', {
+                token,
+                template: true,
+            });
+        });
+    };
     const handleRemoveToken = token => {
-        // In case of bundle remove both tokens
-        dispatch('ConfiguratorRemoveToken', { token });
+        if (configuratorBundleUsed) {
+            dispatch('ConfiguratorRemoveBundle', {
+                bundle: configuratorBundleUsed,
+            });
+        } else {
+            dispatch('ConfiguratorRemoveToken', { token });
+        }
     };
     const handleConfigurationSubmit = () => {
         dispatch('ChangeModal', {
@@ -95,11 +121,7 @@ export default function DashboardScreen({
                                 token={token}
                                 draggable
                                 onHoverChange={handlePuzzleHover(token)}
-                                onClick={() => {
-                                    dispatch('ConfiguratorTokenChange', {
-                                        token,
-                                    });
-                                }}
+                                onClick={handleTokenUse(token)}
                             />
                         ))}
                 </section>
@@ -114,11 +136,7 @@ export default function DashboardScreen({
                                 token={token}
                                 draggable
                                 onHoverChange={handlePuzzleHover(token)}
-                                onClick={() => {
-                                    dispatch('ConfiguratorTokenChange', {
-                                        token,
-                                    });
-                                }}
+                                onClick={handleTokenUse(token)}
                             />
                         ))}
                 </section>
@@ -131,6 +149,8 @@ export default function DashboardScreen({
                             draggable
                             onHoverChange={handlePuzzleHover(bundle)}
                             onButtonClick={() => {
+                                // FIXME: rewrite to dispatch('ConfiguratorUseBundle')
+
                                 bundle.tokens.forEach(token => {
                                     dispatch('ConfiguratorTokenChange', {
                                         token,
@@ -204,14 +224,7 @@ export default function DashboardScreen({
                                 bundle={template}
                                 template
                                 onHoverChange={handlePuzzleHover(template)}
-                                onClick={() => {
-                                    template.tokens.forEach(token => {
-                                        dispatch('ConfiguratorTokenChange', {
-                                            token,
-                                            template: true,
-                                        });
-                                    });
-                                }}
+                                onClick={handleTemplateUse(template)}
                             />
                         </div>
                     ))}

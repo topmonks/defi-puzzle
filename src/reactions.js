@@ -346,21 +346,22 @@ export default {
 
         // When some token in configurator already is, we need to swap them
         if (Boolean(currentConfigurationToken)) {
-            // So firstly empty occupied slot,
-            if (currentState.configuratorBundleUsed) {
-                window.__debug = true;
-                // dispatch('ConfiguratorRemoveToken', token
-                console.log(
-                    'Click to replace bundle scenario not implemented yet',
-                );
-            } else {
-                update({
-                    configuratorTokens: {
-                        ...currentState.configuratorTokens,
-                        [currentConfigurationToken.type]: null,
-                    },
-                });
-            }
+            // So firstly empty occupied slot
+            update(
+                bundle || template
+                    ? {
+                          configuratorTokens: {
+                              short: null,
+                              long: null,
+                          },
+                      }
+                    : {
+                          configuratorTokens: {
+                              ...currentState.configuratorTokens,
+                              [currentConfigurationToken.type]: null,
+                          },
+                      },
+            );
 
             // returns used amounts back (if not bundle)
             if (!bundle || template) {
@@ -397,33 +398,21 @@ export default {
         };
     },
 
-    ConfiguratorUseBundle: ({ payload: { bundle, template }, dispatch }) => {
-        bundle.tokens.forEach(token => {
-            dispatch('ConfiguratorTokenChange', {
-                token,
-                template,
-                bundle,
-            });
+    ConfiguratorRemoveToken: ({ payload: { token }, dispatch }) => {
+        dispatch('ConfiguratorTokenChange', {
+            token,
+            remove: true,
         });
     },
 
-    ConfiguratorRemoveToken: ({
-        payload: { token },
-        currentState: { configuratorBundleUsed, configuratorTokens },
-        dispatch,
-    }) => {
-        if (configuratorBundleUsed) {
+    ConfiguratorRemoveBundle: async ({ payload: { bundle }, dispatch }) => {
+        return bundle.tokens.map(token =>
             dispatch('ConfiguratorTokenChange', {
-                token: configuratorTokens.long,
+                token,
                 remove: true,
-            });
-            dispatch('ConfiguratorTokenChange', {
-                token: configuratorTokens.short,
-                remove: true,
-            });
-        } else {
-            dispatch('ConfiguratorTokenChange', { token, remove: true });
-        }
+                bundle,
+            }),
+        );
     },
 
     Bundle: async ({
@@ -491,7 +480,7 @@ export default {
                 lastBundled: bundle,
                 configuratorBundleUsed: false,
             });
-        }, 10000);
+        }, 1000);
     },
 
     RefreshBundling: ({ dispatch }) => {
