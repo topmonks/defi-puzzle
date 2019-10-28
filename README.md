@@ -3,6 +3,8 @@ Lets users create advanced financial products such as leveraged positions by com
 
 *App submitted as a part of Kyber virtual hackathon is for simulation purposes only.*
 
+Kyber hackathon submission: https://devpost.com/software/defi-puzzle
+
 ## Motivation: The Missing Piece of the Puzzle
 What we have:
 * Decentralised money markets (Compound, dYdX…)
