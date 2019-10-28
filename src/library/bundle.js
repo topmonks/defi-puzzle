@@ -150,6 +150,10 @@ export const createBundlePreview = (
 };
 
 export const createBundleDetail = ({ shortToken, longToken }) => {
-    console.log({ shortToken, longToken });
-    //
+    // TODO
+    return {
+        longPositionYield: null,
+        shortPositionCost: null,
+        unbundleCost: null,
+    };
 };
