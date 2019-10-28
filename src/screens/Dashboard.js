@@ -42,31 +42,12 @@ export default function DashboardScreen({
         const bundle = parseFromEvent('bundle')(event);
 
         if (bundle) {
-            bundle.tokens.forEach(token => {
-                dispatch('ConfiguratorTokenChange', {
-                    token,
-                    template,
-                    bundle,
-                });
-            });
+            dispatch('ConfiguratorUseBundle', { bundle, template });
         }
     };
     const handleRemoveToken = token => {
         // In case of bundle remove both tokens
-        if (configuratorBundleUsed) {
-            dispatch('ConfiguratorTokenChange', {
-                token: configuratorTokens.short,
-                remove: true,
-                bundle: configuratorBundleUsed,
-            });
-            dispatch('ConfiguratorTokenChange', {
-                token: configuratorTokens.long,
-                remove: true,
-                bundle: configuratorBundleUsed,
-            });
-        } else {
-            dispatch('ConfiguratorTokenChange', { token, remove: true });
-        }
+        dispatch('ConfiguratorRemoveToken', { token });
     };
     const handleConfigurationSubmit = () => {
         dispatch('ChangeModal', {

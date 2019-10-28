@@ -39,7 +39,10 @@ export default function createStore(initialState = {}, callback = () => {}) {
                 payload,
                 context: _context,
                 dispatch,
-                currentState: _state,
+                get currentState() {
+                    console.log(_state.configuratorTokens);
+                    return _state;
+                },
                 update: updates => update(updates).then(resolve),
             });
 
