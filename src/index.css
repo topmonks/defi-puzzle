@@ -436,13 +436,25 @@ input[type='number'] {
 
 .puzzle-input__headline {
     border-bottom: 2px solid var(--c-background);
-    padding-bottom: 16px;
+    padding-bottom: 8px;
     margin-bottom: 20px;
     display: flex;
 }
 .puzzle-input__headline__label {
     display: block;
     flex: 1;
+}
+.puzzle-input__headline__remove button {
+    width: 24px;
+    height: 24px;
+    padding: 16px;
+    text-indent: -200000px;
+    background: url('./assets/icon-trash-active.svg') no-repeat center center;
+    border: 0 none;
+}
+
+.input__headline__remove--inactive button {
+    background-image: url('./assets/icon-trash-inactive.svg');
 }
 
 .puzzle-input__droparea {

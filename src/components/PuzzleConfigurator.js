@@ -23,7 +23,12 @@ export const PuzzleInput = ({
         <section className="puzzle-input">
             <div className="puzzle-input__headline">
                 <span className="puzzle-input__headline__label">{label}</span>
-                <div className="puzzle-input__headline__remove">
+                <div
+                    className={cn(
+                        'puzzle-input__headline__remove',
+                        !token && 'input__headline__remove--inactive',
+                    )}
+                >
                     <button onClick={handleRemove} disabled={!token}>
                         remove
                     </button>
