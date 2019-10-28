@@ -65,7 +65,11 @@ Because when we have both long and short tokens, we can bundle them as advanced 
 **Creating a Perpetual swap bundle - Workflow:**
 
 _Assumption_: 1 ETH = $150
+
+
 _Goal_: construct Pure ETH Upside bundle with DeFi Puzzle (1 L-ETH + 150 S-DAI)
+
+
 _Starting user wealth_: 2 ETH (=$300)
 
 ### I Compound steps
