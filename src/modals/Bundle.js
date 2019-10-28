@@ -73,11 +73,13 @@ export default function BundleModal({
                 <p className="bundle-modal__description">
                     You created a bundle of{' '}
                     <span className="color-long">
-                        {longToken.amount} {longToken.currency}
+                        {longToken.usedAmount || longToken.amount}{' '}
+                        {longToken.currency}
                     </span>{' '}
                     and{' '}
                     <span className="color-short">
-                        {shortToken.amount} {shortToken.currency}
+                        {shortToken.usedAmount || shortToken.amount}{' '}
+                        {shortToken.currency}
                     </span>
                     . You can now find your custom financial product in a form
                     of non-fungible token in your wallet.”
