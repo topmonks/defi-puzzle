@@ -157,6 +157,8 @@ export const createBundlePreview = (
     };
 };
 
+export const flippening = currency => currency[0] === "S" ? "L" + currency.substr(1) : "S" + currency.substr(1);
+
 export const createBundleDetail = ({
     bundle,
     simulation,
@@ -167,16 +169,18 @@ export const createBundleDetail = ({
     const longToken = bundle.tokens.find(tokenByType('long'));
 
     const elapsedBlocks = simulation?.elapsedDays * 5760;
-    console.log({ shortToken, longToken, simulation, elapsedBlocks, prices });
+    console.log({ shortToken, longToken, simulation, elapsedBlocks, prices, compoudRates });
 
-    // daysElapsed,
-    // shortPrice,
-    // longPrice,
+    const formula = (token, blocks) =>
+        (token.amount * Math.pow(1+(compoudRates[token.currency] / 2102400), blocks-1)) - token.amount;
 
-    // TODO
+    const shortCost = formula(shortToken, elapsedBlocks);
+    const unbundleCostValue = shortCost + shortToken.amount;
+
     return {
-        longPositionYield: null,
-        shortPositionCost: null,
-        unbundleCost: null,
+        longPositionYield: formula(longToken, elapsedBlocks).toFixed(2) + " " + longToken.currency,
+        shortPositionCost: shortCost.toFixed(2) + " " + shortToken.currency,
+        unbundleCost: unbundleCostValue.toFixed(2) + " " + flippening(shortToken.currency),
+        unbundleCostValue,
     };
 };

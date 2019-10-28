@@ -8,6 +8,7 @@ import PuzzleConfigurator from '../components/PuzzleConfigurator';
 import ConfiguredBundlePreview from '../components/ConfiguredBundlePreview';
 import BundleDetail from '../components/BundleDetail';
 import PuzzleConfiguratorSimulation from '../components/PuzzleConfiguratorSimulation';
+import {createBundleDetail} from "../library/bundle";
 
 const parseFromEvent = type => event =>
     JSON.parse(event.dataTransfer.getData(type) || 'null');
@@ -124,6 +125,13 @@ export default function DashboardScreen({
         });
     };
 
+    const detail = createBundleDetail({
+        bundle: configuratorBundleUsed,
+        simulation,
+        compoudRates,
+        prices,
+    });
+
     return (
         <div className="dashboard-screen">
             <div className="dashboard-screen__tokens">
@@ -232,10 +240,7 @@ export default function DashboardScreen({
                 />
                 {configuratorBundleUsed && (
                     <BundleDetail
-                        bundle={configuratorBundleUsed}
-                        simulation={simulation}
-                        prices={prices}
-                        compoudRates={compoudRates}
+                        detail={detail}
                     />
                 )}
             </div>

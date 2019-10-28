@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import IconCheck from '../assets/icon-check.svg';
 import IconPuzzle from '../assets/icon-puzzle.svg';
 import BundleDetail from '../components/BundleDetail';
+import {createBundleDetail} from "../library/bundle";
 
 export default function UnbundleModal({
     dispatch,
@@ -19,6 +20,13 @@ export default function UnbundleModal({
     const closeModal = () => {
         dispatch('ChangeModal', null);
     };
+
+    const detail = createBundleDetail({
+      bundle: configuratorBundleUsed,
+      simulation,
+      compoudRates,
+      prices,
+    });
 
     return (
         <div className="bundle-modal">
@@ -37,10 +45,7 @@ export default function UnbundleModal({
             <Headline modal>Waiting for confirmation</Headline>
             <p className="bundle-modal__description">Not yet implemented.</p>
             <BundleDetail
-                bundle={configuratorBundleUsed}
-                prices={prices}
-                compoudRates={compoudRates}
-                simulation={simulation}
+                detail={detail}
             />
             <div className="bundle-modal__bottom">
                 <Button onClick={closeModal} simple secondary>
@@ -52,7 +57,7 @@ export default function UnbundleModal({
                         console.warn('Not yet implemented.');
                     }}
                 >
-                    Unbundle and pay 1.01 L-ETH
+                    Unbundle and pay {detail.unbundleCost}
                 </Button>
             </div>
         </div>
