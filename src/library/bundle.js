@@ -37,7 +37,9 @@ const calculateLeverage = (tokens: PuzzleTokenType = [], prices) => {
 
     // TODO: use sum in future sum(shortPrice * shortAmount), sum(longPrice * longAmount)
     const formula = ({ shortPrice, shortAmount, longPrice, longAmount }) =>
-        1 / (1 - (shortPrice * shortAmount) / (longPrice * longAmount));
+        shortToken.assetType === 'speculative'
+            ? -1 / (1 - (longPrice * longAmount) / (shortPrice * shortAmount))
+            : 1 / (1 - (shortPrice * shortAmount) / (longPrice * longAmount));
 
     return formula({
         shortPrice: prices[tokenCurrencyBase(shortToken)],
