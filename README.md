@@ -68,15 +68,26 @@ _Assumption_: 1 ETH = $150
 _Goal_: construct Pure ETH Upside bundle with DeFi Puzzle (1 L-ETH + 150 S-DAI)
 _Starting user wealth_: 2 ETH (=$300)
 
-# I Compound steps
+### I Compound steps
 
 
 1) deposit 2 ETH => receive 2 L-ETH; allow usage as collateral, enable borrowing
-2) borrow 150 DAI => receive 150 L-DAI & 150 S-DAI; 
-(!differences vs current Compound workflow: i. user borrows long tokens, not underlying assets themselves; ii. L-tokens and S-tokens in same nominal as underlying assets)
-Collateralization: 300 % = (2 L-ETH + 150 L-DAI) / 150 S-DAI
+2) borrow 150 DAI => receive 150 L-DAI & 150 S-DAI
 
-# II DeFi Puzzle steps
+
+*User collateralization: 300 % = (2 L-ETH + 150 L-DAI) / 150 S-DAI*
+
+
+(!differences vs current Compound workflow: 
+
+
+i. user borrows long tokens, not underlying assets themselves; 
+
+
+ii. L-tokens and S-tokens in same nominal as underlying assets)
+
+
+### II DeFi Puzzle steps
 
 
 3) Select Pure ETH Upside template => 1 L-ETH+150 S-DAI
@@ -84,12 +95,14 @@ Collateralization: 300 % = (2 L-ETH + 150 L-DAI) / 150 S-DAI
 User assets: 1 L-ETH + 150 L-DAI + Pure ETH Upside NFT
 
 Q: should user keep his 150 L-DAI?
+
+
 A: depends on user profile. 150 L-DAI acts as a safe collateral as it’s not a price volatile asset. Also it yields positive interest, bringing down the APR cost of the operation. If the user has more appetite for risk, he can change the L-DAI to L-ETH, increasing his exposure to ETH price moves (increasing both potential profit and risk).
 
 
-**Such a contract is custom, non-custodial, trustless, brokerless.**
+**User-created bundles are a custom, non-custodial, trustless, brokerless financial products.**
 
 
-**Since the resulting bundles are Ethereum NFTs, such financial products can be traded and integrated into other DeFi projects, such as DEXes.**
+**Since the bundles are Ethereum NFTs, such financial products can be traded and integrated into other DeFi projects, such as DEXes.**
 
 
