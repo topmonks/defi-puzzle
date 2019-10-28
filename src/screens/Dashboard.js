@@ -6,6 +6,7 @@ import PuzzleBundle from '../components/PuzzleBundle';
 import TokenPrice from '../components/TokenPrice';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
 import ConfiguredBundlePreview from '../components/ConfiguredBundlePreview';
+import BundleDetail from '../components/BundleDetail';
 
 const parseFromEvent = type => event =>
     JSON.parse(event.dataTransfer.getData(type) || 'null');
@@ -200,6 +201,7 @@ export default function DashboardScreen({
                     pricesCurrency={pricesCurrency}
                     compoudRates={compoudRates}
                 />
+                {configuratorBundleUsed && <BundleDetail />}
             </div>
             <div className="dashboard-screen__footline">
                 <p>

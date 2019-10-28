@@ -555,7 +555,6 @@ p {
 .configured-bundle-preview > table {
     width: 100%;
 }
-
 .configured-bundle-preview > table th,
 .configured-bundle-preview > table td {
     text-align: left;
@@ -564,7 +563,29 @@ p {
     font-size: 16px;
     line-height: 22px;
 }
-
 .configured-bundle-preview > table td {
     text-align: right;
+}
+
+.bundle-detail__line {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.bundle-detail__label {
+    flex: 1;
+    line-height: 24px;
+}
+.bundle-detail__value {
+    text-align: right;
+    line-height: 24px;
+}
+.dashboard-screen__configurator .bundle-detail {
+    padding: 24px 0;
+    margin: 24px 0;
+    border-top: 1px solid var(--c-background);
+    border-bottom: 1px solid var(--c-background);
+}
+.bundle-modal .bundle-detail {
+    padding: 16px;
 }

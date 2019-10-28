@@ -307,6 +307,7 @@ export default {
                     ...currentState.configuratorTokens,
                     [token.type]: null,
                 },
+                configuratorBundleUsed: false,
             };
         }
 
