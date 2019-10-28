@@ -187,7 +187,7 @@ export default function DashboardScreen({
                 <section>
                     <Headline secondary>Simulation</Headline>
                     <button onClick={() => dispatch('ResetSimulation')}>
-                        RESET
+                        RESET SIMULATION
                     </button>
                 </section>
             </div>
