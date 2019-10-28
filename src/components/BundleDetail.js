@@ -3,6 +3,7 @@ import React from 'react';
 import { createBundleDetail } from '../library/bundle';
 
 export default function BundleDetail({ bundle = {} }) {
+    // console.log(bundle);
     const detail = createBundleDetail(bundle);
     return (
         <div className="bundle-detail">

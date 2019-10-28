@@ -26,6 +26,7 @@ export default function ConfiguredBundlePreview({
     prices,
     pricesCurrency,
     compoudRates,
+    simulation,
 }) {
     const detail = useMemo(() => {
         return createBundlePreview(
@@ -34,15 +35,30 @@ export default function ConfiguredBundlePreview({
         );
     }, [bundleTokens, walletTokens, prices, pricesCurrency, compoudRates]);
 
+    const simulatedDetail = useMemo(() => {
+        return createBundlePreview(
+            { bundleTokens, walletTokens },
+            { simulation, pricesCurrency, compoudRates },
+        );
+    }, [bundleTokens, walletTokens, simulation, pricesCurrency, compoudRates]);
+
     return !detail ? null : (
         <div className="configured-bundle-preview">
             <Headline>This bundle represents</Headline>
             <table>
+                <thead>
+                    <tr>
+                        <th />
+                        <th>original</th>
+                        <th>simulation</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {lines.map(({ label, key }) => (
                         <tr key={key}>
                             <th>{label}</th>
                             <td>{detail?.[key] || '-'}</td>
+                            <td>{simulatedDetail?.[key] || '-'}</td>
                         </tr>
                     ))}
                 </tbody>

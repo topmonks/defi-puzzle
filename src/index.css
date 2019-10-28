@@ -30,6 +30,15 @@ p {
     color: var(--c-font-color);
 }
 
+input[type='text'],
+input[type='number'] {
+    background: #f5f6fa;
+    border-radius: 4px;
+    border: 0 none;
+    padding: 4px 6px;
+    width: auto;
+}
+
 .color-long {
     color: var(--c-long-token);
 }
@@ -381,6 +390,7 @@ p {
 .puzzle-token__currency,
 .puzzle-bundle__token__currency {
     margin-left: 8px;
+    white-space: nowrap;
 }
 
 .puzzle-bundle {
@@ -565,6 +575,11 @@ p {
 }
 .configured-bundle-preview > table td {
     text-align: right;
+    font-weight: 400;
+}
+.configured-bundle-preview thead th {
+    text-align: right;
+    /* font-weight: 400; */
 }
 
 .bundle-detail__line {
@@ -588,4 +603,21 @@ p {
 }
 .bundle-modal .bundle-detail {
     padding: 16px;
+}
+
+.puzzle-configuration-simulation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+.puzzle-configuration-simulation label {
+    display: block;
+}
+.puzzle-configuration-simulation label span {
+    padding-right: 8px;
+}
+.puzzle-configuration-simulation input {
+    max-width: 64px;
+    box-sizing: border-box;
 }

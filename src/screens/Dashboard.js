@@ -7,6 +7,7 @@ import TokenPrice from '../components/TokenPrice';
 import PuzzleConfigurator from '../components/PuzzleConfigurator';
 import ConfiguredBundlePreview from '../components/ConfiguredBundlePreview';
 import BundleDetail from '../components/BundleDetail';
+import PuzzleConfiguratorSimulation from '../components/PuzzleConfiguratorSimulation';
 
 const parseFromEvent = type => event =>
     JSON.parse(event.dataTransfer.getData(type) || 'null');
@@ -22,6 +23,7 @@ export default function DashboardScreen({
     configuratorBundleUsed,
     compoudRates,
     configuratorHighlightTokenInputs,
+    simulation,
     dispatch,
 }: {
     tokens: PuzzleTokenType[],
@@ -204,15 +206,31 @@ export default function DashboardScreen({
                     fromTemplate={configuratorTemplateUsed}
                     fromBundle={configuratorBundleUsed}
                 />
+                {configuratorBundleUsed && (
+                    <>
+                        <Headline>Simulation settings</Headline>
+                        <PuzzleConfiguratorSimulation
+                            bundle={configuratorBundleUsed}
+                            simulation={simulation}
+                            onSimulationChange={simulation => {
+                                dispatch('ChangeSimulation', simulation);
+                            }}
+                        />
+                    </>
+                )}
                 <ConfiguredBundlePreview
                     bundleTokens={configuredBundleTokens}
                     walletTokens={tokens}
                     prices={prices}
                     pricesCurrency={pricesCurrency}
                     compoudRates={compoudRates}
+                    simulation={simulation}
                 />
                 {configuratorBundleUsed && (
-                    <BundleDetail bundle={configuratorBundleUsed} />
+                    <BundleDetail
+                        bundle={configuratorBundleUsed}
+                        simulation={simulation}
+                    />
                 )}
             </div>
             <div className="dashboard-screen__footline">

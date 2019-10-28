@@ -50,6 +50,11 @@ const initialState = {
     },
     bundling: false,
     lastBundled: null,
+    simulation: {
+        elapsedDays: 30,
+        longTokenPrice: 200,
+        shortTokenPrice: 1,
+    },
 };
 
 export const getInitialState = () => {
@@ -545,5 +550,11 @@ export default {
         currentState: { configuratorTokens },
     }) => {
         // const { long: longToken, short: shortToken } = configuratorTokens;
+    },
+
+    ChangeSimulation: ({ payload: simulation }) => {
+        return {
+            simulation,
+        };
     },
 };

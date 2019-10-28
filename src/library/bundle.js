@@ -131,10 +131,18 @@ const getCompoundRate = type => (tokens = [], compoudRates = {}) => {
 
 export const createBundlePreview = (
     { bundleTokens, walletTokens },
-    { prices, pricesCurrency, compoudRates },
+    { prices = {}, simulation, pricesCurrency, compoudRates },
 ) => {
     if (bundleTokens.length !== 2) {
         return null;
+    }
+
+    if (simulation) {
+        const shortToken = bundleTokens.find(tokenByType('short'));
+        const longToken = bundleTokens.find(tokenByType('long'));
+        // cons
+        prices[tokenCurrencyBase(shortToken)] = simulation.shortTokenPrice;
+        prices[tokenCurrencyBase(longToken)] = simulation.longTokenPrice;
     }
 
     return {
@@ -149,7 +157,13 @@ export const createBundlePreview = (
     };
 };
 
-export const createBundleDetail = ({ shortToken, longToken, daysElapsed, shortPrice, longPrice }) => {
+export const createBundleDetail = ({
+    shortToken,
+    longToken,
+    daysElapsed,
+    shortPrice,
+    longPrice,
+}) => {
     // TODO
     return {
         longPositionYield: null,
