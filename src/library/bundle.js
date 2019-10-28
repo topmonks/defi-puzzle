@@ -54,7 +54,7 @@ const calculateLeverage = (tokens: PuzzleTokenType = [], prices) => {
         longPrice: prices[tokenCurrencyBase(longToken)],
         longAmount: longToken.amount,
     }).toFixed(2);
-    return isFinite(leverage) ? leverage : "N/A";
+    return isFinite(leverage) ? leverage : 'N/A';
 };
 
 const calulateNetValue = (tokens = [], prices = {}, currency) => {
@@ -75,7 +75,7 @@ const calulateNetValue = (tokens = [], prices = {}, currency) => {
         longAmount: longToken.amount,
     }).toFixed(2);
 
-    return (Number(value) === -0 ? "0.00" : value) + ' ' + currency;
+    return (Number(value) === -0 ? '0.00' : value) + ' ' + currency;
 };
 
 const calculateBundleCollatRatio = (tokens = [], prices = {}) => {
@@ -158,12 +158,21 @@ export const createBundlePreview = (
 };
 
 export const createBundleDetail = ({
-    shortToken,
-    longToken,
-    daysElapsed,
-    shortPrice,
-    longPrice,
+    bundle,
+    simulation,
+    compoudRates,
+    prices,
 }) => {
+    const shortToken = bundle.tokens.find(tokenByType('short'));
+    const longToken = bundle.tokens.find(tokenByType('long'));
+
+    const elapsedBlocks = simulation?.elapsedDays * 5760;
+    console.log({ shortToken, longToken, simulation, elapsedBlocks, prices });
+
+    // daysElapsed,
+    // shortPrice,
+    // longPrice,
+
     // TODO
     return {
         longPositionYield: null,

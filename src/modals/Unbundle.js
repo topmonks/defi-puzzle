@@ -7,7 +7,13 @@ import IconCheck from '../assets/icon-check.svg';
 import IconPuzzle from '../assets/icon-puzzle.svg';
 import BundleDetail from '../components/BundleDetail';
 
-export default function UnbundleModal({ dispatch, configuratorBundleUsed }) {
+export default function UnbundleModal({
+    dispatch,
+    configuratorBundleUsed,
+    prices,
+    compoudRates,
+    simulation,
+}) {
     const [confirm, pending, success] = [true, false, false];
 
     const closeModal = () => {
@@ -30,7 +36,12 @@ export default function UnbundleModal({ dispatch, configuratorBundleUsed }) {
             </div>
             <Headline modal>Waiting for confirmation</Headline>
             <p className="bundle-modal__description">Not yet implemented.</p>
-            <BundleDetail bundle={configuratorBundleUsed} />
+            <BundleDetail
+                bundle={configuratorBundleUsed}
+                prices={prices}
+                compoudRates={compoudRates}
+                simulation={simulation}
+            />
             <div className="bundle-modal__bottom">
                 <Button onClick={closeModal} simple secondary>
                     Cancel

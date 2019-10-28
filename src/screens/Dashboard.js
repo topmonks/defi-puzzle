@@ -231,6 +231,8 @@ export default function DashboardScreen({
                     <BundleDetail
                         bundle={configuratorBundleUsed}
                         simulation={simulation}
+                        prices={prices}
+                        compoudRates={compoudRates}
                     />
                 )}
             </div>
