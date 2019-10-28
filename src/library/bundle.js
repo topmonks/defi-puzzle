@@ -169,7 +169,6 @@ export const createBundleDetail = ({
     const longToken = bundle.tokens.find(tokenByType('long'));
 
     const elapsedBlocks = simulation?.elapsedDays * 5760;
-    console.log({ shortToken, longToken, simulation, elapsedBlocks, prices, compoudRates });
 
     const formula = (token, blocks) =>
         (token.amount * Math.pow(1+(compoudRates[token.currency] / 2102400), blocks-1)) - token.amount;
