@@ -33,13 +33,15 @@ Long tokens:
 * Represent money market deposit
 * Accumulate positive interest over time
 * Compound cTokens are essentialy long tokens (https://compound.finance/ctokens)
+* Same nominal amount as the underlying asset (interest rate is accrued through increasing nominal amount of held Long tokens)
 * nomenclature: e.g. long DAI = L-DAI
 
 
 Short tokens:
 * Represent money market liability
 * Accumulate negative interest over time
-* nomenclature: e.g. short DAI = sDAI
+* Same nominal amount as the underlying asset (interest rate is accrued through increasing nominal amount of held Short tokens)
+* nomenclature: e.g. short DAI = S-DAI
 
 
 ## Short Tokens ELI5
