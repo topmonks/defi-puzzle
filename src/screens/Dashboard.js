@@ -62,7 +62,7 @@ export default function DashboardScreen({
         template.tokens.forEach(token => {
             dispatch('ConfiguratorTokenChange', {
                 token,
-                template: true,
+                template,
             });
         });
     };

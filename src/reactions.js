@@ -32,7 +32,8 @@ const initialState = {
         ETH: 0,
         DAI: 0,
     },
-    configuratorTemplateUsed: false,
+    configuratorTemplateUsed: null,
+    configuratorBundleUsed: null,
     configuratorTokens: {
         long: null,
         short: null,
@@ -225,6 +226,29 @@ export default {
         };
     },
 
+    RecalculateUsedTemplate: ({
+        update,
+        payload: { changedToken },
+        currentState: { configuratorTemplateUsed, configuratorTokens, prices },
+    }) => {
+        const stableToken = configuratorTemplateUsed.tokens.find(
+            token => token.assetType === 'stable',
+        );
+
+        update({
+            configuratorTokens: {
+                [changedToken.type]: changedToken,
+                [stableToken.type]: {
+                    ...stableToken,
+                    usedAmount: (
+                        (changedToken.usedAmount * prices.ETH) /
+                        prices.DAI
+                    ).toFixed(2),
+                },
+            },
+        });
+    },
+
     LoadCurrentPrices: async ({
         currentState: { pricesCurrency: currency },
     }) => {
@@ -323,14 +347,15 @@ export default {
         //   so we need to update currentConfigurationToken amount and tokens list aswell
         if (edit) {
             if (template) {
-                console.warn('Template recalculation not implemented yet');
-            }
-
-            if (template) {
                 updateTokenInTokens({ usedAmount: token.usedAmount });
             }
 
             // bundles cannot be edited
+
+            if (template)
+                return dispatch('RecalculateUsedTemplate', {
+                    changedToken: token,
+                });
 
             return {
                 configuratorTokens: {
