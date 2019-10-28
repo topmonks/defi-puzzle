@@ -174,7 +174,7 @@ export const createBundleDetail = ({
         (token.amount * Math.pow(1+(compoudRates[token.currency] / 2102400), blocks-1)) - token.amount;
 
     const shortCost = formula(shortToken, elapsedBlocks);
-    const unbundleCostValue = shortCost + shortToken.amount;
+    const unbundleCostValue = Number(shortCost) + Number(shortToken.amount);
 
     return {
         longPositionYield: formula(longToken, elapsedBlocks).toFixed(2) + " " + longToken.currency,
