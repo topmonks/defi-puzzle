@@ -178,8 +178,8 @@ export default function DashboardScreen({
             <div className="dashboard-screen__demonstration">
                 <section>
                     <Headline secondary>Demonstration</Headline>
-                    <button onClick={() => localStorage.clear()}>
-                        clear storage
+                    <button onClick={() => dispatch('ResetSimulation')}>
+                        RESET SIMULATION
                     </button>
                 </section>
             </div>
@@ -213,7 +213,10 @@ export default function DashboardScreen({
                             bundle={configuratorBundleUsed}
                             simulation={simulation}
                             onSimulationChange={simulation => {
-                                dispatch('ChangeSimulation', simulation);
+                                dispatch(
+                                    'ChangeUnbundleSimulation',
+                                    simulation,
+                                );
                             }}
                             prices={prices}
                         />

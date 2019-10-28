@@ -77,7 +77,7 @@ input[type='number'] {
     grid-template-areas:
         'tokens headline templates'
         'tokens configurator templates'
-        'tokens configurator templates'
+        'tokens configurator prices'
         'demo footline prices';
     background-color: var(--c-background);
     overflow-y: scroll;

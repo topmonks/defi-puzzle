@@ -552,9 +552,16 @@ export default {
         // const { long: longToken, short: shortToken } = configuratorTokens;
     },
 
-    ChangeSimulation: ({ payload: simulation }) => {
+    ChangeUnbundleSimulation: ({ payload: simulation }) => {
         return {
             simulation,
         };
+    },
+
+    ResetSimulation: () => {
+        localStorage.removeItem(STATE_STORAGE_KEY);
+        setTimeout(() => {
+            window.location.reload();
+        }, 10);
     },
 };
