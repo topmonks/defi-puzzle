@@ -125,12 +125,12 @@ export default function DashboardScreen({
         });
     };
 
-    const detail = createBundleDetail({
+    const detail = configuratorBundleUsed ? createBundleDetail({
         bundle: configuratorBundleUsed,
         simulation,
         compoudRates,
         prices,
-    });
+    }) : null;
 
     return (
         <div className="dashboard-screen">
