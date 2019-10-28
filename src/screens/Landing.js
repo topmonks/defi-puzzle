@@ -13,19 +13,20 @@ export default function LandingScreen({ dispatch, wallet }) {
             <Headline logo>DeFi Puzzle</Headline>
             <div className="landing-screen__content">
                 <Headline hero>
-                    Custom financial products
-                    <br /> on top of Compound
+                    Second layer DeFi solution
                 </Headline>
                 <p>
-                    Welcome to DeFi Puzzle! Our dashboard lets you create custom
-                    financial
+                    Leveraged trading reinvented.
                     <br />
-                    products by combining your existing Compound money market
-                    positions.
+                    Construct any custom financial product on top of Compound money market positions. 
                     <br />
-                    Let’s start by connecting a wallet containing your Compound
-                    cTokens, shall we?
-                </p>
+                    Hold the products for yourself or sell them on an exchange.*
+                    <br />
+                    Let’s begin!
+                    <br />
+                    <br />
+                    *please note the app is in a simulation mode for now.
+               </p>
                 <Button
                     className="landing-screen__connect-button"
                     onClick={handleConnectWallet}
