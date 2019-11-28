@@ -61,7 +61,7 @@ How are they transferred?
 
 How are they created?
 * By borrowing assets from the money market
-* Borrowing 100 DAI => user gets 100 L-DAI + 100 L-DAI
+* Borrowing 100 DAI => user gets 100 L-DAI + 100 S-DAI
 
 
 ## Yes but why?
