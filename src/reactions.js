@@ -13,8 +13,6 @@
 
 import {
     initializeWallet,
-    isWalletReady,
-    getWalletName,
 } from './library/wallet';
 import { flippening } from './library/bundle';
 
@@ -102,8 +100,10 @@ export default {
         const walletState = ({ web3, ethereum }) => ({
             wallet: {
                 isReady: Boolean(web3),
+                // isConnected: isWalletReady({ web3 }),
+                // name: getWalletName({ ethereum }),
                 isConnected: true,
-                name: "mocked",
+                name: "mock"
             },
         });
 
